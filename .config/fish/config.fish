@@ -14,6 +14,18 @@ set fish_color_end 'brgreen'
 set fish_color_redirection 'brgreen'
 set color_prompt 'brblue'
 
+set SYSTEM (uname -a | grep -Po "([A-Z_]*)(?=-)" | head -1)
+set cygwin "CYGWIN_NT"
+
+function __prompt_os
+	set fg 'brmagenta'
+	if [ $SYSTEM = $cygwin ]
+		echo '─['(set_color $fg)' '(hostname)(set_color $color_prompt)']'
+	else
+		echo
+	end
+end
+
 function __prompt_user
 	set fg 'brcyan'
 	echo '─['(set_color $fg)'' (whoami)(set_color $color_prompt)']'
@@ -25,11 +37,30 @@ function __prompt_pwd
 	echo '─['(set_color $fg)'' (set_color $fg)(pwd | sed "s/\/home\/$user/~/")(set_color $color_prompt)(set_color $color_prompt)']'
 end
 
+function __prompt_tun_ip
+  set fg 'brblack'
+
+  if [ $SYSTEM != $cygwin ]
+	set ip (ifconfig tun0 2>/dev/null | grep -oP "(?<=inet )[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}")
+  end
+  if [ $status != "1" ]
+    echo '─['(set_color $fg)' '$ip(set_color $color_prompt)']'
+  else
+    echo ''
+  end
+end
+
 function __prompt_git
-	set fg 'green'
+	set clean 'green'
+	set modified 'red'
 	set branch (git branch 2>/dev/null | grep \* | sed 's/* //')
+	set status_porcelain (git status --porcelain)
 	if [ "$branch" != "" ]
-		echo '─['(set_color $fg)'' $branch(set_color $color_prompt)']'
+		if [ "$status_porcelain" != "" ]
+			echo '─['(set_color $modified)'' $branch(set_color $color_prompt)']'
+		else
+			echo '─['(set_color $clean)'' $branch(set_color $color_prompt)']'
+		end		
 	else
 		echo ""
 	end
@@ -37,21 +68,12 @@ end
 
 function __prompt_venv
 	set fg 'yellow'
+	set python_version (python -V 2>&1 | grep -Po "\d.\d{0,2}.\d{0,2}")
 	if [ "$VIRTUAL_ENV" ]
-		echo '─['(set_color $fg)'' (basename $VIRTUAL_ENV)(set_color $color_prompt)']'
+		echo '─['(set_color $fg)'' $python_version(set_color $color_prompt)']'
 	else
 		echo ''
 	end
-end
-
-function __prompt_tun_ip
-  set fg 'brblack'
-  set ip (ifconfig tun0 2>/dev/null | grep -oP "(?<=inet )[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}")
-  if [ $status != "1" ]
-    echo '─['(set_color $fg)' '$ip(set_color $color_prompt)']'
-  else
-    echo ''
-  end
 end
 
 function __prompt_exit_code
@@ -66,6 +88,6 @@ end
 
 function fish_prompt
 	set exit_code (__prompt_exit_code)
-	echo (set_color $color_prompt)'┌'(__prompt_user)(__prompt_tun_ip)(__prompt_pwd)(__prompt_git)
+	echo (set_color $color_prompt)'┌'(__prompt_os)(__prompt_user)(__prompt_tun_ip)(__prompt_pwd)(__prompt_git)
 	echo (set_color $color_prompt)'└'(__prompt_venv)$exit_code(set_color 'brblue')' '
 end
