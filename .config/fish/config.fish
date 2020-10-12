@@ -20,7 +20,7 @@ set cygwin "CYGWIN_NT"
 function __prompt_os
 	set fg 'brmagenta'
 	if [ $SYSTEM = $cygwin ]
-		echo '─['(set_color $fg)' '(hostname)(set_color $color_prompt)']'
+		echo '─['(set_color $fg)''(set_color $color_prompt)']'
 	else
 		echo
 	end
@@ -54,8 +54,8 @@ function __prompt_git
 	set clean 'green'
 	set modified 'red'
 	set branch (git branch 2>/dev/null | grep \* | sed 's/* //')
-	set status_porcelain (git status --porcelain)
 	if [ "$branch" != "" ]
+		set status_porcelain (git status --porcelain)
 		if [ "$status_porcelain" != "" ]
 			echo '─['(set_color $modified)'' $branch(set_color $color_prompt)']'
 		else
@@ -67,7 +67,7 @@ function __prompt_git
 end
 
 function __prompt_venv
-	set fg 'yellow'
+	set fg 'bryellow'
 	set python_version (python -V 2>&1 | grep -Po "\d.\d{0,2}.\d{0,2}")
 	if [ "$VIRTUAL_ENV" ]
 		echo '─['(set_color $fg)'' $python_version(set_color $color_prompt)']'
