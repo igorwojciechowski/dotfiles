@@ -13,10 +13,10 @@ configuration {
   bg-alt: #58637A;
   fg: #D1D9E4;
 
-  magenta: #B48EAD;
+  black: #2E3440;
+  blue: #88C0D0;
   green: #A3BE8C;
 
-  border: 0;
   lines: 12;
   padding: 0;
   margin: 0;
@@ -24,8 +24,10 @@ configuration {
 }
 
 window {
-  width: 30%;
+  width: 50%;
   transparency: "real";
+  padding: 10;
+  border-radius: 5;
 }
 
 mainbox {
@@ -33,7 +35,7 @@ mainbox {
 }
 
 listview {
-  columns: 1;
+  columns: 3;
 }
 
 element {
@@ -43,8 +45,9 @@ element {
 }
 
 element selected {
-  background-color: @bg-alt;
-  text-color: @magenta;
+  border-radius: 25;
+  background-color: @blue;
+  text-color: @black;
 }
 
 inputbar {
