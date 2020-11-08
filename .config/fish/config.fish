@@ -15,6 +15,8 @@ set fish_color_redirection 'brgreen'
 set color_prompt 'brblack'
 set fg_color 'cyan'
 
+set system (uname -a | grep -Po "([a-zA-Z0-9_]*)" | head -1)
+
 function __prompt_user
 	echo '─['(set_color $fg_color)'' (whoami)(set_color $color_prompt)']'
 end
@@ -25,7 +27,9 @@ function __prompt_pwd
 end
 
 function __prompt_tun_ip
-  set ip (ip addr show tun0 2>/dev/null | grep -oP "(?<=inet )[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}")
+  if [ $system != "CYGWIN_NT" ]
+  	set ip (ip addr show tun0 2>/dev/null | grep -oP "(?<=inet )[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}")
+  end
   if [ $status != "1" ]
     echo '─['(set_color $fg_color)' '$ip(set_color $color_prompt)']'
   else
