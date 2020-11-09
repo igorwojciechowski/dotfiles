@@ -14,11 +14,21 @@ call plug#begin('~/.vim/plugged')
 Plug 'arcticicestudio/nord-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'scrooloose/nerdtree'
+Plug 'neoclide/coc.nvim'
+Plug 'davidhalter/jedi-vim'
+Plug 'christoomey/vim-tmux-navigator'
 
 call plug#end()
 
 
 colorscheme nord
+
+"
+" NerdTree
+"
+let NERDTreeShowHidden=1
+map <C-t> :NERDTreeToggle<CR>
 
 "
 " Airline config
