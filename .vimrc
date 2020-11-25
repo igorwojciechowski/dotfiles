@@ -12,6 +12,7 @@ syntax on
 call plug#begin('~/.vim/plugged')
 
 Plug 'arcticicestudio/nord-vim'
+Plug 'dracula/vim',{'name':'dracula'}
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdtree'
@@ -21,8 +22,11 @@ Plug 'christoomey/vim-tmux-navigator'
 
 call plug#end()
 
-
-colorscheme nord
+"
+" Colorscheme
+"
+let g:dracula_colorterm=0
+colorscheme dracula
 
 "
 " NerdTree
@@ -33,5 +37,5 @@ map <C-t> :NERDTreeToggle<CR>
 "
 " Airline config
 " 
-let g:airline_theme='nord'
+let g:airline_theme='dracula'
 let g:airline_powerline_fonts = 1
