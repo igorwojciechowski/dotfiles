@@ -1,0 +1,50 @@
+format = """
+[┌](bold bright-black)$username$time$cmd_duration$status
+[└](bold bright-black)$directory$git_branch$git_status$python
+ $character
+"""
+
+[username]
+format = '[─\[](bold bright-black)[$user]($style)[\]](bold bright-black)'
+style_user = 'bold bright-blue'
+style_root = 'bold bright-red'
+disabled = false
+show_always = true
+
+[time]
+format = '[───\[](bold bright-black)[$time]($style)[\]](bold bright-black)'
+style = 'bold bright-black'
+disabled = false
+
+[cmd_duration]
+format = '[───\[](bold bright-black)[$duration]($style)[\]](bold bright-black)'
+style = 'bold bright-black'
+
+[directory]
+format = '[─\[](bold bright-black)[$path]($style)[\]](bold bright-black)'
+style = 'bold blue'
+
+[git_branch]
+format = '[─\[](bold bright-black)[$symbol $branch]($style)[\]](bright-black)'
+symbol = ''
+style = 'bold blue'
+truncation_length = 30
+
+[git_status]
+format = '([─\[](bold bright-black)[$all_status]($style)[\]](bright-black))'
+style = 'bold red'
+
+[python]
+format = '[─\[](bold bright-black)[$symbol ($virtualenv )$version]($style)[\]](bright-black)'
+symbol = ''
+style = 'bold cyan'
+
+[status]
+format = '[───\[](bold bright-black)[$status]($style)[\]](bold bright-black)'
+style = 'bold bright-red'
+disabled = false
+
+[character]
+success_symbol = "[](bold bright-black) "
+error_symbol = "[](bold bright-black) "
+
