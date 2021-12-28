@@ -1,50 +1,56 @@
 format = """
-[┌](bold bright-black)$username$time$cmd_duration$status
-[└](bold bright-black)$directory$git_branch$git_status$python
+[┌](bright-black)$username$jobs$time$cmd_duration$status
+[└](bright-black)$directory$git_branch$git_status$python
  $character
 """
 
 [username]
-format = '[─\[](bold bright-black)[$user]($style)[\]](bold bright-black)'
-style_user = 'bold bright-blue'
-style_root = 'bold bright-red'
+format = '[─\[](bright-black)[$user]($style)[\]]( bright-black)'
+style_user = 'cyan'
+style_root = ' bright-red'
 disabled = false
 show_always = true
 
 [time]
-format = '[───\[](bold bright-black)[$time]($style)[\]](bold bright-black)'
-style = 'bold bright-black'
+format = '[───\[]( bright-black)[$time]($style)[\]]( bright-black)'
+style = 'bright-black'
 disabled = false
 
 [cmd_duration]
-format = '[───\[](bold bright-black)[$duration]($style)[\]](bold bright-black)'
-style = 'bold bright-black'
+format = '[───\[]( bright-black)[$duration]($style)[\]]( bright-black)'
+style = ' bright-black'
 
 [directory]
-format = '[─\[](bold bright-black)[$path]($style)[\]](bold bright-black)'
-style = 'bold blue'
+format = '[─\[]( bright-black)[ ]($style) [$path]($style)[\]]( bright-black)'
+style = 'cyan'
 
 [git_branch]
-format = '[─\[](bold bright-black)[$symbol $branch]($style)[\]](bright-black)'
+format = '[─\[]( bright-black)[$symbol $branch]($style)[\]](bright-black)'
 symbol = ''
-style = 'bold blue'
+style = ' bright-cyan'
 truncation_length = 30
 
 [git_status]
-format = '([─\[](bold bright-black)[$all_status]($style)[\]](bright-black))'
-style = 'bold red'
+format = '([─\[]( bright-black)[$all_status]($style)[\]](bright-black))'
+style = ' red'
 
 [python]
-format = '[─\[](bold bright-black)[$symbol ($virtualenv )$version]($style)[\]](bright-black)'
+format = '[─\[]( bright-black)[$symbol ($virtualenv )$version]($style)[\]](bright-black)'
 symbol = ''
-style = 'bold cyan'
+style = 'bright-cyan'
 
 [status]
-format = '[───\[](bold bright-black)[$status]($style)[\]](bold bright-black)'
-style = 'bold bright-red'
+format = '[───\[]( bright-black)[$symbol $status]($style)[\]]( bright-black)'
+symbol = ''
+style = 'bright-red'
 disabled = false
 
 [character]
-success_symbol = "[](bold bright-black) "
-error_symbol = "[](bold bright-black) "
+success_symbol = "[]( bright-black) "
+error_symbol = "[]( bright-black) "
 
+[jobs]
+format = '[───\[]( bright-black)[$symbol $number]($style)[\]]( bright-black)'
+number_threshold = 1
+style = 'bright-green'
+symbol = ''
