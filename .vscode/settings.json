@@ -1,0 +1,76 @@
+{
+    "workbench.colorTheme": "Solarized Dark+",
+    "security.workspace.trust.untrustedFiles": "open",
+    "editor.fontFamily": "'Hack Nerd Font',Consolas, 'Courier New', monospace",
+    "editor.fontWeight": "bold",
+    "vim.useCtrlKeys": false,
+    "glassit.alpha": 220,
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "python.languageServer": "Pylance",
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.colorCustomizations": {
+        "[Solarized Dark+]": {
+            "editorGutter.background": "#002b36"
+        }
+    },
+    "editor.tokenColorCustomizations": {
+        "[Solarized Dark+]": {
+            "functions": "#586e75",
+            "keywords": "#405e66",
+            "types": "#405e66",
+            "numbers": "#6c71c4",
+            "variables": "#839496",
+            "textMateRules": [
+                {
+                    "scope": "keyword.operator",
+                    "settings": {
+                        "foreground": "#405e66",
+                        "fontStyle": "bold"
+                    }
+                },
+                {
+                    "scope": "punctuation",
+                    "settings": {"foreground": "#405e66"}
+                },
+                {
+                    "scope": "keyword.control.import",
+                    "settings": { "foreground": "#2aa198"}
+                },
+                {
+                    "scope": "constant.character",
+                    "settings": {
+                        "foreground": "#839496"
+                    }
+                },
+                {
+                    "scope": "string",
+                    "settings": {"foreground": "#2aa198"}
+                },
+                {
+                    "scope": "punctuation.definition.string",
+                    "settings": {
+                        "foreground": "#2aa198"
+                    }
+                }
+            ]
+        }
+    },
+    "editor.semanticTokenColorCustomizations": {
+        "enabled": true,
+        "rules": {
+            "selfParameter": "#005064",
+            "parameter": "#839496",
+            "module": "#839496",
+            "*.builtin": "#405e66",
+            "comment": "#005064",
+            "*.documentation": "#005064"
+	}
+    }
+}
