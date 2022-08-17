@@ -4,10 +4,10 @@
             <linearGradient x1="0%" y1="50%" x2="100%" y2="50%" id="shadeGradient">
               <stop stop-color="#373a48" offset="0%"></stop>
               <stop stop-color="#4d5265" offset="16.67%"></stop>
-              <stop stop-color="#65666d" offset="33.33%"></stop>
-              <stop stop-color="#636982" offset="50%"></stop>
-              <stop stop-color="#7d829c" offset="66.67%"></stop>
-              <stop stop-color="#9a9eb2" offset="83.33%"></stop>
+              <stop stop-color="#636982" offset="33.33%"></stop>
+              <stop stop-color="#7d829c" offset="50%"></stop>
+              <stop stop-color="#9a9eb2" offset="66.67%"></stop>
+              <stop stop-color="#b7bac8" offset="83.33%"></stop>
               <stop stop-color="#f1f1f4" offset="100%"></stop>
             </linearGradient>
           </defs>

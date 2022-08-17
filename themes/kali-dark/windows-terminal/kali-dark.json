@@ -1,11 +1,11 @@
 {
   "name": "Kali Dark",
   "background": "#23252e",
-  "foreground": "#9a9eb2",
+  "foreground": "#b7bac8",
   "cursorColor": "#952ac3",
   "selectionBackground": "#367af0",
   "black": "#4d5265",
-  "brightBlack": "#65666d",
+  "brightBlack": "#636982",
   "red": "#d41919",
   "brightRed": "#DA4445",
   "green": "#5ebdac",
@@ -18,6 +18,6 @@
   "brightPurple": "#A752CD",
   "cyan": "#49afe6",
   "brightCyan": "#6BBCE9",
-  "white": "#9a9eb2",
+  "white": "#b7bac8",
   "brightWhite": "#f1f1f4"
 }

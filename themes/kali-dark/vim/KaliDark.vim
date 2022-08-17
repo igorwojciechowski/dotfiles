@@ -6,10 +6,10 @@
   let s:guishade0 = "#23252e"
   let s:guishade1 = "#373a48"
   let s:guishade2 = "#4d5265"
-  let s:guishade3 = "#65666d"
-  let s:guishade4 = "#636982"
-  let s:guishade5 = "#7d829c"
-  let s:guishade6 = "#9a9eb2"
+  let s:guishade3 = "#636982"
+  let s:guishade4 = "#7d829c"
+  let s:guishade5 = "#9a9eb2"
+  let s:guishade6 = "#b7bac8"
   let s:guishade7 = "#f1f1f4"
   let s:guiaccent0 = "#d41919"
   let s:guiaccent1 = "#ff8c18"
@@ -22,10 +22,10 @@
   let s:ctermshade0 = 235
   let s:ctermshade1 = 237
   let s:ctermshade2 = 240
-  let s:ctermshade3 = 102
-  let s:ctermshade4 = 103
-  let s:ctermshade5 = 245
-  let s:ctermshade6 = 248
+  let s:ctermshade3 = 103
+  let s:ctermshade4 = 245
+  let s:ctermshade5 = 248
+  let s:ctermshade6 = 250
   let s:ctermshade7 = 231
   let s:ctermaccent0 = 160
   let s:ctermaccent1 = 214
@@ -43,7 +43,7 @@
 
   highlight clear
   syntax reset
-  let g:colors_name = "ThemerVim"
+  let g:colors_name = "KaliDark"
 
   """"""""""
   " Normal "
