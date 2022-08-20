@@ -9,8 +9,7 @@ configuration {
 }
 
 * {
-  background-color: #113547;
-  bg-alt: #294959;
+  background-color: #294959;
   fg: #b8c2c8;
 
   black: #113547;
