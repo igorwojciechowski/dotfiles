@@ -175,7 +175,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Custom
-bindsym $mod+space exec "rofi -show drun -theme nord"
+bindsym $mod+space exec "rofi -show drun -theme elite"
 
 # ---
 # Window Style
@@ -193,7 +193,6 @@ smart_borders on
 # ---
 # Startup
 # ---
-exec polybar nord-top -c ~/.config/polybar/config.ini
-exec polybar nord-bottom -c ~/.config/polybar/config.ini
-exec feh --bg-fill ~/Pictures/amnesia.png
+exec polybar elite -c ~/.config/polybar/config.ini
+exec feh --bg-fill ~/Pictures/elite.png
 exec picom

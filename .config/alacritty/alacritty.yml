@@ -1,0 +1,69 @@
+# shell:
+#   program: "C:\\Windows\\System32\\wsl.exe ~ -u hostile"
+
+window:
+  padding:
+    x: 15
+    y: 15
+#background_opacity: 0.9
+
+
+font:
+  normal:
+    family: "Hack Nerd Font"
+    style: Bold
+  bold:
+    family: "Hack Nerd Font"
+    style: Bold
+  italic:
+    family: "Hack Nerd Font"
+    style: "Light Italic"
+  size: 12
+schemes:
+  elite: &elite
+    primary:
+      background: '#113547'
+      foreground: '#a0aeb5'
+
+    cursor:
+      text: '#113547'
+      cursor: '#1d4e66'
+
+    selection:
+      text: '#113547'
+      background: '#48768d'
+
+    normal:
+      black: '#415d6c'
+      red: '#cc5a5a'
+      green: '#439971'
+      yellow: '#9bffd1'
+      blue: '#48768d'
+      magenta: '#22698c'
+      cyan: '#5acc97'
+      white: '#a0aeb5'
+
+    bright:
+      black: '#58727e'
+      red: '#C86F70'
+      green: '#5AA182'
+      yellow: '#A1F3CF'
+      blue: '#5E8599'
+      magenta: '#407B98'
+      cyan: '#6DCAA1'
+      white: '#b8c2c8'
+
+    dim:
+      black: '#294959'
+      red: '#A75356'
+      green: '#398569'
+      yellow: '#7FD7B5'
+      blue: '#3D697F'
+      magenta: '#1F5F7E'
+      cyan: '#4BAE87'
+      white: '#889aa3'
+
+colors: *elite
+
+env:
+  TERM: xterm-256color

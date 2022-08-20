@@ -9,13 +9,13 @@ configuration {
 }
 
 * {
-  background-color: #2E3440;
-  bg-alt: #58637A;
-  fg: #D1D9E4;
+  background-color: #113547;
+  bg-alt: #294959;
+  fg: #b8c2c8;
 
-  black: #2E3440;
-  blue: #88C0D0;
-  green: #A3BE8C;
+  black: #113547;
+  blue: #48768d;
+  green: #5acc97;
 
   lines: 12;
   padding: 0;
@@ -46,7 +46,7 @@ element {
 
 element selected {
   border-radius: 25;
-  background-color: @blue;
+  background-color: @green;
   text-color: @black;
 }
 
@@ -59,10 +59,10 @@ prompt {
   enabled: true;
   font: "Hack Nerd Font Bold 12";
   padding: 12 0 0 12;
-  text-color: @green;
+  text-color: @blue;
 }
 
 entry {
   padding: 12;
-  text-color: @green;
+  text-color: @blue;
 }
