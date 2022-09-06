@@ -41,7 +41,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec xfce4-terminal
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -176,6 +176,7 @@ bindsym $mod+r mode "resize"
 
 # Custom
 bindsym $mod+space exec "rofi -show drun -theme elite"
+bindsym $mod+c exec "rofi -show run -theme elite"
 
 # ---
 # Window Style
@@ -196,3 +197,5 @@ smart_borders on
 exec polybar elite -c ~/.config/polybar/config.ini
 exec feh --bg-fill ~/Pictures/elite.png
 exec picom
+
+exec vmware-user-suid-wrapper
