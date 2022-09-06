@@ -9,13 +9,13 @@ configuration {
 }
 
 * {
-  background-color: #113547;
-  bg-alt: #294959;
+  background-color: #294959;
   fg: #b8c2c8;
 
   black: #113547;
   blue: #48768d;
   green: #5acc97;
+  white: #b8c2c8;
 
   lines: 12;
   padding: 0;
@@ -24,7 +24,7 @@ configuration {
 }
 
 window {
-  width: 50%;
+  width: 20%;
   transparency: "real";
   padding: 10;
   border-radius: 5;
@@ -39,15 +39,13 @@ listview {
 }
 
 element {
-  padding: 12;
-  orientation: vertical;
-  text-color: @fg;
+  orientation: horizontal;
+  text-color: @white;
+  padding: 10;
 }
 
 element selected {
-  border-radius: 25;
-  background-color: @green;
-  text-color: @black;
+  text-color: @green;
 }
 
 inputbar {
@@ -65,4 +63,11 @@ prompt {
 entry {
   padding: 12;
   text-color: @blue;
+}
+
+element-text {
+  width: 70%;
+  background-color: inherit;
+  text-color: inherit;
+  position: east;
 }
