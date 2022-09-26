@@ -27,16 +27,16 @@ schemes:
 
     cursor:
       text: '#113547'
-      cursor: '#A1F3CF'
+      cursor: '#9bffd1'
 
     selection:
       text: '#113547'
       background: '#48768d'
 
     normal:
-      black: '#415d6c'
+      black: '#113547'
       red: '#cc5a5a'
-      green: '#439971'
+      green: '#57c46e'
       yellow: '#9bffd1'
       blue: '#48768d'
       magenta: '#22698c'
@@ -44,9 +44,9 @@ schemes:
       white: '#a0aeb5'
 
     bright:
-      black: '#58727e'
+      black: '#294959'
       red: '#C86F70'
-      green: '#5AA182'
+      green: '#6AC480'
       yellow: '#A1F3CF'
       blue: '#5E8599'
       magenta: '#407B98'
@@ -56,7 +56,7 @@ schemes:
     dim:
       black: '#294959'
       red: '#A75356'
-      green: '#398569'
+      green: '#49A766'
       yellow: '#7FD7B5'
       blue: '#3D697F'
       magenta: '#1F5F7E'
