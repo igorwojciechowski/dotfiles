@@ -1,13 +1,10 @@
 command_timeout = 10000
 
-#           
-#  ████   ╲╲╲╲            _▁▁▁▁▁▁
-#  ▏
 right_format = "$python$golang$nodejs"
 
 format = """
-$fill $status[](cyan )$time$cmd_duration
-[ ](fg:yellow bg:cyan)$username$hostname[  ](cyan)
+$fill$status[ ](cyan)$time$cmd_duration
+[ ](fg:yellow bg:cyan)$username$hostname[ ](cyan)${custom.tun}
 [▍](cyan)$directory$git_branch$git_status $character
 """
 [fill]
@@ -45,7 +42,7 @@ format = '[ $all_status]($style)[](green)'
 style = 'fg:bright-red '
 
 [status]
-format = '[](bright-red)[$symbol$status]($style)[ ](bright-red)'
+format = '[ ](bright-red)[$symbol$status]($style)[](bright-red)'
 symbol = ''
 style = 'fg:black bg:bright-red'
 disabled = false
@@ -58,6 +55,12 @@ error_symbol = '[](fg:cyan)'
 format = '[ $time ]($style)'
 style = 'fg:purple bg:cyan'
 disabled = false
+
+[custom.tun]
+command = 'ifconfig tun0 | grep -oP "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}" | head -1'
+shell = ["/bin/bash"]
+when = "ifconfig tun0"
+format = "[ ](yellow)[ $output](fg:black bg:yellow)[ ](yellow)"
 
 # Languages
 
