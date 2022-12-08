@@ -3,38 +3,38 @@
   
   if &background == 'dark'
     
-  let s:guishade0 = "#23252e"
-  let s:guishade1 = "#373a48"
-  let s:guishade2 = "#4d5265"
-  let s:guishade3 = "#636982"
-  let s:guishade4 = "#7d829c"
-  let s:guishade5 = "#9a9eb2"
-  let s:guishade6 = "#b7bac8"
-  let s:guishade7 = "#f1f1f4"
-  let s:guiaccent0 = "#d41919"
-  let s:guiaccent1 = "#ff8c18"
-  let s:guiaccent2 = "#fea44c"
-  let s:guiaccent3 = "#5ebdac"
-  let s:guiaccent4 = "#49afe6"
-  let s:guiaccent5 = "#367af0"
-  let s:guiaccent6 = "#952ac3"
-  let s:guiaccent7 = "#9755b3"
-  let s:ctermshade0 = 235
-  let s:ctermshade1 = 237
-  let s:ctermshade2 = 240
-  let s:ctermshade3 = 103
-  let s:ctermshade4 = 245
-  let s:ctermshade5 = 248
-  let s:ctermshade6 = 250
-  let s:ctermshade7 = 231
-  let s:ctermaccent0 = 160
-  let s:ctermaccent1 = 214
-  let s:ctermaccent2 = 215
-  let s:ctermaccent3 = 115
-  let s:ctermaccent4 = 75
-  let s:ctermaccent5 = 69
-  let s:ctermaccent6 = 134
-  let s:ctermaccent7 = 140
+  let s:guishade0 = "#113547"
+  let s:guishade1 = "#294959"
+  let s:guishade2 = "#415d6c"
+  let s:guishade3 = "#58727e"
+  let s:guishade4 = "#708691"
+  let s:guishade5 = "#889aa3"
+  let s:guishade6 = "#a0aeb5"
+  let s:guishade7 = "#b8c2c8"
+  let s:guiaccent0 = "#cc5a5a"
+  let s:guiaccent1 = "#5acc97"
+  let s:guiaccent2 = "#9bffd1"
+  let s:guiaccent3 = "#439971"
+  let s:guiaccent4 = "#5acc97"
+  let s:guiaccent5 = "#48768d"
+  let s:guiaccent6 = "#1d4e66"
+  let s:guiaccent7 = "#22698c"
+  let s:ctermshade0 = 23
+  let s:ctermshade1 = 60
+  let s:ctermshade2 = 66
+  let s:ctermshade3 = 242
+  let s:ctermshade4 = 109
+  let s:ctermshade5 = 145
+  let s:ctermshade6 = 248
+  let s:ctermshade7 = 250
+  let s:ctermaccent0 = 174
+  let s:ctermaccent1 = 115
+  let s:ctermaccent2 = 158
+  let s:ctermaccent3 = 72
+  let s:ctermaccent4 = 115
+  let s:ctermaccent5 = 67
+  let s:ctermaccent6 = 66
+  let s:ctermaccent7 = 67
   
   endif
   
@@ -43,7 +43,7 @@
 
   highlight clear
   syntax reset
-  let g:colors_name = "KaliDark"
+  let g:colors_name = "ThemerVim"
 
   """"""""""
   " Normal "

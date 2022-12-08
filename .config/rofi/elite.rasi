@@ -9,13 +9,13 @@ configuration {
 }
 
 * {
-  background-color: #2E3440;
-  bg-alt: #58637A;
-  fg: #D1D9E4;
+  background-color: #294959;
+  fg: #b8c2c8;
 
-  black: #2E3440;
-  blue: #88C0D0;
-  green: #A3BE8C;
+  black: #113547;
+  blue: #48768d;
+  green: #5acc97;
+  white: #b8c2c8;
 
   lines: 12;
   padding: 0;
@@ -24,7 +24,7 @@ configuration {
 }
 
 window {
-  width: 50%;
+  width: 20%;
   transparency: "real";
   padding: 10;
   border-radius: 5;
@@ -39,15 +39,13 @@ listview {
 }
 
 element {
-  padding: 12;
-  orientation: vertical;
-  text-color: @fg;
+  orientation: horizontal;
+  text-color: @white;
+  padding: 10;
 }
 
 element selected {
-  border-radius: 25;
-  background-color: @blue;
-  text-color: @black;
+  text-color: @green;
 }
 
 inputbar {
@@ -59,10 +57,17 @@ prompt {
   enabled: true;
   font: "Hack Nerd Font Bold 12";
   padding: 12 0 0 12;
-  text-color: @green;
+  text-color: @blue;
 }
 
 entry {
   padding: 12;
-  text-color: @green;
+  text-color: @blue;
+}
+
+element-text {
+  width: 70%;
+  background-color: inherit;
+  text-color: inherit;
+  position: east;
 }

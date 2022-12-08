@@ -9,6 +9,7 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -40,8 +41,10 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+focus_follows_mouse no
+
 # start a terminal
-bindsym $mod+Return exec xfce4-terminal
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -175,7 +178,8 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Custom
-bindsym $mod+space exec "rofi -show drun -theme nord"
+bindsym $mod+space exec "rofi -show drun -theme elite"
+bindsym $mod+c exec "rofi -show run -theme elite"
 
 # ---
 # Window Style
@@ -184,16 +188,14 @@ bindsym $mod+space exec "rofi -show drun -theme nord"
 default_border none
 hide_edge_borders none
 
-gaps inner 30
-gaps outer 15
 gaps bottom 35
-gaps top 35
 
 smart_borders on
 # ---
 # Startup
 # ---
-exec polybar nord-top -c ~/.config/polybar/config.ini
-exec polybar nord-bottom -c ~/.config/polybar/config.ini
-exec feh --bg-fill ~/Pictures/amnesia.png
+exec polybar elite -c ~/.config/polybar/config.ini
+exec feh --bg-fill ~/Pictures/elite.png
 exec picom
+
+exec vmware-user-suid-wrapper
