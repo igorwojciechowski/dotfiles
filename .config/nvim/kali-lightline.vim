@@ -3,38 +3,38 @@
   
   if &background == 'dark'
     
-  let s:guishade0 = "#113547"
-  let s:guishade1 = "#294959"
-  let s:guishade2 = "#415d6c"
-  let s:guishade3 = "#58727e"
-  let s:guishade4 = "#708691"
-  let s:guishade5 = "#889aa3"
-  let s:guishade6 = "#a0aeb5"
-  let s:guishade7 = "#b8c2c8"
-  let s:guiaccent0 = "#cc5a5a"
-  let s:guiaccent1 = "#5acc97"
-  let s:guiaccent2 = "#9bffd1"
-  let s:guiaccent3 = "#439971"
-  let s:guiaccent4 = "#5acc97"
-  let s:guiaccent5 = "#48768d"
-  let s:guiaccent6 = "#1d4e66"
-  let s:guiaccent7 = "#22698c"
-  let s:shade0 = 23
-  let s:shade1 = 60
-  let s:shade2 = 66
-  let s:shade3 = 242
-  let s:shade4 = 109
-  let s:shade5 = 145
-  let s:shade6 = 248
-  let s:shade7 = 250
-  let s:accent0 = 174
+  let s:guishade0 = "#23252E"
+  let s:guishade1 = "#373A48"
+  let s:guishade2 = "#4D5265"
+  let s:guishade3 = "#636982"
+  let s:guishade4 = "#7D829C"
+  let s:guishade5 = "#9A9EB2"
+  let s:guishade6 = "#B7BAC8"
+  let s:guishade7 = "#F1F1F4"
+  let s:guiaccent0 = "#D41919"
+  let s:guiaccent1 = "#5EBDAC"
+  let s:guiaccent2 = "#FEA44C"
+  let s:guiaccent3 = "#5EBDAC"
+  let s:guiaccent4 = "#49AFE6"
+  let s:guiaccent5 = "#367AF0"
+  let s:guiaccent6 = "#952AC3"
+  let s:guiaccent7 = "#9755B3"
+  let s:shade0 = 235
+  let s:shade1 = 237
+  let s:shade2 = 240
+  let s:shade3 = 103
+  let s:shade4 = 245
+  let s:shade5 = 248
+  let s:shade6 = 250
+  let s:shade7 = 231
+  let s:accent0 = 160
   let s:accent1 = 115
-  let s:accent2 = 158
-  let s:accent3 = 72
-  let s:accent4 = 115
-  let s:accent5 = 67
-  let s:accent6 = 66
-  let s:accent7 = 67
+  let s:accent2 = 215
+  let s:accent3 = 115
+  let s:accent4 = 75
+  let s:accent5 = 69
+  let s:accent6 = 134
+  let s:accent7 = 140
   
   endif
   
@@ -58,6 +58,6 @@
   let s:p.normal.error = [ [ s:guiaccent0, s:guishade0, s:accent0, s:shade0 ] ]
   let s:p.normal.warning = [ [ s:guiaccent2, s:guishade1, s:accent2, s:shade1 ] ]
 
-  let g:lightline#colorscheme#elite#palette = lightline#colorscheme#fill(s:p)
+  let g:lightline#colorscheme#kali#palette = lightline#colorscheme#fill(s:p)
 
   

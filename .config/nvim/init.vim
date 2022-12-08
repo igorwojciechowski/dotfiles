@@ -37,7 +37,7 @@ call plug#end()
 set background=dark
 set termguicolors
 
-let g:lightline = {'colorscheme': 'elite'}
+let g:lightline = {'colorscheme': 'kali'}
 
 let g:transparent_enabled = v:true
 
@@ -57,5 +57,5 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gD <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-referencesi
 
-runtime elite.vim
-runtime elite-lightline.vim
+runtime kali.vim
+runtime kali-lightline.vim

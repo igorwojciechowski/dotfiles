@@ -178,8 +178,8 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Custom
-bindsym $mod+space exec "rofi -show drun -theme elite"
-bindsym $mod+c exec "rofi -show run -theme elite"
+bindsym $mod+space exec "rofi -show drun -theme kali"
+bindsym $mod+c exec "rofi -show run -theme kali"
 
 # ---
 # Window Style
@@ -188,14 +188,16 @@ bindsym $mod+c exec "rofi -show run -theme elite"
 default_border none
 hide_edge_borders none
 
-gaps bottom 35
+gaps outer 15
+gaps inner 15
+gaps bottom 45
 
 smart_borders on
 # ---
 # Startup
 # ---
-exec polybar elite -c ~/.config/polybar/config.ini
-exec feh --bg-fill ~/Pictures/elite.png
+exec polybar kali -c ~/.config/polybar/config.ini
+exec feh --bg-fill /usr/share/backgrounds/kali/kali-layers-16x9.png
 exec picom
 
 exec vmware-user-suid-wrapper

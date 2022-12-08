@@ -9,13 +9,13 @@ configuration {
 }
 
 * {
-  background-color: #294959;
-  fg: #b8c2c8;
+  background-color: #23252e;
+  fg: #f1f1f4;
 
-  black: #113547;
-  blue: #48768d;
-  green: #5acc97;
-  white: #b8c2c8;
+  black: #23252e;
+  blue: #367af0;
+  green: #5ebdac;
+  white: #f1f1f4;
 
   lines: 12;
   padding: 0;

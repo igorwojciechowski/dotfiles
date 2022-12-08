@@ -19,51 +19,54 @@ font:
     family: "Hack Nerd Font"
     style: "Light Italic"
   size: 12
+
 schemes:
-  elite: &elite
+  kali: &kali
     primary:
-      background: '#113547'
-      foreground: '#a0aeb5'
+      background: '#23252E'
+      foreground: '#B7BAC8'
 
     cursor:
-      text: '#113547'
-      cursor: '#9bffd1'
+      text: '#23252E'
+      cursor: '#952AC3'
 
     selection:
-      text: '#113547'
-      background: '#48768d'
+      text: '#23252E'
+      background: '#367AF0'
 
     normal:
-      black: '#113547'
-      red: '#cc5a5a'
-      green: '#57c46e'
-      yellow: '#9bffd1'
-      blue: '#48768d'
-      magenta: '#22698c'
-      cyan: '#5acc97'
-      white: '#a0aeb5'
+      black: '#4D5265'
+      red: '#D41919'
+      green: '#5EBDAC'
+      yellow: '#FEA44C'
+      blue: '#367AF0'
+      magenta: '#9755B3'
+      cyan: '#49AFE6'
+      white: '#B7BAC8'
 
     bright:
-      black: '#294959'
-      red: '#C86F70'
-      green: '#6AC480'
-      yellow: '#A1F3CF'
-      blue: '#5E8599'
-      magenta: '#407B98'
-      cyan: '#6DCAA1'
-      white: '#b8c2c8'
+      black: '#636982'
+      red: '#DA4445'
+      green: '#7BC7BA'
+      yellow: '#FBB36E'
+      blue: '#5B92F1'
+      magenta: '#A974C0'
+      cyan: '#6BBCE9'
+      white: '#F1F1F4'
 
     dim:
-      black: '#294959'
-      red: '#A75356'
-      green: '#49A766'
-      yellow: '#7FD7B5'
-      blue: '#3D697F'
-      magenta: '#1F5F7E'
-      cyan: '#4BAE87'
-      white: '#889aa3'
+      black: '#373A48'
+      red: '#B11B1D'
+      green: '#529F93'
+      yellow: '#D28B46'
+      blue: '#3269C9'
+      magenta: '#804B98'
+      cyan: '#4193C1'
+      white: '#9A9EB2'
+  
 
-colors: *elite
+
+colors: *kali
 
 env:
   TERM: xterm-256color

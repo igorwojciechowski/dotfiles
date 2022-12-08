@@ -3,78 +3,78 @@ command_timeout = 10000
 right_format = "$python$golang$nodejs"
 
 format = """
-$fill$status[ ](cyan)$time$cmd_duration
-[ ](fg:yellow bg:cyan)$username$hostname[ ](cyan)${custom.tun}
-[▍](cyan)$directory$git_branch$git_status $character
+$fill$status$time$cmd_duration
+$username$hostname${custom.tun}$directory$git_branch$git_status
+  $character
 """
 [fill]
-symbol = "▁"
-style = "cyan"
+symbol = " "
+style = "bright-blue"
 
 [username]
-format = '[ $user]($style)'
-style_user = 'fg:bright-purple bg:cyan'
+format = '[$user]($style)'
+style_user = 'fg:bright-blue'
 style_root = 'fg:bright-red'
 disabled = false
 show_always = true
 
 [hostname]
-format = '[$hostname]($style)'
-style = "fg:yellow bg:cyan"
+format = '[ at](fg:bright-black)[   $hostname]($style)'
+style = "fg:bright-blue"
 ssh_only = false
 
 [cmd_duration]
 format = '[ 祥 $duration ]($style)'
-style = 'fg:bright-black bg:cyan'
+style = 'fg:bright-blue'
 
 [directory]
-format = '[ $path]($style)'
-style = 'fg:cyan'
+format = '[ in](fg:bright-black)[  $path]($style)'
+style = 'fg:bright-blue'
 
 [git_branch]
-format = '[$symbol $branch]($style)'
+format = '[\($symbol $branch]($style)'
 symbol = ''
 style = 'fg:green '
 truncation_length = 30
 
 [git_status]
-format = '[ $all_status]($style)[](green)'
+format = '[ $all_status]($style)[\)](green)'
 style = 'fg:bright-red '
 
 [status]
-format = '[ ](bright-red)[$symbol$status]($style)[](bright-red)'
+format = '[$symbol$status]($style)'
 symbol = ''
-style = 'fg:black bg:bright-red'
+style = 'fg:bright-red'
 disabled = false
 
 [character]
-success_symbol = '[](fg:cyan)'
-error_symbol = '[](fg:cyan)'
+success_symbol = '[](fg:bright-blue)'
+error_symbol = '[](fg:bright-blue)'
 
 [time]
 format = '[ $time ]($style)'
-style = 'fg:purple bg:cyan'
+style = 'fg:bright-blue'
 disabled = false
 
 [custom.tun]
 command = 'ifconfig tun0 | grep -oP "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}" | head -1'
 shell = ["/bin/bash"]
 when = "ifconfig tun0"
-format = "[ ](yellow)[ $output](fg:black bg:yellow)[ ](yellow)"
+format = "[\\( $output\\)](fg:bright-purple)"
 
 # Languages
 
 [python]
-format = '[$symbol ($virtualenv )$version]($style)'
+format = '[$symbol ($virtualenv )$version]($style)'
 symbol = ''
 style = 'fg:yellow'
 
 [golang]
-format = '[$symbol $version]($style)'
+format = '[$symbol $version]($style)'
 symbol = ''
-style = 'fg:blue'
+style = 'fg:bright-blue'
 
 [nodejs]
-format = '[$symbol $version]($style)'
+format = '[$symbol $version]($style)'
 symbol = ''
 style = 'fg:green'
