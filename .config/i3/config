@@ -175,6 +175,13 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
+# class                 border  backgr. text    indicator child_border
+client.focused          #9bffd1 #9bffd1 #113547 #9bffd1   #9bffd1
+client.focused_inactive #5acc97 #5acc97 #113547 #5acc97   #5acc97
+client.unfocused        #5acc97 #5acc97 #113547 #5acc97   #5acc97
+client.urgent           #5acc97 #5acc97 #113547 #5acc97   #5acc97
+client.placeholder      #5acc97 #5acc97 #113547 #5acc97   #5acc97
+
 bindsym $mod+r mode "resize"
 
 # Custom
@@ -185,10 +192,12 @@ bindsym $mod+c exec "rofi -show run -theme elite"
 # Window Style
 # ---
 
-default_border none
-hide_edge_borders none
+#default_border pixel 1
+#hide_edge_borders both
 
-gaps bottom 35
+gaps outer 20
+gaps inner 20
+gaps bottom 45
 
 smart_borders on
 # ---

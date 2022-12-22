@@ -9,13 +9,14 @@ configuration {
 }
 
 * {
-  background-color: #294959;
+  background-color: #113547;
   fg: #b8c2c8;
 
   black: #113547;
   blue: #48768d;
   green: #5acc97;
   white: #b8c2c8;
+  yellow: #9bffd1;
 
   lines: 12;
   padding: 0;
@@ -24,10 +25,12 @@ configuration {
 }
 
 window {
-  width: 20%;
+  width: 40%;
   transparency: "real";
   padding: 10;
-  border-radius: 5;
+  border: 1px;
+  border-radius: 0;
+  border-color: @yellow;
 }
 
 mainbox {
@@ -35,7 +38,7 @@ mainbox {
 }
 
 listview {
-  columns: 3;
+  columns: 5;
 }
 
 element {
@@ -57,12 +60,12 @@ prompt {
   enabled: true;
   font: "Hack Nerd Font Bold 12";
   padding: 12 0 0 12;
-  text-color: @blue;
+  text-color: @green;
 }
 
 entry {
   padding: 12;
-  text-color: @blue;
+  text-color: @green;
 }
 
 element-text {
