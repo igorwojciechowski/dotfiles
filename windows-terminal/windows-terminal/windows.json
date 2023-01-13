@@ -1,0 +1,23 @@
+{
+  "name": "Windows Light",
+  "background": "#c8cdd0",
+  "foreground": "#83898e",
+  "cursorColor": "#7a95ad",
+  "selectionBackground": "#6a88a2",
+  "black": "#83898e",
+  "brightBlack": "#949a9f",
+  "red": "#a87777",
+  "brightRed": "#AE8889",
+  "green": "#506f89",
+  "brightGreen": "#688297",
+  "yellow": "#47627a",
+  "brightYellow": "#61778B",
+  "blue": "#6a88a2",
+  "brightBlue": "#7D96AB",
+  "purple": "#7a95ad",
+  "brightPurple": "#8AA0B4",
+  "cyan": "#597b98",
+  "brightCyan": "#6F8BA3",
+  "white": "#b6bcc1",
+  "brightWhite": "#bfc4c8"
+}
