@@ -199,7 +199,7 @@ smart_borders on
 # ---
 exec polybar top -c ~/.config/polybar/config.ini
 exec polybar dock -c ~/.config/polybar/config.ini
-exec feh --bg-fill /usr/share/backgrounds/kali/kali-layers-16x9.png
+exec nitrogen --restore 
 exec picom
 
 exec vmware-user-suid-wrapper
