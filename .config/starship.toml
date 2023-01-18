@@ -29,7 +29,7 @@ style = 'fg:bright-black'
 
 [directory]
 format = '[ $path]($style)'
-style = 'fg:purple'
+style = 'fg:bright-blue'
 
 [git_branch]
 format = '[ ❮$symbol $branch]($style)'
