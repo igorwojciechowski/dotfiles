@@ -28,7 +28,7 @@ schemes:
 
     cursor:
       text: '#23252E'
-      cursor: '#952AC3'
+      cursor: '#367AF0'
 
     selection:
       text: '#23252E'

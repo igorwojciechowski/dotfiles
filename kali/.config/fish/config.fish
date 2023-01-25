@@ -4,7 +4,7 @@ set -x PATH ~/Android/jadx/bin/ $PATH
 
 set fish_greeting ""
 # --- Fish colors
-set fish_color_command 'purple'
+set fish_color_command 'brblue'
 set fish_color_error 'brred'
 set fish_color_param 'brgreen'
 set fish_color_quote 'brcyan'

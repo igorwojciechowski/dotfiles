@@ -190,14 +190,16 @@ hide_edge_borders none
 
 gaps outer 15
 gaps inner 15
-gaps bottom 45
+gaps top 45
+gaps bottom 70
 
 smart_borders on
 # ---
 # Startup
 # ---
-exec polybar kali -c ~/.config/polybar/config.ini
-exec feh --bg-fill /usr/share/backgrounds/kali/kali-layers-16x9.png
+exec polybar top -c ~/.config/polybar/config.ini
+exec polybar dock -c ~/.config/polybar/config.ini
+exec nitrogen --restore 
 exec picom
 
 exec vmware-user-suid-wrapper
