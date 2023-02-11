@@ -12,9 +12,9 @@ module.exports.colors = {
       accent0: '#d95757',
       accent1: '#317782',
       accent2: '#8fbdc4',
-      accent3: '#38d9f2',
-      accent4: '#55c3d4',
-      accent5: '#55c3d4',
+      accent3: '#469F97',
+      accent4: '#54C0B6',
+      accent5: '#489AB1', 
       accent6: '#187887',
       accent7: '#187887',
   
