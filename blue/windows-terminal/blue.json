@@ -1,0 +1,23 @@
+{
+  "name": "Blue",
+  "background": "#1f2e47",
+  "foreground": "#a5abb5",
+  "cursorColor": "#187887",
+  "selectionBackground": "#55c3d4",
+  "black": "#4c586c",
+  "brightBlack": "#626d7e",
+  "red": "#d95757",
+  "brightRed": "#D36C6E",
+  "green": "#38d9f2",
+  "brightGreen": "#52D4EA",
+  "yellow": "#8fbdc4",
+  "brightYellow": "#98BEC5",
+  "blue": "#55c3d4",
+  "brightBlue": "#6AC2D2",
+  "purple": "#187887",
+  "brightPurple": "#398694",
+  "cyan": "#55c3d4",
+  "brightCyan": "#6AC2D2",
+  "white": "#a5abb5",
+  "brightWhite": "#bcc0c8"
+}
