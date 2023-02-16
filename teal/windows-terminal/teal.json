@@ -1,0 +1,23 @@
+{
+  "name": "Teal",
+  "background": "#191919",
+  "foreground": "#a3a3a3",
+  "cursorColor": "#1a8f6c",
+  "selectionBackground": "#42fce3",
+  "black": "#474747",
+  "brightBlack": "#5e5e5e",
+  "red": "#ff4545",
+  "brightRed": "#F15C5C",
+  "green": "#00d998",
+  "brightGreen": "#25D39F",
+  "yellow": "#91ffde",
+  "brightYellow": "#99F1D7",
+  "blue": "#42fce3",
+  "brightBlue": "#5AEFDB",
+  "purple": "#1a8f6c",
+  "brightPurple": "#3A987C",
+  "cyan": "#00d9bc",
+  "brightCyan": "#25D3BC",
+  "white": "#a3a3a3",
+  "brightWhite": "#bababa"
+}
