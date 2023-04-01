@@ -1,0 +1,91 @@
+{
+  "version": "1.2.2",
+  "manifest_version": 2,
+  "name": "Eternal Blue",
+  "theme": {
+    "colors": {
+      "bookmark_text": [
+        188,
+        192,
+        200
+      ],
+      "frame": [
+        31,
+        46,
+        71
+      ],
+      "ntp_background": [
+        53,
+        67,
+        89
+      ],
+      "ntp_text": [
+        188,
+        192,
+        200
+      ],
+      "tab_background_text": [
+        188,
+        192,
+        200
+      ],
+      "tab_background_text_inactive": [
+        188,
+        192,
+        200
+      ],
+      "tab_background_text_incognito": [
+        188,
+        192,
+        200
+      ],
+      "tab_background_text_incognito_inactive": [
+        188,
+        192,
+        200
+      ],
+      "tab_text": [
+        188,
+        192,
+        200
+      ],
+      "toolbar": [
+        53,
+        67,
+        89
+      ],
+      "omnibox_text": [
+        188,
+        192,
+        200
+      ],
+      "omnibox_background": [
+        31,
+        46,
+        71
+      ]
+    },
+    "tints": {
+      "buttons": [
+        0.5223097112860893,
+        0.5,
+        0.5
+      ],
+      "frame_inactive": [
+        -1,
+        -1,
+        -1
+      ],
+      "frame_incognito": [
+        0.5225225225225226,
+        1,
+        0.55
+      ],
+      "frame_incognito_inactive": [
+        0.5225225225225226,
+        1,
+        0.55
+      ]
+    }
+  }
+}
