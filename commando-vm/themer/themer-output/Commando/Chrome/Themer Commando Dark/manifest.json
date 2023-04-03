@@ -1,0 +1,91 @@
+{
+  "version": "5.0.1",
+  "manifest_version": 2,
+  "name": "Themer Commando Dark",
+  "theme": {
+    "colors": {
+      "bookmark_text": [
+        209,
+        209,
+        209
+      ],
+      "frame": [
+        25,
+        25,
+        25
+      ],
+      "ntp_background": [
+        48,
+        48,
+        48
+      ],
+      "ntp_text": [
+        209,
+        209,
+        209
+      ],
+      "tab_background_text": [
+        209,
+        209,
+        209
+      ],
+      "tab_background_text_inactive": [
+        209,
+        209,
+        209
+      ],
+      "tab_background_text_incognito": [
+        209,
+        209,
+        209
+      ],
+      "tab_background_text_incognito_inactive": [
+        209,
+        209,
+        209
+      ],
+      "tab_text": [
+        209,
+        209,
+        209
+      ],
+      "toolbar": [
+        48,
+        48,
+        48
+      ],
+      "omnibox_text": [
+        209,
+        209,
+        209
+      ],
+      "omnibox_background": [
+        25,
+        25,
+        25
+      ]
+    },
+    "tints": {
+      "buttons": [
+        0.5595716198125836,
+        0.5,
+        0.5
+      ],
+      "frame_inactive": [
+        -1,
+        -1,
+        -1
+      ],
+      "frame_incognito": [
+        0.5593869731800766,
+        1,
+        0.55
+      ],
+      "frame_incognito_inactive": [
+        0.5593869731800766,
+        1,
+        0.55
+      ]
+    }
+  }
+}

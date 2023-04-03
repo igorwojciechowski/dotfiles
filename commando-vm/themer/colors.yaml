@@ -1,0 +1,18 @@
+scheme: "Commando"
+author: "hostile"
+base00: "191919" # Black
+base01: "303030"
+base02: "474747"
+base03: "5e5e5e"
+base04: "757575"
+base05: "8c8c8c"
+base06: "d1d1d1"
+base07: "d1d1d1" # White
+base08: "cf6161" # Red
+base09: "cf6161" # Orange
+base0A: "92e8c6" # Yellow
+base0B: "00f995" # Green
+base0C: "33b3fa" # Aqua
+base0D: "00a0f9" # Blue
+base0E: "0070ae" # Purple
+base0F: "0070ae" # Maroon
