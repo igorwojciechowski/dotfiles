@@ -1,0 +1,23 @@
+{
+  "name": "Themer Commando Dark",
+  "background": "#191919",
+  "foreground": "#d1d1d1",
+  "cursorColor": "#32cec2",
+  "selectionBackground": "#2cb7ac",
+  "black": "#474747",
+  "brightBlack": "#5e5e5e",
+  "red": "#e53737",
+  "brightRed": "#E15656",
+  "green": "#218981",
+  "brightGreen": "#449791",
+  "yellow": "#9bf2eb",
+  "brightYellow": "#A6EBE6",
+  "blue": "#2cb7ac",
+  "brightBlue": "#4DBCB3",
+  "purple": "#32cec2",
+  "brightPurple": "#52CFC5",
+  "cyan": "#37e5d7",
+  "brightCyan": "#56E1D6",
+  "white": "#d1d1d1",
+  "brightWhite": "#d1d1d1"
+}

@@ -1,11 +1,9 @@
 # themer - Commando
 
-## VS Code
+## Chrome
 
-Copy (or symlink) the generated package directory into the VS Code extensions directory:
+1. Launch Chrome and go to `chrome://extensions`.
+2. Check the "Developer mode" checkbox at the top.
+3. Click the "Load unpacked extension..." button and choose the desired theme directory (`Chrome/Themer Commando Dark`).
 
-```
-cp -R 'VS Code/themer-commando' ~/.vscode/extensions/
-```
-
-Then reload or restart VS Code. The generated theme package should be in the list of installed extensions, and "Themer Commando Dark" will be available in the list of themes.
+(To reset or remove the theme, visit `chrome://settings` and click "Reset to Default" in the "Appearance" section.)

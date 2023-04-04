@@ -8,11 +8,11 @@ base04: "757575"
 base05: "8c8c8c"
 base06: "d1d1d1"
 base07: "d1d1d1" # White
-base08: "cf6161" # Red
-base09: "cf6161" # Orange
-base0A: "92e8c6" # Yellow
-base0B: "00f995" # Green
-base0C: "33b3fa" # Aqua
-base0D: "00a0f9" # Blue
-base0E: "0070ae" # Purple
-base0F: "0070ae" # Maroon
+base08: "e53737" # Red
+base09: "9bf2eb" # Orange
+base0A: "9bf2eb" # Yellow
+base0B: "218981" # Green
+base0C: "37e5d7" # Aqua
+base0D: "2cb7ac" # Blue
+base0E: "32cec2" # Purple
+base0F: "32cec2" # Maroon
