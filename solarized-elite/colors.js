@@ -15,8 +15,8 @@ module.exports.colors = {
       accent3: '#00d998',
       accent4: '#00d9bc',
       accent5: '#42fce3',
-      accent6: '#004354',
-      accent7: '#004354',
+      accent6: '#037b99',
+      accent7: '#037b99',
   
       // shade0-7 should be shades of the same hue, with shade0 being the
       // background and shade7 being the foreground. If you omit the
