@@ -1,0 +1,91 @@
+{
+  "version": "1.2.2",
+  "manifest_version": 2,
+  "name": "Elite Blue",
+  "theme": {
+    "colors": {
+      "bookmark_text": [
+        134,
+        177,
+        209
+      ],
+      "frame": [
+        7,
+        40,
+        61
+      ],
+      "ntp_background": [
+        24,
+        64,
+        89
+      ],
+      "ntp_text": [
+        134,
+        177,
+        209
+      ],
+      "tab_background_text": [
+        134,
+        177,
+        209
+      ],
+      "tab_background_text_inactive": [
+        134,
+        177,
+        209
+      ],
+      "tab_background_text_incognito": [
+        134,
+        177,
+        209
+      ],
+      "tab_background_text_incognito_inactive": [
+        134,
+        177,
+        209
+      ],
+      "tab_text": [
+        134,
+        177,
+        209
+      ],
+      "toolbar": [
+        24,
+        64,
+        89
+      ],
+      "omnibox_text": [
+        134,
+        177,
+        209
+      ],
+      "omnibox_background": [
+        7,
+        40,
+        61
+      ]
+    },
+    "tints": {
+      "buttons": [
+        0.5365079365079364,
+        0.5,
+        0.5
+      ],
+      "frame_inactive": [
+        -1,
+        -1,
+        -1
+      ],
+      "frame_incognito": [
+        0.5225225225225226,
+        1,
+        0.55
+      ],
+      "frame_incognito_inactive": [
+        0.5225225225225226,
+        1,
+        0.55
+      ]
+    }
+  }
+}
