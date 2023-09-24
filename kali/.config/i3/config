@@ -191,7 +191,7 @@ hide_edge_borders none
 gaps outer 15
 gaps inner 15
 gaps top 45
-gaps bottom 70
+gaps bottom 45
 
 smart_borders on
 # ---

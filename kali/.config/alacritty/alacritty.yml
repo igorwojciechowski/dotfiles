@@ -24,48 +24,36 @@ schemes:
   kali: &kali
     primary:
       background: '#23252E'
-      foreground: '#B7BAC8'
+      foreground: '#989db5'
 
     cursor:
       text: '#23252E'
-      cursor: '#367AF0'
+      cursor: '#24B2C3'
 
     selection:
       text: '#23252E'
-      background: '#367AF0'
+      background: '#2D7FD2'
 
     normal:
-      black: '#4D5265'
-      red: '#D41919'
-      green: '#5EBDAC'
-      yellow: '#FEA44C'
-      blue: '#367AF0'
-      magenta: '#9755B3'
-      cyan: '#49AFE6'
-      white: '#B7BAC8'
+      black: '#23252E'
+      red: '#e85d5d'
+      green: '#24B9C1'
+      yellow: '#24B2C3'
+      blue: '#279DC9'
+      magenta: '#2A8DCE'
+      cyan: '#2D7FD2'
+      white: '#989db5'
 
     bright:
-      black: '#636982'
-      red: '#DA4445'
-      green: '#7BC7BA'
-      yellow: '#FBB36E'
-      blue: '#5B92F1'
-      magenta: '#A974C0'
-      cyan: '#6BBCE9'
-      white: '#F1F1F4'
-
-    dim:
-      black: '#373A48'
-      red: '#B11B1D'
-      green: '#529F93'
-      yellow: '#D28B46'
-      blue: '#3269C9'
-      magenta: '#804B98'
-      cyan: '#4193C1'
-      white: '#9A9EB2'
+      black: '#4D5265'
+      red: '#e85d5d'
+      green: '#24B9C1'
+      yellow: '#24B2C3'
+      blue: '#279DC9'
+      magenta: '#2A8DCE'
+      cyan: '#2D7FD2'
+      white: '#989db5'
   
-
-
 colors: *kali
 
 env:

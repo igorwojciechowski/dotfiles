@@ -13,14 +13,14 @@ style = "bright-black"
 
 [username]
 format = '[$user]($style)'
-style_user = 'fg:blue'
+style_user = 'fg:purple'
 style_root = 'fg:bright-red'
 disabled = false
 show_always = true
 
 [hostname]
-format = '[$hostname]($style)'
-style = "fg:blue"
+format = '[  $hostname]($style)'
+style = "fg:purple"
 ssh_only = false
 
 [cmd_duration]
@@ -29,7 +29,7 @@ style = 'fg:bright-black'
 
 [directory]
 format = '[ $path]($style)'
-style = 'fg:bright-blue'
+style = 'fg:cyan'
 
 [git_branch]
 format = '[ ❮$symbol $branch]($style)'
