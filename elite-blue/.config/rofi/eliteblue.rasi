@@ -1,0 +1,73 @@
+configuration {
+  show-icons: true;
+  font: "Hack Nerd Font Bold 10";
+  drun-display-format: "{icon} {name}";
+  display-run: " ";
+  display-drun: " ";
+  display-window: " ";
+  modi: "window,run,drun";
+}
+
+* {
+  background-color: #07283d;
+  fg: #86b1d1;
+
+  black: #07283d;
+  blue: #489AB1;
+  green: #54C0B6;
+  white: #86b1d1;
+
+  lines: 12;
+  padding: 0;
+  margin: 0;
+  spacing: 0;
+}
+
+window {
+  width: 20%;
+  transparency: "real";
+  padding: 10;
+  border-radius: 5;
+}
+
+mainbox {
+  children: [inputbar, listview];
+}
+
+listview {
+  columns: 3;
+}
+
+element {
+  orientation: horizontal;
+  text-color: @white;
+  padding: 10;
+}
+
+element selected {
+  text-color: @green;
+}
+
+inputbar {
+  background-color: @background;
+  children: [prompt, entry];
+}
+
+prompt {
+  enabled: true;
+  font: "Hack Nerd Font Bold 12";
+  padding: 12 0 0 12;
+  text-color: @blue;
+}
+
+entry {
+  padding: 12;
+  text-color: @blue;
+}
+
+element-text {
+  width: 70%;
+  background-color: inherit;
+  text-color: inherit;
+  position: east;
+}
