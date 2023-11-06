@@ -1,0 +1,55 @@
+window:
+  padding:
+    x: 15
+    y: 15
+
+font:
+  normal:
+    family: "Hack Nerd Font"
+    style: Bold
+  bold:
+    family: "Hack Nerd Font"
+    style: Bold
+  italic:
+    family: "Hack Nerd Font"
+    style: "Light Italic"
+  size: 12
+
+schemes:
+  elite: &elite
+    primary:
+      background: '#07283d'
+      foreground: '#86b1d1'
+
+    cursor:
+      text: '#23252E'
+      cursor: '#8fbdc4'
+
+    selection:
+      text: '#23252E'
+      background: '#8fbdc4'
+
+    normal:
+      black: '#07283d'
+      red: '#d95757'
+      green: '#317782'
+      yellow: '#8fbdc4'
+      blue: '#469F97'
+      magenta: '#54C0B6'
+      cyan: '#489AB1'
+      white: '#86b1d1'
+
+    bright:
+      black: '#4D5265'
+      red: '#d95757'
+      green: '#317782'
+      yellow: '#8fbdc4'
+      blue: '#469F97'
+      magenta: '#54C0B6'
+      cyan: '#489AB1'
+      white: '#86b1d1'
+  
+colors: *elite
+
+env:
+  TERM: xterm-256color

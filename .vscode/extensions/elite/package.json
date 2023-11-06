@@ -1,0 +1,23 @@
+{
+  "name": "Elite",
+  "displayName": "Elite VS Code Theme",
+  "description": "Elite VS Code Theme",
+  "version": "2.4.0",
+  "publisher": "hostile",
+  "engines": {
+    "vscode": "^1.14.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "icon": "icon.svg",
+  "contributes": {
+    "themes": [
+      {
+        "label": "Elite",
+        "uiTheme": "vs-dark",
+        "path": "themes/elite.json"
+      }
+    ]
+  }
+}

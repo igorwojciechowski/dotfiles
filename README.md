@@ -1,32 +1,25 @@
 # dotfiles
 
-Dotfiles for Windows (and WSL) and Linux.
+## Configuration Files
 
-![Windows Desktop](img/windows.png)
-*Windows*
-
-![Kali Linux Desktop](img/kali.png)
-*Kali Linux*
-
-## Supported software
-
-**Terminals**
-- alacritty
-- windows terminal
-
-**Desktop environments**
+- Alacritty
+- Fish
 - i3
-- picom
-- polybar
-- rofi
+- Neovim
+- Picom
+- Polybar
+- Rofi
+- Starship
+- VS Code
+- Brave/Chrome
+- Jetbrains
+- Windows Terminal
 
-**IDE**
-- vscode
-- nvim
+## Windows
 
-**Shell**
-- fish
-- starship
+![Windows](./img/windows.png)
+
+## Kali Linux
 
 
-created with [themer.dev](https://github.com/themerdev/themer)
+![Kali Linux](./img/kali.png)
