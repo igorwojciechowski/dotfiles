@@ -30,23 +30,23 @@ schemes:
       background: '#8fbdc4'
 
     normal:
-      black: '#07283d'
+      black: '#184059'
       red: '#d95757'
-      green: '#317782'
+      green: '#469f97'
       yellow: '#8fbdc4'
       blue: '#469F97'
-      magenta: '#54C0B6'
-      cyan: '#489AB1'
-      white: '#86b1d1'
+      magenta: '#187887'
+      cyan: '#54c0b6'
+      white: '#5d7c94'
 
     bright:
-      black: '#4D5265'
-      red: '#d95757'
-      green: '#317782'
-      yellow: '#8fbdc4'
+      black: '#254c66'
+      red: '#C8696F'
+      green: '#53A3A3'
+      yellow: '#8DBBC7'
       blue: '#469F97'
-      magenta: '#54C0B6'
-      cyan: '#489AB1'
+      magenta: '#2E8396'
+      cyan: '#5EBDBB'
       white: '#86b1d1'
   
 colors: *elite
