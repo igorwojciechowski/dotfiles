@@ -16,7 +16,7 @@ disabled = false
 
 [os.symbols]
 Macos = " "
-Kali = " "
+Kali = "  "
 Ubuntu = " "
 Windows = " "
 
