@@ -38,7 +38,9 @@ call plug#end()
 " --- Colorscheme
 set background=dark
 
-let g:lightline = {'colorscheme': 'elite'}
+colorscheme Elite
+
+let g:lightline = {'colorscheme': 'Elite'}
 
 let g:transparent_enabled = v:true
 
@@ -58,4 +60,5 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gD <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-referencesi
 
+runtime Elite.vim
 runtime EliteLightline.vim

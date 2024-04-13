@@ -12,12 +12,12 @@
   </defs>
   <rect fill="#07283D" x="0" y="0" width="400" height="400"></rect>
   <rect fill="#D95757" x="28" y="28" width="74" height="74"></rect>
-  <rect fill="#317782" x="118" y="28" width="74" height="74"></rect>
-  <rect fill="#8FBDC4" x="208" y="28" width="74" height="74"></rect>
-  <rect fill="#469F97" x="298" y="28" width="74" height="74"></rect>
+  <rect fill="#3CC8BC" x="118" y="28" width="74" height="74"></rect>
+  <rect fill="#9EDEE5" x="208" y="28" width="74" height="74"></rect>
+  <rect fill="#98E1C5" x="298" y="28" width="74" height="74"></rect>
   <rect fill="#54C0B6" x="28" y="118" width="74" height="74"></rect>
-  <rect fill="#489AB1" x="118" y="118" width="74" height="74"></rect>
-  <rect fill="#187887" x="208" y="118" width="74" height="74"></rect>
-  <rect fill="#187887" x="298" y="118" width="74" height="74"></rect>
+  <rect fill="#5DBBD5" x="118" y="118" width="74" height="74"></rect>
+  <rect fill="#3AAABB" x="208" y="118" width="74" height="74"></rect>
+  <rect fill="#3AAABB" x="298" y="118" width="74" height="74"></rect>
   <rect fill="url(#shadeGradient)" x="27" y="208" width="344" height="164"></rect>
 </svg>

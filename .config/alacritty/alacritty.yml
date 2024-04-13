@@ -16,38 +16,43 @@ font:
   size: 12
 
 schemes:
-  elite: &elite
+  elite: &dark
     primary:
-      background: '#07283d'
-      foreground: '#86b1d1'
-
+      background: "#07283D"
+      foreground: "#749DBC"
     cursor:
-      text: '#23252E'
-      cursor: '#8fbdc4'
-
+      text: "#07283D"
+      cursor: "#3AAABB"
     selection:
-      text: '#23252E'
-      background: '#8fbdc4'
-
+      text: "#07283D"
+      background: "#5DBBD5"
     normal:
-      black: '#184059'
-      red: '#d95757'
-      green: '#469f97'
-      yellow: '#8fbdc4'
-      blue: '#469F97'
-      magenta: '#187887'
-      cyan: '#54c0b6'
-      white: '#5d7c94'
-
+      black: "#2B4F67"
+      red: "#D95757"
+      green: "#98E1C5"
+      yellow: "#9EDEE5"
+      blue: "#5DBBD5"
+      magenta: "#3AAABB"
+      cyan: "#54C0B6"
+      white: "#749DBC"
     bright:
-      black: '#254c66'
-      red: '#C8696F'
-      green: '#53A3A3'
-      yellow: '#8DBBC7'
-      blue: '#469F97'
-      magenta: '#2E8396'
-      cyan: '#5EBDBB'
-      white: '#86b1d1'
+      black: "#3D637C"
+      red: "#C8696F"
+      green: "#94D7C7"
+      yellow: "#99D5E1"
+      blue: "#65B9D4"
+      magenta: "#49ABBF"
+      cyan: "#5EBDBB"
+      white: "#86B1D1"
+    dim:
+      black: "#193C52"
+      red: "#AF4E52"
+      green: "#7BBCAA"
+      yellow: "#80BAC3"
+      blue: "#4C9EB7"
+      magenta: "#3090A2"
+      cyan: "#45A29E"
+      white: "#628AA7"
   
 colors: *elite
 
