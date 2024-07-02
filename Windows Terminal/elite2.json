@@ -1,0 +1,23 @@
+{
+  "name": "Elite2",
+  "background": "#18454E",
+  "foreground": "#5F95A0",
+  "cursorColor": "#3DFF7E",
+  "selectionBackground": "#00FFB3",
+  "black": "#306069",
+  "brightBlack": "#3C6D77",
+  "red": "#FF5C5C",
+  "brightRed": "#E16A6C",
+  "green": "#03E24E",
+  "brightGreen": "#18D561",
+  "yellow": "#94FFB8",
+  "brightYellow": "#8CECB6",
+  "blue": "#00FFB3",
+  "brightBlue": "#15ECB2",
+  "purple": "#3DFF7E",
+  "brightPurple": "#46EC88",
+  "cyan": "#00FFB3",
+  "brightCyan": "#15ECB2",
+  "white": "#5F95A0",
+  "brightWhite": "#6BA2AE"
+}

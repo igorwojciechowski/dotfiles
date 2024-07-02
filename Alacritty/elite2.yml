@@ -1,0 +1,40 @@
+# Themer My Color Set
+
+schemes:
+  elite2: &dark
+    primary:
+      background: "#18454E"
+      foreground: "#5F95A0"
+    cursor:
+      text: "#18454E"
+      cursor: "#3DFF7E"
+    selection:
+      text: "#18454E"
+      background: "#00FFB3"
+    normal:
+      black: "#306069"
+      red: "#FF5C5C"
+      green: "#03E24E"
+      yellow: "#94FFB8"
+      blue: "#00FFB3"
+      magenta: "#66FF99"
+      cyan: "#00FFB3"
+      white: "#5F95A0"
+    bright:
+      black: "#3C6D77"
+      red: "#E16A6C"
+      green: "#18D561"
+      yellow: "#8CECB6"
+      blue: "#15ECB2"
+      magenta: "#67EC9D"
+      cyan: "#15ECB2"
+      white: "#6BA2AE"
+    dim:
+      black: "#24525C"
+      red: "#D15759"
+      green: "#07C34E"
+      yellow: "#7BDAA3"
+      blue: "#05DA9F"
+      magenta: "#56DA8A"
+      cyan: "#05DA9F"
+      white: "#538793"

@@ -1,41 +1,41 @@
 if &background == 'dark'
-  let s:guishade0 = "#07283D"
-  let s:guishade1 = "#193C52"
-  let s:guishade2 = "#2B4F67"
-  let s:guishade3 = "#3D637C"
-  let s:guishade4 = "#507692"
-  let s:guishade5 = "#628AA7"
-  let s:guishade6 = "#749DBC"
-  let s:guishade7 = "#86B1D1"
-  let s:guiaccent0 = "#D95757"
-  let s:guiaccent1 = "#3CC8BC"
-  let s:guiaccent2 = "#9EDEE5"
-  let s:guiaccent3 = "#98E1C5"
-  let s:guiaccent4 = "#54C0B6"
-  let s:guiaccent5 = "#5DBBD5"
-  let s:guiaccent6 = "#3AAABB"
-  let s:guiaccent7 = "#3AAABB"
-  let s:ctermshade0 = 23
-  let s:ctermshade1 = 24
+  let s:guishade0 = "#18454E"
+  let s:guishade1 = "#24525C"
+  let s:guishade2 = "#306069"
+  let s:guishade3 = "#3C6D77"
+  let s:guishade4 = "#477A85"
+  let s:guishade5 = "#538793"
+  let s:guishade6 = "#5F95A0"
+  let s:guishade7 = "#6BA2AE"
+  let s:guiaccent0 = "#FF5C5C"
+  let s:guiaccent1 = "#03E24E"
+  let s:guiaccent2 = "#94FFB8"
+  let s:guiaccent3 = "#03E24E"
+  let s:guiaccent4 = "#00FFB3"
+  let s:guiaccent5 = "#00FFB3"
+  let s:guiaccent6 = "#3DFF7E"
+  let s:guiaccent7 = "#66FF99"
+  let s:ctermshade0 = 24
+  let s:ctermshade1 = 66
   let s:ctermshade2 = 66
   let s:ctermshade3 = 66
-  let s:ctermshade4 = 103
+  let s:ctermshade4 = 67
   let s:ctermshade5 = 109
-  let s:ctermshade6 = 110
-  let s:ctermshade7 = 146
-  let s:ctermaccent0 = 174
-  let s:ctermaccent1 = 80
-  let s:ctermaccent2 = 152
-  let s:ctermaccent3 = 152
-  let s:ctermaccent4 = 116
-  let s:ctermaccent5 = 116
-  let s:ctermaccent6 = 74
-  let s:ctermaccent7 = 74
+  let s:ctermshade6 = 109
+  let s:ctermshade7 = 109
+  let s:ctermaccent0 = 210
+  let s:ctermaccent1 = 42
+  let s:ctermaccent2 = 158
+  let s:ctermaccent3 = 42
+  let s:ctermaccent4 = 50
+  let s:ctermaccent5 = 50
+  let s:ctermaccent6 = 84
+  let s:ctermaccent7 = 121
 endif
 
 highlight clear
 syntax reset
-let g:colors_name = "Elite"
+let g:colors_name = "Elite2"
 
 """"""""""
 " Normal "
