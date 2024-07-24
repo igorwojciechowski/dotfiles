@@ -1,10 +1,10 @@
 command_timeout = 10000
 
 format = """
-[](fg:bright-black bg:#07283d bold)[$os$hostname$username$directory$git_branch$git_status$python$golang$nodejs$cmd_duration$status](bg:bright-black)[](fg:bright-black bg:#07283d bold)$fill$tun
-  
-  $character
+$fill[](fg:bright-black bg:#07283d bold)[$os$hostname/$username$tun$directory$git_branch$git_status$python$golang$nodejs$cmd_duration](bg:bright-black)[](fg:bright-black bg:#07283d bold)
+[](fg:bright-black bg:#07283d bold)$status$character
 """
+
 [fill]
 symbol = " "
 style = "cyan"
@@ -16,14 +16,14 @@ disabled = false
 
 [os.symbols]
 Macos = " "
-Kali = "  "
+Kali = " "
 Ubuntu = " "
 Windows = " "
 
 [username]
-format = '[  $user ]($style)'
-style_user = 'fg:bright-white bg:bright-black bold'
-style_root = 'fg:red bg:bright-black bold' 
+format = '[$user]($style)'
+style_user = 'fg:bright-yellow bg:bright-black bold'
+style_root = 'fg:bright-red bg:bright-black bold' 
 disabled = false
 show_always = true
 
@@ -37,8 +37,8 @@ format = '[󰔛 $duration]($style)'
 style = 'fg:bright-white bg:bright-black italic'
 
 [directory]
-format = '[  $path ]($style)'
-style = 'fg:bright-white bg:bright-black italic bold'
+format = '[ 󰉋 $path ]($style)'
+style = 'fg:bright-white bg:bright-black bold'
 
 [git_branch]
 format = '[ $symbol $branch ]($style)'
@@ -51,14 +51,14 @@ format = '[ $all_status ]($style)'
 style = 'fg:bright-red bg:bright-black'
 
 [status]
-format = '[$symbol$status]($style)'
-symbol = ''
+format = '[$symbol $status ]($style)'
+symbol = ''
 style = 'fg:bright-red bg:bright-black'
 disabled = false
 
 [character]
-success_symbol = '[](fg:bright-black bold)'
-error_symbol = '[](fg:bright-black bold)'
+success_symbol = '[󰅂](fg:white bg:bright-black bold)[](fg:bright-black bg:#07283d bold)'
+error_symbol = '[󰅂](fg:white bg:bright-black bold)[](fg:bright-black bg:#07283d bold)'
 
 [time]
 format = '[⎡](fg:bright-black)[ $time ]($style)[⎦](fg:bright-black)'
@@ -84,6 +84,5 @@ symbol = ''
 style = 'fg:blue bg:bright-black'
 
 [nodejs]
-format = '[$symbol $version ]($style)'
+format = '[ $symbol $version ](fg:green bg:bright-black)'
 symbol = ''
-style = 'fg:green bg:bright-black'
