@@ -7,14 +7,14 @@ if &background == 'dark'
   let s:guishade5 = "#628AA7"
   let s:guishade6 = "#749DBC"
   let s:guishade7 = "#86B1D1"
-  let s:guiaccent0 = "#D95757"
-  let s:guiaccent1 = "#3CC8BC"
-  let s:guiaccent2 = "#9EDEE5"
-  let s:guiaccent3 = "#98E1C5"
+  let s:guiaccent0 = "#D91717"
+  let s:guiaccent1 = "#4C9DA9"
+  let s:guiaccent2 = "#6BCCDB"
+  let s:guiaccent3 = "#53D0A6"
   let s:guiaccent4 = "#54C0B6"
-  let s:guiaccent5 = "#5DBBD5"
-  let s:guiaccent6 = "#3AAABB"
-  let s:guiaccent7 = "#3AAABB"
+  let s:guiaccent5 = "#55ABC3"
+  let s:guiaccent6 = "#1F91A3"
+  let s:guiaccent7 = "#1F91A3"
   let s:shade0 = 23
   let s:shade1 = 24
   let s:shade2 = 66
@@ -23,14 +23,14 @@ if &background == 'dark'
   let s:shade5 = 109
   let s:shade6 = 110
   let s:shade7 = 146
-  let s:accent0 = 174
-  let s:accent1 = 80
-  let s:accent2 = 152
-  let s:accent3 = 152
+  let s:accent0 = 160
+  let s:accent1 = 73
+  let s:accent2 = 116
+  let s:accent3 = 115
   let s:accent4 = 116
-  let s:accent5 = 116
-  let s:accent6 = 74
-  let s:accent7 = 74
+  let s:accent5 = 110
+  let s:accent6 = 73
+  let s:accent7 = 73
 endif
 
 let s:p = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}}
