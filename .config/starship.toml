@@ -1,9 +1,12 @@
 command_timeout = 10000
 
 format = """
-$fill[](fg:bright-black bg:#07283d bold)[$os$hostname/$username$tun$directory$git_branch$git_status$python$golang$nodejs$cmd_duration](bg:bright-black)[](fg:bright-black bg:#07283d bold)
-[](fg:bright-black bg:#07283d bold)$status$character
+┏━ $username $os$hostname $directory$fill$git_branch$git_status
+┃$fill$tun$python$golang$nodejs$cmd_duration
+┗━━ $status$character
 """
+
+right_format = ""
 
 [fill]
 symbol = " "
@@ -11,7 +14,7 @@ style = "cyan"
 
 [os]
 format = "[$symbol]($style)"
-style = "fg:bright-white bg:bright-black bold"
+style = "fg:bright-cyan bold"
 disabled = false
 
 [os.symbols]
@@ -21,44 +24,44 @@ Ubuntu = " "
 Windows = " "
 
 [username]
-format = '[$user]($style)'
-style_user = 'fg:bright-yellow bg:bright-black bold'
-style_root = 'fg:bright-red bg:bright-black bold' 
+format = '[ ]($style)[$user](fg:bright-white)'
+style_user = 'fg:bright-cyan bg:bright-blackbold'
+style_root = 'fg:bright-red  bold' 
 disabled = false
 show_always = true
 
 [hostname]
 format = '[$hostname]($style)'
-style = "fg:bright-white bg:bright-black bold"
+style = "fg:bright-white"
 ssh_only = false
 
 [cmd_duration]
-format = '[󰔛 $duration]($style)'
-style = 'fg:bright-white bg:bright-black italic'
+format = '[ 󰔛 $duration ]($style)'
+style = 'fg:bright-white bg:bright-black'
 
 [directory]
-format = '[ 󰉋 $path ]($style)'
-style = 'fg:bright-white bg:bright-black bold'
+format = '[󰉋](fg:bright-cyan)[ $path ]($style)'
+style = 'fg:white italic'
 
 [git_branch]
-format = '[ $symbol $branch ]($style)'
+format = '[ $symbol $branch]($style)'
 symbol = '󰊢'
 style = 'fg:bright-cyan bg:bright-black'
 truncation_length = 30
 
 [git_status]
 format = '[ $all_status ]($style)'
-style = 'fg:bright-red bg:bright-black'
+style = 'fg:red bg:bright-black'
 
 [status]
-format = '[$symbol $status ]($style)'
-symbol = ''
-style = 'fg:bright-red bg:bright-black'
+format = '[ $symbol $status ]($style) '
+symbol = '󱐋'
+style = 'fg:red bg:bright-black'
 disabled = false
 
 [character]
-success_symbol = '[󰅂](fg:white bg:bright-black bold)[](fg:bright-black bg:#07283d bold)'
-error_symbol = '[󰅂](fg:white bg:bright-black bold)[](fg:bright-black bg:#07283d bold)'
+success_symbol = '[](fg:cyan bold)'
+error_symbol = '[](fg:cyan bold)'
 
 [time]
 format = '[⎡](fg:bright-black)[ $time ]($style)[⎦](fg:bright-black)'
@@ -69,20 +72,20 @@ disabled = false
 command = 'ifconfig tun0 | grep -oP "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}" | head -1'
 shell = ["/bin/bash"]
 when = "ifconfig tun0"
-format = "[](fg:bright-black bg:#07283d bold)[ $output](bg:bright-black)[](fg:bright-black bg:#07283d bold)"
+format = " [ $output](fg:bright-yellow,bg:bright-black)"
 
 # Languages
 
 [python]
-format = '[ $symbol ($virtualenv )$version ]($style)'
+format = ' [ $symbol ($virtualenv )$version ]($style)'
 symbol = ''
 style = 'fg:yellow bg:bright-black'
 
 [golang]
-format = '[ $symbol $version ]($style)'
+format = ' [ $symbol $version ]($style)'
 symbol = ''
 style = 'fg:blue bg:bright-black'
 
 [nodejs]
-format = '[ $symbol $version ](fg:green bg:bright-black)'
+format = ' [ $symbol $version ](fg:green bg:bright-black)'
 symbol = ''
