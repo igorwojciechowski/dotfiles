@@ -1,13 +1,13 @@
 {
   "version": "5.0.1",
   "manifest_version": 2,
-  "name": "Themer My Color Set Dark",
+  "name": "Elite",
   "theme": {
     "colors": {
       "bookmark_text": [
-        134,
-        177,
-        209
+        116,
+        157,
+        188
       ],
       "frame": [
         7,
@@ -15,139 +15,139 @@
         61
       ],
       "frame_inactive": [
-        25,
-        60,
-        82
+        23,
+        57,
+        79
       ],
       "icons_attention": [
-        134,
-        177,
-        209
+        116,
+        157,
+        188
       ],
       "icons": [
-        134,
-        177,
-        209
+        116,
+        157,
+        188
       ],
       "ntp_background": [
-        25,
-        60,
-        82
+        23,
+        57,
+        79
       ],
       "ntp_text": [
-        134,
-        177,
-        209
+        116,
+        157,
+        188
       ],
       "popup_highlight_text": [
-        43,
-        79,
-        103
+        38,
+        73,
+        97
       ],
       "popup_highlight": [
-        116,
-        157,
-        188
+        100,
+        140,
+        170
       ],
       "toolbar_field_highlight_text": [
-        43,
-        79,
-        103
+        38,
+        73,
+        97
       ],
       "popup_border": [
-        25,
-        60,
-        82
+        23,
+        57,
+        79
       ],
       "popup_text": [
-        134,
-        177,
-        209
+        116,
+        157,
+        188
       ],
       "popup": [
-        25,
-        60,
-        82
+        23,
+        57,
+        79
       ],
       "sidebar_border": [
-        25,
-        60,
-        82
+        23,
+        57,
+        79
       ],
       "sidebar_highlight_text": [
-        116,
-        157,
-        188
+        100,
+        140,
+        170
       ],
       "sidebar_highlight": [
-        43,
-        79,
-        103
+        38,
+        73,
+        97
       ],
       "sidebar_text": [
+        100,
+        140,
+        170
+      ],
+      "sidebar": [
+        23,
+        57,
+        79
+      ],
+      "tab_background_text": [
         116,
         157,
         188
       ],
-      "sidebar": [
-        25,
-        60,
-        82
-      ],
-      "tab_background_text": [
-        134,
-        177,
-        209
-      ],
       "tab_loading": [
-        134,
-        177,
-        209
+        116,
+        157,
+        188
       ],
       "tab_text": [
-        134,
-        177,
-        209
+        116,
+        157,
+        188
       ],
       "toolbar_bottom_separator": [
-        25,
-        60,
-        82
+        23,
+        57,
+        79
       ],
       "toolbar_field_border": [
-        25,
-        60,
-        82
+        23,
+        57,
+        79
       ],
       "toolbar_field_separator": [
-        25,
-        60,
-        82
+        23,
+        57,
+        79
       ],
       "toolbar_field_text_focus": [
-        134,
-        177,
-        209
+        116,
+        157,
+        188
       ],
       "toolbar_field_text": [
-        134,
-        177,
-        209
+        116,
+        157,
+        188
       ],
       "toolbar_field": [
-        25,
-        60,
-        82
+        23,
+        57,
+        79
       ],
       "toolbar_field_border_focus": [
-        43,
-        79,
-        103
+        38,
+        73,
+        97
       ],
       "toolbar": [
-        25,
-        60,
-        82
+        23,
+        57,
+        79
       ]
     }
   }

@@ -19,40 +19,40 @@ schemes:
   elite: &dark
     primary:
       background: "#07283D"
-      foreground: "#749DBC"
+      foreground: "#648CAA"
     cursor:
       text: "#07283D"
-      cursor: "#1F91A3"
+      cursor: "#35A9BB"
     selection:
       text: "#07283D"
       background: "#55ABC3"
     normal:
-      black: "#2B4F67"
-      red: "#D91717"
+      black: "#264961"
+      red: "#E15B5B"
       green: "#53D0A6"
       yellow: "#6BCCDB"
       blue: "#55ABC3"
-      magenta: "#1F91A3"
+      magenta: "#35A9BB"
       cyan: "#54C0B6"
-      white: "#749DBC"
+      white: "#648CAA"
     bright:
-      black: "#3D637C"
-      red: "#C8363C"
-      green: "#5DCAAF"
-      yellow: "#70C7D9"
-      blue: "#5FACC6"
-      magenta: "#3497AC"
-      cyan: "#5EBDBB"
-      white: "#86B1D1"
+      black: "#365A73"
+      red: "#CB686E"
+      green: "#5AC6AA"
+      yellow: "#6DC3D5"
+      blue: "#5BA8C2"
+      magenta: "#42A7BB"
+      cyan: "#5AB9B7"
+      white: "#749DBC"
     dim:
-      black: "#193C52"
-      red: "#AF1A1F"
+      black: "#17394F"
+      red: "#B55155"
       green: "#44AE91"
       yellow: "#57ABBB"
       blue: "#4591A8"
-      magenta: "#1A7C8F"
+      magenta: "#2C8FA2"
       cyan: "#45A29E"
-      white: "#628AA7"
+      white: "#557C98"
   
 colors: *elite
 

@@ -5,9 +5,9 @@
   "theme": {
     "colors": {
       "bookmark_text": [
-        134,
-        177,
-        209
+        116,
+        157,
+        188
       ],
       "frame": [
         7,
@@ -15,49 +15,49 @@
         61
       ],
       "ntp_background": [
-        25,
-        60,
-        82
+        23,
+        57,
+        79
       ],
       "ntp_text": [
-        134,
-        177,
-        209
+        116,
+        157,
+        188
       ],
       "tab_background_text": [
-        134,
-        177,
-        209
+        116,
+        157,
+        188
       ],
       "tab_background_text_inactive": [
-        134,
-        177,
-        209
+        116,
+        157,
+        188
       ],
       "tab_background_text_incognito": [
-        134,
-        177,
-        209
+        116,
+        157,
+        188
       ],
       "tab_background_text_incognito_inactive": [
-        134,
-        177,
-        209
+        116,
+        157,
+        188
       ],
       "tab_text": [
-        134,
-        177,
-        209
+        116,
+        157,
+        188
       ],
       "toolbar": [
-        25,
-        60,
-        82
+        23,
+        57,
+        79
       ],
       "omnibox_text": [
-        134,
-        177,
-        209
+        116,
+        157,
+        188
       ],
       "omnibox_background": [
         7,
@@ -77,12 +77,12 @@
         -1
       ],
       "frame_incognito": [
-        0.5227272727272729,
+        0.5223880597014926,
         1,
         0.55
       ],
       "frame_incognito_inactive": [
-        0.5227272727272729,
+        0.5223880597014926,
         1,
         0.55
       ]
