@@ -1,8 +1,8 @@
 command_timeout = 10000
 
 format = """
-┏━ $username $os$hostname $directory$fill$git_branch$git_status
-┃$fill$tun$python$golang$nodejs$cmd_duration
+┏━⎡ $username $os$hostname$custom $directory⎦$fill$git_branch$git_status
+┃$fill$python$golang$nodejs$cmd_duration
 ┗━━ $status$character
 """
 
@@ -19,13 +19,13 @@ disabled = false
 
 [os.symbols]
 Macos = " "
-Kali = " "
+Kali = "  "
 Ubuntu = " "
 Windows = " "
 
 [username]
-format = '[ ]($style)[$user](fg:bright-white)'
-style_user = 'fg:bright-cyan bg:bright-blackbold'
+format = '[ ]($style)[$user](fg:bright-white)'
+style_user = 'fg:bright-cyan bold'
 style_root = 'fg:bright-red  bold' 
 disabled = false
 show_always = true
@@ -40,7 +40,7 @@ format = '[ 󰔛 $duration ]($style)'
 style = 'fg:bright-white bg:bright-black'
 
 [directory]
-format = '[󰉋](fg:bright-cyan)[ $path ]($style)'
+format = '[](fg:bright-cyan bold)[ $path ]($style)'
 style = 'fg:white italic'
 
 [git_branch]
@@ -54,14 +54,14 @@ format = '[ $all_status ]($style)'
 style = 'fg:red bg:bright-black'
 
 [status]
-format = '[ $symbol $status ]($style) '
-symbol = '󱐋'
-style = 'fg:red bg:bright-black'
+format = '[$symbol $status]($style) '
+symbol = '󱐌'
+style = 'fg:red'
 disabled = false
 
 [character]
-success_symbol = '[](fg:cyan bold)'
-error_symbol = '[](fg:cyan bold)'
+success_symbol = '[ :](fg:cyan bold)'
+error_symbol = '[ :](fg:cyan bold)'
 
 [time]
 format = '[⎡](fg:bright-black)[ $time ]($style)[⎦](fg:bright-black)'
@@ -72,7 +72,7 @@ disabled = false
 command = 'ifconfig tun0 | grep -oP "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}" | head -1'
 shell = ["/bin/bash"]
 when = "ifconfig tun0"
-format = " [ $output](fg:bright-yellow,bg:bright-black)"
+format = " [  $output ](fg:bright-yellow bg:bright-black) "
 
 # Languages
 
