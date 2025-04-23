@@ -2,7 +2,7 @@ command_timeout = 10000
 
 format = """
 ┏━⎡ $username $os$hostname$custom $directory⎦$fill$git_branch$git_status
-┃$fill$python$golang$nodejs$cmd_duration
+┃[カリ リナックス](fg:bright-black)$fill$python$golang$nodejs$cmd_duration
 ┗━━ $status$character
 """
 
@@ -24,15 +24,15 @@ Ubuntu = " "
 Windows = " "
 
 [username]
-format = '[ ]($style)[$user](fg:bright-white)'
-style_user = 'fg:bright-cyan bold'
+format = '[ ]($style)[$user]($style)'
+style_user = 'fg:bright-green bold'
 style_root = 'fg:bright-red  bold' 
 disabled = false
 show_always = true
 
 [hostname]
 format = '[$hostname]($style)'
-style = "fg:bright-white"
+style = "fg:bright-green"
 ssh_only = false
 
 [cmd_duration]
@@ -41,7 +41,7 @@ style = 'fg:bright-white bg:bright-black'
 
 [directory]
 format = '[](fg:bright-cyan bold)[ $path ]($style)'
-style = 'fg:white italic'
+style = 'fg:green italic'
 
 [git_branch]
 format = '[ $symbol $branch]($style)'
