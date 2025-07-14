@@ -1,73 +1,73 @@
 {
   "version": "5.0.1",
   "manifest_version": 2,
-  "name": "Elite",
+  "name": "Gunmetal",
   "theme": {
     "colors": {
       "bookmark_text": [
-        116,
-        157,
-        188
+        89,
+        175,
+        165
       ],
       "frame": [
-        7,
-        40,
-        61
+        4,
+        27,
+        32
       ],
       "ntp_background": [
-        23,
-        57,
-        79
+        8,
+        32,
+        37
       ],
       "ntp_text": [
-        116,
-        157,
-        188
+        89,
+        175,
+        165
       ],
       "tab_background_text": [
-        116,
-        157,
-        188
+        89,
+        175,
+        165
       ],
       "tab_background_text_inactive": [
-        116,
-        157,
-        188
+        89,
+        175,
+        165
       ],
       "tab_background_text_incognito": [
-        116,
-        157,
-        188
+        89,
+        175,
+        165
       ],
       "tab_background_text_incognito_inactive": [
-        116,
-        157,
-        188
+        89,
+        175,
+        165
       ],
       "tab_text": [
-        116,
-        157,
-        188
+        89,
+        175,
+        165
       ],
       "toolbar": [
-        23,
-        57,
-        79
+        8,
+        32,
+        37
       ],
       "omnibox_text": [
-        116,
-        157,
-        188
+        89,
+        175,
+        165
       ],
       "omnibox_background": [
-        7,
-        40,
-        61
+        4,
+        27,
+        32
       ]
     },
     "tints": {
       "buttons": [
-        0.5363636363636365,
+        0.4976076555023923,
         0.5,
         0.5
       ],
@@ -77,12 +77,12 @@
         -1
       ],
       "frame_incognito": [
-        0.5223880597014926,
+        0.478009259259259,
         1,
         0.55
       ],
       "frame_incognito_inactive": [
-        0.5223880597014926,
+        0.478009259259259,
         1,
         0.55
       ]

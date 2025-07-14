@@ -1,7 +1,7 @@
 {
-  "name": "Elite",
-  "displayName": "Elite",
-  "description": "Elite VS Code Theme",
+  "name": "gunmetal",
+  "displayName": "Gunmetal",
+  "description": "Happy hacking",
   "version": "5.0.1",
   "publisher": "Themer",
   "engines": {
@@ -14,9 +14,9 @@
   "contributes": {
     "themes": [
       {
-        "label": "Elite",
+        "label": "Gunmetal",
         "uiTheme": "vs-dark",
-        "path": "themes/elite.json"
+        "path": "themes/gunmetal.json"
       }
     ]
   }

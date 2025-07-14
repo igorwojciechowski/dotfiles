@@ -1,153 +1,153 @@
 {
   "version": "5.0.1",
   "manifest_version": 2,
-  "name": "Elite",
+  "name": "Gunmetal",
   "theme": {
     "colors": {
       "bookmark_text": [
-        116,
-        157,
-        188
+        89,
+        175,
+        165
       ],
       "frame": [
-        7,
-        40,
-        61
+        4,
+        27,
+        32
       ],
       "frame_inactive": [
-        23,
-        57,
-        79
+        8,
+        32,
+        37
       ],
       "icons_attention": [
-        116,
-        157,
-        188
+        89,
+        175,
+        165
       ],
       "icons": [
-        116,
-        157,
-        188
+        89,
+        175,
+        165
       ],
       "ntp_background": [
-        23,
-        57,
-        79
+        8,
+        32,
+        37
       ],
       "ntp_text": [
-        116,
-        157,
-        188
+        89,
+        175,
+        165
       ],
       "popup_highlight_text": [
-        38,
-        73,
-        97
+        14,
+        42,
+        45
       ],
       "popup_highlight": [
-        100,
-        140,
-        170
+        34,
+        64,
+        65
       ],
       "toolbar_field_highlight_text": [
-        38,
-        73,
-        97
+        14,
+        42,
+        45
       ],
       "popup_border": [
-        23,
-        57,
-        79
+        8,
+        32,
+        37
       ],
       "popup_text": [
-        116,
-        157,
-        188
+        89,
+        175,
+        165
       ],
       "popup": [
-        23,
-        57,
-        79
+        8,
+        32,
+        37
       ],
       "sidebar_border": [
-        23,
-        57,
-        79
+        8,
+        32,
+        37
       ],
       "sidebar_highlight_text": [
-        100,
-        140,
-        170
+        34,
+        64,
+        65
       ],
       "sidebar_highlight": [
-        38,
-        73,
-        97
+        14,
+        42,
+        45
       ],
       "sidebar_text": [
-        100,
-        140,
-        170
+        34,
+        64,
+        65
       ],
       "sidebar": [
-        23,
-        57,
-        79
+        8,
+        32,
+        37
       ],
       "tab_background_text": [
-        116,
-        157,
-        188
+        89,
+        175,
+        165
       ],
       "tab_loading": [
-        116,
-        157,
-        188
+        89,
+        175,
+        165
       ],
       "tab_text": [
-        116,
-        157,
-        188
+        89,
+        175,
+        165
       ],
       "toolbar_bottom_separator": [
-        23,
-        57,
-        79
+        8,
+        32,
+        37
       ],
       "toolbar_field_border": [
-        23,
-        57,
-        79
+        8,
+        32,
+        37
       ],
       "toolbar_field_separator": [
-        23,
-        57,
-        79
+        8,
+        32,
+        37
       ],
       "toolbar_field_text_focus": [
-        116,
-        157,
-        188
+        89,
+        175,
+        165
       ],
       "toolbar_field_text": [
-        116,
-        157,
-        188
+        89,
+        175,
+        165
       ],
       "toolbar_field": [
-        23,
-        57,
-        79
+        8,
+        32,
+        37
       ],
       "toolbar_field_border_focus": [
-        38,
-        73,
-        97
+        14,
+        42,
+        45
       ],
       "toolbar": [
-        23,
-        57,
-        79
+        8,
+        32,
+        37
       ]
     }
   }

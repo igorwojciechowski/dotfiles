@@ -1,0 +1,23 @@
+{
+  "name": "Gunmetal",
+  "background": "#041B20",
+  "foreground": "#224041",
+  "cursorColor": "#66F6E3",
+  "selectionBackground": "#2EFFFC",
+  "black": "#0E2A2D",
+  "brightBlack": "#0E282B",
+  "red": "#E80C38",
+  "brightRed": "#CB2D4E",
+  "green": "#42FFA7",
+  "brightGreen": "#47EFA7",
+  "yellow": "#38FFE4",
+  "brightYellow": "#3FEFD7",
+  "blue": "#2EFFFC",
+  "brightBlue": "#37EFEB",
+  "purple": "#66F6E3",
+  "brightPurple": "#63E8D7",
+  "cyan": "#00FFDD",
+  "brightCyan": "#12EFD2",
+  "white": "#224041",
+  "brightWhite": "#59AFA5"
+}

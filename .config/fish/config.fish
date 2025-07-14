@@ -2,6 +2,12 @@ set -x PATH /opt/homebrew/bin $PATH
 fish_add_path /opt/homebrew/opt/java/bin
 fish_add_path /Users/igor/Tools/codeql
 
+
+fish_add_path /Users/igor/Library/Android/sdk/emulator
+fish_add_path /Users/igor/Library/Android/sdk/tools
+fish_add_path /Users/igor/Library/Android/sdk/tools/bin
+fish_add_path /Users/igor/Library/Android/sdk/platform-tools
+
 starship init fish | source
 
 
@@ -9,7 +15,7 @@ set fish_greeting ""
 # --- Fish colors
 # set fish_color_command 'brblue'
 # set fish_color_error 'brred'
-# set fish_color_param 'brgreen'
+# set fish_color_param 'brgreen'ś
 # set fish_color_quote 'brcyan'
 # set fish_color_search_match --background='blue'
 # set fish_color_operator 'brgreen'
