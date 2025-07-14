@@ -1,60 +1,40 @@
-window:
-  padding:
-    x: 15
-    y: 15
-
-font:
-  normal:
-    family: "Hack Nerd Font"
-    style: Bold
-  bold:
-    family: "Hack Nerd Font"
-    style: Bold
-  italic:
-    family: "Hack Nerd Font"
-    style: "Light Italic"
-  size: 12
+# Themer My Color Set
 
 schemes:
-  elite: &dark
+  themer-my-color-set-dark: &dark
     primary:
-      background: "#07283D"
-      foreground: "#648CAA"
+      background: "#042024"
+      foreground: "#47A0A2"
     cursor:
-      text: "#07283D"
-      cursor: "#35A9BB"
+      text: "#042024"
+      cursor: "#3DFFE5"
     selection:
-      text: "#07283D"
-      background: "#55ABC3"
+      text: "#042024"
+      background: "#38CCC9"
     normal:
-      black: "#264961"
-      red: "#E15B5B"
-      green: "#53D0A6"
-      yellow: "#6BCCDB"
-      blue: "#55ABC3"
-      magenta: "#35A9BB"
-      cyan: "#54C0B6"
-      white: "#648CAA"
+      black: "#1A4B4E"
+      red: "#CD6966"
+      green: "#69DDCE"
+      yellow: "#29D6BF"
+      blue: "#38CCC9"
+      magenta: "#2AC6C3"
+      cyan: "#30F3D9"
+      white: "#47A0A2"
     bright:
-      black: "#365A73"
-      red: "#CB686E"
-      green: "#5AC6AA"
-      yellow: "#6DC3D5"
-      blue: "#5BA8C2"
-      magenta: "#42A7BB"
-      cyan: "#5AB9B7"
-      white: "#749DBC"
+      black: "#256063"
+      red: "#B47876"
+      green: "#64D5C9"
+      yellow: "#31CFBD"
+      blue: "#3DC7C5"
+      magenta: "#32C3C1"
+      cyan: "#37E7D2"
+      white: "#52B5B7"
     dim:
-      black: "#17394F"
-      red: "#B55155"
-      green: "#44AE91"
-      yellow: "#57ABBB"
-      blue: "#4591A8"
-      magenta: "#2C8FA2"
-      cyan: "#45A29E"
-      white: "#557C98"
-  
-colors: *elite
-
-env:
-  TERM: xterm-256color
+      black: "#0F3539"
+      red: "#A55A59"
+      green: "#55B7AC"
+      yellow: "#22B2A0"
+      blue: "#2EAAA8"
+      magenta: "#22A5A3"
+      cyan: "#27C9B5"
+      white: "#3C8A8D"

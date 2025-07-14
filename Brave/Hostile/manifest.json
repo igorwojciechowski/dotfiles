@@ -1,73 +1,73 @@
 {
   "version": "5.0.1",
   "manifest_version": 2,
-  "name": "Elite",
+  "name": "Themer My Color Set Dark",
   "theme": {
     "colors": {
       "bookmark_text": [
-        116,
-        157,
-        188
+        82,
+        181,
+        183
       ],
       "frame": [
-        7,
-        40,
-        61
+        4,
+        32,
+        36
       ],
       "ntp_background": [
-        23,
-        57,
-        79
+        15,
+        53,
+        57
       ],
       "ntp_text": [
-        116,
-        157,
-        188
+        82,
+        181,
+        183
       ],
       "tab_background_text": [
-        116,
-        157,
-        188
+        82,
+        181,
+        183
       ],
       "tab_background_text_inactive": [
-        116,
-        157,
-        188
+        82,
+        181,
+        183
       ],
       "tab_background_text_incognito": [
-        116,
-        157,
-        188
+        82,
+        181,
+        183
       ],
       "tab_background_text_incognito_inactive": [
-        116,
-        157,
-        188
+        82,
+        181,
+        183
       ],
       "tab_text": [
-        116,
-        157,
-        188
+        82,
+        181,
+        183
       ],
       "toolbar": [
-        23,
-        57,
-        79
+        15,
+        53,
+        57
       ],
       "omnibox_text": [
-        116,
-        157,
-        188
+        82,
+        181,
+        183
       ],
       "omnibox_background": [
-        7,
-        40,
-        61
+        4,
+        32,
+        36
       ]
     },
     "tints": {
       "buttons": [
-        0.5363636363636365,
+        0.49662162162162155,
         0.5,
         0.5
       ],
@@ -77,12 +77,12 @@
         -1
       ],
       "frame_incognito": [
-        0.5223880597014926,
+        0.4776632302405498,
         1,
         0.55
       ],
       "frame_incognito_inactive": [
-        0.5223880597014926,
+        0.4776632302405498,
         1,
         0.55
       ]
