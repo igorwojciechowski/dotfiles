@@ -35,7 +35,7 @@ endif
 
 highlight clear
 syntax reset
-let g:colors_name = "ThemerMyColorSet"
+let g:colors_name = "Hostile"
 
 """"""""""
 " Normal "

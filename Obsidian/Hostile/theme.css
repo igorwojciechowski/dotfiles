@@ -8,27 +8,27 @@
 }
 
 .theme-dark {
-    --background-primary:         #07283d;
-    --background-primary-alt:     #07283d;
-    --background-secondary:       #07283d;
-    --background-secondary-alt:   #07283d;
-    --text-normal:                #86b1d1;
-    --text-faint:                 #86b1d1;
-    --text-title-h1:              #86b1d1;
-    --text-title-h2:              #86b1d1;
-    --text-title-h3:              #86b1d1;
-    --text-title-h4:              #86b1d1;
-    --text-title-h5:              #86b1d1;
-    --text-title-h6:              #86b1d1;
+    --background-primary:         #042024;
+    --background-primary-alt:     #042024;
+    --background-secondary:       #042024;
+    --background-secondary-alt:   #042024;
+    --text-normal:                #52b5b7;
+    --text-faint:                 #52b5b7;
+    --text-title-h1:              #52b5b7;
+    --text-title-h2:              #52b5b7;
+    --text-title-h3:              #52b5b7;
+    --text-title-h4:              #52b5b7;
+    --text-title-h5:              #52b5b7;
+    --text-title-h6:              #52b5b7;
     --text-highlight-bg:          #184059;
-    --text-link:                  #86b1d1;
-    --text-a-hover:               #86b1d1;
-    --inline-code:                #86b1d1;
-    --code-block:                 #86b1d1;
-    --text-a:                     #86b1d1;
-    --text-on-accent:             #07283d;
-    --interactive-accent-rgb:     #86b1d1;
-    --vim-cursor:                 #86b1d1;
+    --text-link:                  #52b5b7;
+    --text-a-hover:               #52b5b7;
+    --inline-code:                #52b5b7;
+    --code-block:                 #52b5b7;
+    --text-a:                     #52b5b7;
+    --text-on-accent:             #042024;
+    --interactive-accent-rgb:     #52b5b7;
+    --vim-cursor:                 #52b5b7;
     --pre-code:                   #000000;
     --interactive-before:         #184059;
     --background-modifier-border: #184059;

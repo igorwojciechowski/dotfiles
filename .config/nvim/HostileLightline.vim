@@ -50,4 +50,4 @@ let s:p.tabline.right = copy(s:p.normal.right)
 let s:p.normal.error = [ [ s:guiaccent0, s:guishade0, s:accent0, s:shade0 ] ]
 let s:p.normal.warning = [ [ s:guiaccent2, s:guishade1, s:accent2, s:shade1 ] ]
 
-let g:lightline#colorscheme#ThemerMyColorSet#palette = s:p
+let g:lightline#colorscheme#HostileLightline#palette = s:p
