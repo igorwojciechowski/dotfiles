@@ -65,19 +65,19 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    awful.layout.suit.floating,
-    awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
-    awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.max,
+    awful.layout.suit.floating,
+    -- awful.layout.suit.tile,
+    -- awful.layout.suit.tile.left,
+    -- awful.layout.suit.tile.bottom,
+    -- awful.layout.suit.fair,
+    -- awful.layout.suit.fair.horizontal,
+    -- awful.layout.suit.spiral,
+    -- awful.layout.suit.spiral.dwindle,
+    -- awful.layout.suit.max,
     awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier,
-    awful.layout.suit.corner.nw,
+    -- awful.layout.suit.magnifier,
+    -- awful.layout.suit.corner.nw,
     -- awful.layout.suit.corner.ne,
     -- awful.layout.suit.corner.sw,
     -- awful.layout.suit.corner.se,
@@ -170,7 +170,7 @@ local tasklist_buttons = gears.table.join(
 local function set_wallpaper(s)
     -- Wallpaper
     if beautiful.wallpaper then
-        local wallpaper = "/home/hostile/Pictures/wallpaper.png"
+        local wallpaper = "/home/hostile/Pictures/wallpaper2.png"
         -- If wallpaper is a function, call it with the screen
         if type(wallpaper) == "function" then
             wallpaper = wallpaper(s)
@@ -202,7 +202,7 @@ local layoutbox_text = function(s)
 
     local function update_layout_text()
         local name = awful.layout.getname(awful.layout.get(s))
-        tb.markup = "  <span foreground='" .. beautiful.fg_focus .. "'>󰗘   "  .. name .. "</span>"
+        tb.markup = "  <span foreground='" .. beautiful.fg_focus .. "'>󰗘 "  .. name .. "</span>"
     end
 
     -- aktualizuj przy zmianie layoutu
@@ -215,19 +215,24 @@ local layoutbox_text = function(s)
     return tb
 end
 
+local gap = 20
+
 awful.screen.connect_for_each_screen(function(s)
 
     s.padding = {
-        top = 10,
-        bottom = 10,
-        left = 10,
-        right = 10
+        top = gap,
+        bottom = gap,
+        left = gap,
+        right = gap
     }
 
     -- Wallpaper
     set_wallpaper(s)
 
-    awful.tag({ "1", "2", "3", "4", "5"}, s, awful.layout.layouts[1])
+    awful.tag({ "1", "2", "3", "4", "5"}, s, {
+        layout = awful.layout.suit.tile.top,
+        master_count = 3,
+    })
 
 
     -- Create a promptbox for each screen
@@ -274,20 +279,39 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibox
+
+    local shutdown_button = wibox.widget {
+        markup = '<span font="bold 15" foreground="#b23268">󰐥 </span>',
+        align = 'center',
+        valign = 'center',
+        widget = wibox.widget.textbox
+    }
+
+    shutdown_button:buttons(
+        gears.table.join(
+            awful.button({}, 2, function() awful.spawn("systemctl poweroff") end)
+        )
+    )    
+
+
     s.mywibox = awful.wibar({
-        position = "top",
+        position = "bottom",
         screen = s,
         height = 36,
-        width = s.geometry.width * 0.9,
-        padding = 20
+        width = s.geometry.width * 0.3,
+        padding = 20,
     })
+
+    s.mywibox.y = s.geometry.y + s.geometry.height - s.mywibox.height - gap
 
     -- Add widgets to the wibox
     s.mywibox:setup {
         {
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
+            spacing = 20,
             layout = wibox.layout.fixed.horizontal,
+            shutdown_button,
             -- mylauncher,
             s.mytaglist,
             s.mypromptbox,
@@ -326,20 +350,20 @@ root.buttons(gears.table.join(
 globalkeys = gears.table.join(
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
-    awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
-              {description = "view previous", group = "tag"}),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
-              {description = "view next", group = "tag"}),
+    -- awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
+    --           {description = "view previous", group = "tag"}),
+    -- awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
+    --           {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
 
-    awful.key({ modkey,           }, "j",
+    awful.key({ modkey,           }, "Left",
         function ()
             awful.client.focus.byidx( 1)
         end,
         {description = "focus next by index", group = "client"}
     ),
-    awful.key({ modkey,           }, "k",
+    awful.key({ modkey,           }, "Right",
         function ()
             awful.client.focus.byidx(-1)
         end,
@@ -349,7 +373,7 @@ globalkeys = gears.table.join(
               {description = "show main menu", group = "awesome"}),
 
     -- Layout manipulation
-    awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
+    awful.key({ modkey, "Shift"   }, "l", function () awful.client.swap.byidx(  1)    end,
               {description = "swap with next client by index", group = "client"}),
     awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end,
               {description = "swap with previous client by index", group = "client"}),
@@ -656,9 +680,9 @@ client.connect_signal("request::titlebars", function(c)
     --     end)
     -- )
 
-    awful.titlebar(c) : setup {
+    awful.titlebar(c, { size = 30 }) : setup {
         { -- Left
-            awful.titlebar.widget.iconwidget(c),
+            --awful.titlebar.widget.iconwidget(c),
             buttons = buttons,
             layout  = wibox.layout.fixed.horizontal
         },
@@ -686,6 +710,7 @@ client.connect_signal("request::titlebars", function(c)
         layout = wibox.layout.align.horizontal
     }
 end)
+
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
