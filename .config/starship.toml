@@ -24,7 +24,7 @@ Ubuntu = " "
 Windows = " "
 
 [username]
-format = '[ ]($style)[$user]($style)'
+format = '[$user]($style)'
 style_user = 'fg:bright-green bold'
 style_root = 'fg:bright-red  bold' 
 disabled = false
