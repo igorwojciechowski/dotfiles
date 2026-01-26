@@ -78,6 +78,8 @@ public class ColorExtension implements BurpExtension {
 
             SwingUtilities.invokeLater(() -> {
                 applyUiDefaults(uiObj);
+                applySyntaxColors();
+                applyButtonTextColors();
                 forceRefresh();
             });
 
@@ -214,6 +216,65 @@ public class ColorExtension implements BurpExtension {
             }
         }
 
+    }
+
+    private void applySyntaxColors() {
+        Color fg = colorPalette.getOrDefault("primaryForeground", Color.WHITE);
+        Color keyword = colorPalette.getOrDefault("syntaxKeyword", colorPalette.getOrDefault("cyan", fg));
+        Color type = colorPalette.getOrDefault("syntaxType", colorPalette.getOrDefault("green", fg));
+        Color function = colorPalette.getOrDefault("syntaxFunction", keyword);
+        Color stringColor = colorPalette.getOrDefault("syntaxString", colorPalette.getOrDefault("cyan", fg));
+        Color number = colorPalette.getOrDefault("syntaxNumber", colorPalette.getOrDefault("red", fg));
+        Color comment = colorPalette.getOrDefault("syntaxComment", colorPalette.getOrDefault("overlay1", fg));
+        Color operator = colorPalette.getOrDefault("syntaxOperator", keyword);
+        Color variable = colorPalette.getOrDefault("syntaxVariable", fg);
+        Color lineNumber = colorPalette.getOrDefault("syntaxLineNumber", comment);
+        Color tag = colorPalette.getOrDefault("syntaxTag", keyword);
+        Color attribute = colorPalette.getOrDefault("syntaxAttribute", colorPalette.getOrDefault("yellow", fg));
+
+        UIManager.put("Burp.textEditorText", fg);
+        UIManager.put("Burp.textEditorHttpFirstLine", fg);
+        UIManager.put("Burp.textEditorSeparator", lineNumber);
+        UIManager.put("Burp.textEditorLineNumbers", lineNumber);
+        UIManager.put("Burp.textEditorReservedWord", keyword);
+        UIManager.put("Burp.textEditorReservedWord2", keyword);
+        UIManager.put("Burp.textEditorFunction", function);
+        UIManager.put("Burp.textEditorOperator", operator);
+        UIManager.put("Burp.textEditorVariable", variable);
+        UIManager.put("Burp.textEditorAnnotation", keyword);
+        UIManager.put("Burp.textEditorDataType", type);
+        UIManager.put("Burp.textEditorLiteralString", stringColor);
+        UIManager.put("Burp.textEditorLiteralQuote", stringColor);
+        UIManager.put("Burp.textEditorLiteralNumber", number);
+        UIManager.put("Burp.textEditorLiteralBoolean", number);
+        UIManager.put("Burp.textEditorRegex", stringColor);
+        UIManager.put("Burp.textEditorComment", comment);
+        UIManager.put("Burp.textEditorCdata", stringColor);
+        UIManager.put("Burp.textEditorCdataDelimiter", comment);
+        UIManager.put("Burp.textEditorTagName", tag);
+        UIManager.put("Burp.textEditorTagDelimiter", tag);
+        UIManager.put("Burp.textEditorEntityReference", stringColor);
+        UIManager.put("Burp.textEditorParamName", attribute);
+        UIManager.put("Burp.textEditorParamValue", stringColor);
+        UIManager.put("Burp.textEditorHeaderName", attribute);
+        UIManager.put("Burp.textEditorHeaderValue", stringColor);
+        UIManager.put("Burp.textEditorCookieName", attribute);
+        UIManager.put("Burp.textEditorCookieValue", stringColor);
+    }
+
+    private void applyButtonTextColors() {
+        Color fg = colorPalette.getOrDefault("buttonForeground",
+                colorPalette.getOrDefault("primaryForeground", Color.WHITE));
+        Color primaryFg = colorPalette.getOrDefault("buttonPrimaryForeground",
+                colorPalette.getOrDefault("primaryBackground", fg));
+
+        UIManager.put("Button.foreground", fg);
+        UIManager.put("Button.default.foreground", primaryFg);
+        UIManager.put("Button.defaultFocused.foreground", primaryFg);
+        UIManager.put("Button.primary.foreground", primaryFg);
+        UIManager.put("Burp.buttonForeground", fg);
+        UIManager.put("Burp.buttonHoverForeground", fg);
+        UIManager.put("Burp.buttonDisabledForeground", fg);
     }
 
     private void forceRefresh() {
