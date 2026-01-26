@@ -3,7 +3,7 @@
   "dark": true,
   "author": "Igor Wojciechowski",
   "colors": {
-    "red": "#cd6966",
+    "red": "#ff5c8a",
     "maroon": "#713a38",
     "cyan": "#30f3d9",
     "yellow": "#29d6bf",
@@ -14,7 +14,7 @@
     "syntaxType": "#69ddce",
     "syntaxFunction": "#30f3d9",
     "syntaxString": "#29d6bf",
-    "syntaxNumber": "#cd6966",
+    "syntaxNumber": "#ff5c8a",
     "syntaxComment": "#2c666c",
     "syntaxOperator": "#30f3d9",
     "syntaxVariable": "#52b5b7",

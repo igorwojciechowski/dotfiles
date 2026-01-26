@@ -267,11 +267,27 @@ public class ColorExtension implements BurpExtension {
                 colorPalette.getOrDefault("primaryForeground", Color.WHITE));
         Color primaryFg = colorPalette.getOrDefault("buttonPrimaryForeground",
                 colorPalette.getOrDefault("primaryBackground", fg));
+        Color accent = colorPalette.getOrDefault("accentColor", fg);
+        Color accentHover = colorPalette.getOrDefault("selectionBackground", accent);
 
         UIManager.put("Button.foreground", fg);
         UIManager.put("Button.default.foreground", primaryFg);
         UIManager.put("Button.defaultFocused.foreground", primaryFg);
         UIManager.put("Button.primary.foreground", primaryFg);
+        UIManager.put("Button.default.background", accent);
+        UIManager.put("Button.default.startBackground", accent);
+        UIManager.put("Button.default.endBackground", accent);
+        UIManager.put("Button.default.startBorderColor", accent);
+        UIManager.put("Button.default.endBorderColor", accent);
+        UIManager.put("Button.primary.background", accent);
+        UIManager.put("Button.primary.startBackground", accent);
+        UIManager.put("Button.primary.endBackground", accent);
+        UIManager.put("Button.primary.startBorderColor", accent);
+        UIManager.put("Button.primary.endBorderColor", accent);
+        UIManager.put("Button.primary.hoverBackground", accentHover);
+        UIManager.put("Button.primary.pressedBackground", accentHover);
+        UIManager.put("Burp.buttonBackground", accent);
+        UIManager.put("Burp.buttonHoverBackground", accentHover);
         UIManager.put("Burp.buttonForeground", fg);
         UIManager.put("Burp.buttonHoverForeground", fg);
         UIManager.put("Burp.buttonDisabledForeground", fg);
