@@ -80,6 +80,9 @@ public class ColorExtension implements BurpExtension {
                 applyUiDefaults(uiObj);
                 applySyntaxColors();
                 applyButtonTextColors();
+                normalizeButtonBackgrounds();
+                applyBadgeColors();
+                applySelectionColors();
                 forceRefresh();
             });
 
@@ -158,6 +161,77 @@ public class ColorExtension implements BurpExtension {
         int b = c.getBlue();
         int tolerance = 10;
         return Math.abs(r - g) <= tolerance && Math.abs(g - b) <= tolerance && Math.abs(r - b) <= tolerance;
+    }
+
+    private boolean isSimilarColor(Color a, Color b, int tolerance) {
+        if (a == null || b == null) {
+            return false;
+        }
+        return Math.abs(a.getRed() - b.getRed()) <= tolerance
+                && Math.abs(a.getGreen() - b.getGreen()) <= tolerance
+                && Math.abs(a.getBlue() - b.getBlue()) <= tolerance;
+    }
+
+    private boolean isWarmAccent(Color c) {
+        return c.getRed() >= 180 && c.getGreen() >= 90 && c.getBlue() <= 90;
+    }
+
+    private boolean isGreenAccent(Color c) {
+        return c.getGreen() >= 160 && c.getRed() <= 120 && c.getBlue() <= 160;
+    }
+
+    private Color mapBadgeColor(String lowerKey, Color current, Color error, Color warning, Color info,
+            Color success, Color neutral) {
+        if (lowerKey.contains("error") || lowerKey.contains("danger") || lowerKey.contains("critical")) {
+            return error;
+        }
+        if (lowerKey.contains("warn")) {
+            return warning;
+        }
+        if (lowerKey.contains("success") || lowerKey.contains("ok") || lowerKey.contains("passed")) {
+            return success;
+        }
+        if (lowerKey.contains("info") || lowerKey.contains("notice")) {
+            return info;
+        }
+        if (lowerKey.contains("neutral") || lowerKey.contains("default") || lowerKey.contains("inactive")
+                || lowerKey.contains("disabled")) {
+            return neutral;
+        }
+
+        if (isRedDominant(current)) {
+            return error;
+        }
+        if (isOrangeDominant(current)) {
+            return warning;
+        }
+        if (isBlueDominant(current)) {
+            return info;
+        }
+        if (isGreenDominant(current)) {
+            return success;
+        }
+        if (isGray(current)) {
+            return neutral;
+        }
+
+        return null;
+    }
+
+    private boolean isRedDominant(Color c) {
+        return c.getRed() > c.getGreen() + 30 && c.getRed() > c.getBlue() + 30;
+    }
+
+    private boolean isOrangeDominant(Color c) {
+        return c.getRed() >= 160 && c.getGreen() >= 90 && c.getBlue() <= 120;
+    }
+
+    private boolean isBlueDominant(Color c) {
+        return c.getBlue() > c.getRed() + 30 && c.getBlue() > c.getGreen() + 30;
+    }
+
+    private boolean isGreenDominant(Color c) {
+        return c.getGreen() > c.getRed() + 30 && c.getGreen() > c.getBlue() + 20;
     }
 
     private double calculateLuma(Color color) {
@@ -291,6 +365,123 @@ public class ColorExtension implements BurpExtension {
         UIManager.put("Burp.buttonForeground", fg);
         UIManager.put("Burp.buttonHoverForeground", fg);
         UIManager.put("Burp.buttonDisabledForeground", fg);
+    }
+
+    private void normalizeButtonBackgrounds() {
+        Color accent = colorPalette.getOrDefault("accentColor",
+                colorPalette.getOrDefault("primaryForeground", Color.WHITE));
+        Color accentAlt = colorPalette.getOrDefault("secondaryAccentColor", accent);
+
+        java.util.Enumeration<Object> keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object keyObj = keys.nextElement();
+            if (!(keyObj instanceof String)) {
+                continue;
+            }
+
+            String key = (String) keyObj;
+            String lowerKey = key.toLowerCase();
+            if (!lowerKey.contains("button") || !lowerKey.contains("background")
+                    || lowerKey.contains("selection")) {
+                continue;
+            }
+
+            Object value = UIManager.get(key);
+            if (!(value instanceof Color)) {
+                continue;
+            }
+
+            Color c = (Color) value;
+            if (isSimilarColor(c, accent, 6) || isSimilarColor(c, accentAlt, 6)) {
+                continue;
+            }
+
+            if (isWarmAccent(c)) {
+                UIManager.put(key, accent);
+            } else if (isGreenAccent(c)) {
+                UIManager.put(key, accentAlt);
+            }
+        }
+    }
+
+    private void applyBadgeColors() {
+        Color fg = colorPalette.getOrDefault("badgeForeground",
+                colorPalette.getOrDefault("primaryBackground", Color.BLACK));
+        Color error = colorPalette.getOrDefault("badgeError", colorPalette.getOrDefault("red", Color.RED));
+        Color warning = colorPalette.getOrDefault("badgeWarning", colorPalette.getOrDefault("yellow", error));
+        Color info = colorPalette.getOrDefault("badgeInfo", colorPalette.getOrDefault("blue", error));
+        Color success = colorPalette.getOrDefault("badgeSuccess", colorPalette.getOrDefault("green", error));
+        Color neutral = colorPalette.getOrDefault("badgeNeutral",
+                colorPalette.getOrDefault("surface1", colorPalette.getOrDefault("borderColor", error)));
+
+        java.util.Enumeration<Object> keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object keyObj = keys.nextElement();
+            if (!(keyObj instanceof String)) {
+                continue;
+            }
+
+            String key = (String) keyObj;
+            String lowerKey = key.toLowerCase();
+            if (!(lowerKey.contains("badge") || lowerKey.contains("pill") || lowerKey.contains("issue")
+                    || lowerKey.contains("counter") || lowerKey.contains("tag"))) {
+                continue;
+            }
+
+            Object value = UIManager.get(key);
+            if (!(value instanceof Color)) {
+                continue;
+            }
+
+            if (lowerKey.contains("foreground") || lowerKey.contains("text")) {
+                UIManager.put(key, fg);
+                continue;
+            }
+
+            Color current = (Color) value;
+            Color mapped = mapBadgeColor(lowerKey, current, error, warning, info, success, neutral);
+            if (mapped != null) {
+                UIManager.put(key, mapped);
+            }
+        }
+    }
+
+    private void applySelectionColors() {
+        Color selBg = colorPalette.getOrDefault("selectionBackground",
+                colorPalette.getOrDefault("accentColor", Color.DARK_GRAY));
+        Color selFg = colorPalette.getOrDefault("selectionForeground",
+                colorPalette.getOrDefault("primaryForeground", Color.WHITE));
+        Color selInactiveBg = colorPalette.getOrDefault("selectionInactiveBackground", selBg);
+        Color selInactiveFg = colorPalette.getOrDefault("selectionInactiveForeground", selFg);
+
+        UIManager.put("TextArea.selectionBackground", selBg);
+        UIManager.put("TextArea.selectionForeground", selFg);
+        UIManager.put("TextField.selectionBackground", selBg);
+        UIManager.put("TextField.selectionForeground", selFg);
+        UIManager.put("TextPane.selectionBackground", selBg);
+        UIManager.put("TextPane.selectionForeground", selFg);
+        UIManager.put("EditorPane.selectionBackground", selBg);
+        UIManager.put("EditorPane.selectionForeground", selFg);
+        UIManager.put("List.selectionBackground", selBg);
+        UIManager.put("List.selectionForeground", selFg);
+        UIManager.put("Table.selectionBackground", selBg);
+        UIManager.put("Table.selectionForeground", selFg);
+        UIManager.put("Tree.selectionBackground", selBg);
+        UIManager.put("Tree.selectionForeground", selFg);
+
+        UIManager.put("TextArea.inactiveSelectionBackground", selInactiveBg);
+        UIManager.put("TextArea.inactiveSelectionForeground", selInactiveFg);
+        UIManager.put("TextField.inactiveSelectionBackground", selInactiveBg);
+        UIManager.put("TextField.inactiveSelectionForeground", selInactiveFg);
+        UIManager.put("TextPane.inactiveSelectionBackground", selInactiveBg);
+        UIManager.put("TextPane.inactiveSelectionForeground", selInactiveFg);
+        UIManager.put("EditorPane.inactiveSelectionBackground", selInactiveBg);
+        UIManager.put("EditorPane.inactiveSelectionForeground", selInactiveFg);
+
+        UIManager.put("Burp.textEditorSelectionBackground", selBg);
+        UIManager.put("Burp.textEditorSelectionForeground", selFg);
+        UIManager.put("Burp.textEditorSelectionInactiveBackground", selInactiveBg);
+        UIManager.put("Burp.textEditorSelectionInactiveForeground", selInactiveFg);
     }
 
     private void forceRefresh() {

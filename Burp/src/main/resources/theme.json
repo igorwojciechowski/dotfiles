@@ -21,6 +21,12 @@
     "syntaxLineNumber": "#2c666c",
     "syntaxTag": "#30f3d9",
     "syntaxAttribute": "#29d6bf",
+    "badgeError": "#ff5c8a",
+    "badgeWarning": "#29d6bf",
+    "badgeInfo": "#2ac6c3",
+    "badgeSuccess": "#69ddce",
+    "badgeNeutral": "#2c666c",
+    "badgeForeground": "#042024",
 
     "surface0": "#042024",
     "surface1": "#2c666c",
@@ -42,10 +48,12 @@
     "secondaryBackground": "#042024",
     "panelBackground": "#042024",
     "hoverBackground": "#042024",
-    "selectionBackground": "#2c666c",
-    "selectionInactiveBackground": "#317782",
+    "selectionBackground": "#0e3a40",
+    "selectionInactiveBackground": "#12484f",
     "borderColor": "#2c666c",
-    "separatorColor": "#2c666c"
+    "separatorColor": "#2c666c",
+    "selectionForeground": "#e6fbfb",
+    "selectionInactiveForeground": "#cfeeee"
   },
   "ui": {
     "*": {
@@ -56,9 +64,9 @@
       "foreground": "primaryForeground",
       "inactiveBackground": "primaryBackground",
       "selectionBackground": "selectionBackground",
-      "selectionForeground": "primaryForeground",
+      "selectionForeground": "selectionForeground",
       "selectionInactiveBackground": "selectionInactiveBackground",
-      "selectionInactiveForeground": "primaryForeground",
+      "selectionInactiveForeground": "selectionInactiveForeground",
       "separatorColor": "separatorColor"
     },
     "ActionButton": {
@@ -389,10 +397,10 @@
     },
     "ToggleButton": {
       "buttonColor": "primaryForeground",
-      "offBackground": "selectionBackground",
-      "offForeground": "hoverBackground",
-      "onBackground": "green",
-      "onForeground": "hoverBackground"
+      "offBackground": "surface1",
+      "offForeground": "primaryForeground",
+      "onBackground": "accentColor",
+      "onForeground": "primaryBackground"
     },
     "ToolBar": {
       "background": "panelBackground",
