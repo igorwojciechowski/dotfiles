@@ -1,2 +1,24 @@
 *.pak
 .DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+
+# Gradle
+**/.gradle/
+**/build/
+**/out/
+gradle/
+gradlew
+gradlew.bat
+
+# Java
+*.class
+*.log
+
+# Misc
+Burp/burp_ui_keys.txt
