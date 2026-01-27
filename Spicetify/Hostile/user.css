@@ -1,0 +1,497 @@
+/* Hostile Theme - Custom CSS for Spicetify */
+/* Enhanced styling to match the Hostile theme aesthetics */
+
+/* ================================ */
+/* Root Variables Enhancement       */
+/* ================================ */
+
+:root {
+  --border-radius: 7px;
+  --transition-duration: 0.2s;
+  --overlay-opacity: 0.95;
+}
+
+/* ================================ */
+/* Main App Container               */
+/* ================================ */
+
+.Root {
+  background: var(--spice-main) !important;
+}
+
+/* ================================ */
+/* Rounded Corners                  */
+/* ================================ */
+
+.main-card-card,
+.main-trackList-trackListRow,
+.main-playButton-PlayButton,
+button,
+.main-topBar-topbarContent,
+.main-nowPlayingWidget-nowPlaying,
+.main-contextMenu-menu,
+.main-trackInfo-container,
+input,
+.main-searchBox-searchbox,
+.main-createPlaylistButton-button,
+.main-actionButtons-button,
+.GlueCard,
+.NavBarFooter {
+  border-radius: var(--border-radius) !important;
+}
+
+/* ================================ */
+/* Sidebar Styling                  */
+/* ================================ */
+
+.main-yourLibraryX-navLink,
+.main-navBar-navBarLink {
+  border-radius: var(--border-radius);
+  transition: all var(--transition-duration) ease;
+}
+
+.main-yourLibraryX-navLink:hover,
+.main-navBar-navBarLink:hover {
+  background-color: var(--spice-selected-row) !important;
+}
+
+.main-yourLibraryX-navLink.active,
+.main-navBar-navBarLink.active {
+  background-color: var(--spice-selected-row) !important;
+  border-left: 3px solid var(--spice-tab-active) !important;
+}
+
+/* ================================ */
+/* Now Playing Bar                  */
+/* ================================ */
+
+.main-nowPlayingBar-container {
+  background: var(--spice-player) !important;
+  border-top: 1px solid var(--spice-misc);
+}
+
+.main-playbackBarRemainingTime-container {
+  color: var(--spice-subtext) !important;
+}
+
+/* ================================ */
+/* Play Button Glow Effect          */
+/* ================================ */
+
+.main-playButton-PlayButton,
+.main-trackList-rowPlayPauseButton {
+  transition: all var(--transition-duration) ease;
+}
+
+.main-playButton-PlayButton:hover,
+.main-trackList-rowPlayPauseButton:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 8px var(--spice-play-button));
+}
+
+/* ================================ */
+/* Cards Enhancement                */
+/* ================================ */
+
+.main-card-card {
+  background-color: var(--spice-card) !important;
+  border: 1px solid transparent;
+  transition: all var(--transition-duration) ease;
+}
+
+.main-card-card:hover {
+  background-color: var(--spice-pressing) !important;
+  border-color: var(--spice-highlight);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(48, 243, 217, 0.2);
+}
+
+/* ================================ */
+/* Track List Rows                  */
+/* ================================ */
+
+.main-trackList-trackListRow {
+  border-radius: var(--border-radius);
+  transition: background-color var(--transition-duration) ease;
+}
+
+.main-trackList-trackListRow:hover {
+  background-color: var(--spice-selected-row) !important;
+}
+
+.main-trackList-trackListRow.main-trackList-selected {
+  background-color: var(--spice-pressing) !important;
+  border-left: 3px solid var(--spice-highlight);
+}
+
+/* ================================ */
+/* Buttons                          */
+/* ================================ */
+
+button {
+  transition: all var(--transition-duration) ease !important;
+}
+
+button:hover {
+  transform: scale(1.02);
+}
+
+.main-playButton-button,
+.main-addButton-button,
+.main-moreButton-button {
+  border-radius: 50% !important;
+}
+
+/* Primary Action Buttons */
+.Button-sc-1dqy6lx-0.encore-bright-accent-set {
+  background-color: var(--spice-button) !important;
+  color: var(--spice-main) !important;
+  font-weight: 600;
+}
+
+.Button-sc-1dqy6lx-0.encore-bright-accent-set:hover {
+  background-color: var(--spice-button-active) !important;
+  box-shadow: 0 0 12px rgba(48, 243, 217, 0.3);
+}
+
+/* ================================ */
+/* Progress Bar                     */
+/* ================================ */
+
+.playback-bar {
+  --progress-bar-height: 6px;
+}
+
+.playback-bar__progress-time {
+  background-color: var(--spice-progress-fg) !important;
+  border-radius: calc(var(--progress-bar-height) / 2);
+  box-shadow: 0 0 8px rgba(48, 243, 217, 0.4);
+}
+
+.playback-bar__progress-time-elapsed {
+  background-color: var(--spice-progress-bg) !important;
+}
+
+/* ================================ */
+/* Context Menu                     */
+/* ================================ */
+
+.main-contextMenu-menu {
+  background-color: var(--spice-card) !important;
+  border: 1px solid var(--spice-misc);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.main-contextMenu-menuItem:hover {
+  background-color: var(--spice-selected-row) !important;
+  color: var(--spice-highlight) !important;
+}
+
+/* ================================ */
+/* Search Box                       */
+/* ================================ */
+
+.main-searchBox-searchbox {
+  background-color: var(--spice-card) !important;
+  border: 1px solid var(--spice-misc);
+  transition: all var(--transition-duration) ease;
+}
+
+.main-searchBox-searchbox:focus-within {
+  border-color: var(--spice-highlight);
+  box-shadow: 0 0 8px rgba(48, 243, 217, 0.3);
+}
+
+/* Additional search input targeting */
+input[type="text"],
+input[type="search"],
+.main-searchBox-searchbox input,
+.x-searchBox-searchBox input,
+[data-testid="search-input"] {
+  background-color: var(--spice-card) !important;
+  color: var(--spice-text) !important;
+  border: 1px solid var(--spice-misc) !important;
+}
+
+input[type="text"]:focus,
+input[type="search"]:focus {
+  border-color: var(--spice-highlight) !important;
+  box-shadow: 0 0 8px rgba(48, 243, 217, 0.3) !important;
+}
+
+/* Search container */
+.x-searchBox-searchBox,
+[data-testid="top-bar-search-container"],
+.main-topBar-container form {
+  background-color: var(--spice-card) !important;
+  border-radius: var(--border-radius) !important;
+}
+
+/* Remove gray backgrounds from various containers */
+.main-home-content,
+.main-gridContainer-gridContainer,
+.main-shelf-shelf,
+section[data-testid*="component-shelf"] {
+  background-color: transparent !important;
+}
+
+/* Top bar background fix */
+header[data-testid="topbar"],
+.main-topBar-container,
+.main-topBar-topbarContentWrapper {
+  background-color: var(--spice-main) !important;
+}
+
+/* ================================ */
+/* Top Bar                          */
+/* ================================ */
+
+.main-topBar-topbarContent {
+  background-color: var(--spice-main) !important;
+}
+
+.main-topBar-HistoryButtons button {
+  border-radius: 50% !important;
+  transition: all var(--transition-duration) ease;
+}
+
+.main-topBar-HistoryButtons button:hover {
+  background-color: var(--spice-selected-row) !important;
+  transform: scale(1.1);
+}
+
+/* ================================ */
+/* Scrollbar                        */
+/* ================================ */
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--spice-main);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--spice-misc);
+  border-radius: 6px;
+  transition: background var(--transition-duration) ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--spice-highlight);
+}
+
+/* ================================ */
+/* Album/Playlist Cover Overlay     */
+/* ================================ */
+
+.main-card-card .main-cardImage-imageWrapper::after {
+  border-radius: var(--border-radius);
+}
+
+/* ================================ */
+/* Heart/Like Button                */
+/* ================================ */
+
+.main-addButton-button[aria-checked="true"] svg path {
+  fill: var(--spice-heart) !important;
+}
+
+.main-addButton-button:hover svg {
+  filter: drop-shadow(0 0 4px var(--spice-heart));
+}
+
+/* ================================ */
+/* Volume Bar                       */
+/* ================================ */
+
+.volume-bar__slider {
+  background-color: var(--spice-slider-bg) !important;
+}
+
+.volume-bar__slider-fill {
+  background-color: var(--spice-slider-fg) !important;
+}
+
+/* ================================ */
+/* Typography Enhancement           */
+/* ================================ */
+
+.main-type-balladBold,
+.main-type-canon {
+  color: var(--spice-text) !important;
+}
+
+/* ================================ */
+/* Focus States                     */
+/* ================================ */
+
+*:focus-visible {
+  outline: 2px solid var(--spice-highlight) !important;
+  outline-offset: 2px;
+}
+
+/* ================================ */
+/* Notifications                    */
+/* ================================ */
+
+.GenericModal,
+.main-trackCreditsModal-container {
+  background-color: var(--spice-card) !important;
+  border: 1px solid var(--spice-misc);
+  border-radius: var(--border-radius);
+}
+
+/* ================================ */
+/* Queue Panel                      */
+/* ================================ */
+
+.main-queue-queue {
+  background-color: var(--spice-main) !important;
+}
+
+.main-queue-queueHistoryItem:hover,
+.main-queue-queueItem:hover {
+  background-color: var(--spice-selected-row) !important;
+}
+
+/* ================================ */
+/* Lyrics Panel                     */
+/* ================================ */
+
+.lyrics-lyrics-contentContainer {
+  background-color: var(--spice-main) !important;
+}
+
+.lyrics-lyrics-lyricsLine.lyrics-lyrics-active {
+  color: var(--spice-highlight) !important;
+  font-weight: 600;
+}
+
+/* ================================ */
+/* Footer Banner (Upgrade, etc)     */
+/* ================================ */
+
+.NavBarFooter {
+  background: linear-gradient(135deg, var(--spice-card) 0%, var(--spice-pressing) 100%) !important;
+  border: 1px solid var(--spice-misc);
+}
+
+/* ================================ */
+/* Playlist/Album Header            */
+/* ================================ */
+
+.main-entityHeader-container {
+  background: linear-gradient(180deg, var(--spice-pressing) 0%, var(--spice-main) 100%) !important;
+}
+
+/* ================================ */
+/* Genre Pills                      */
+/* ================================ */
+
+.main-chip-chip {
+  background-color: var(--spice-card) !important;
+  border: 1px solid var(--spice-misc);
+  transition: all var(--transition-duration) ease;
+}
+
+.main-chip-chip:hover {
+  background-color: var(--spice-selected-row) !important;
+  border-color: var(--spice-highlight);
+  transform: translateY(-1px);
+}
+
+/* ================================ */
+/* Settings Modal                   */
+/* ================================ */
+
+.main-trackCreditsModal-container,
+.GenericModal {
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+}
+
+/* ================================ */
+/* Active State Indicators          */
+/* ================================ */
+
+.main-nowPlayingWidget-nowPlaying.main-nowPlayingWidget-active {
+  border-left: 3px solid var(--spice-highlight) !important;
+  background-color: var(--spice-selected-row) !important;
+}
+
+/* ================================ */
+/* Additional Gray Overrides        */
+/* ================================ */
+
+/* Input placeholders */
+::placeholder {
+  color: var(--spice-subtext) !important;
+  opacity: 0.7;
+}
+
+/* All input fields */
+input,
+textarea {
+  background-color: var(--spice-card) !important;
+  color: var(--spice-text) !important;
+  border-color: var(--spice-misc) !important;
+}
+
+/* Navigation items */
+.main-navBar-navBar,
+.main-yourLibraryX-lib {
+  background-color: var(--spice-main) !important;
+}
+
+/* Content spacing */
+.contentSpacing {
+  background-color: var(--spice-main) !important;
+}
+
+/* Main view container */
+.main-view-container,
+.main-view-container__scroll-node,
+.main-view-container__scroll-node-child {
+  background-color: var(--spice-main) !important;
+}
+
+/* Artist/Album page backgrounds */
+.main-entityHeader-background,
+.main-entityHeader-overlay {
+  background-color: var(--spice-main) !important;
+}
+
+/* Category cards */
+.main-cardSubHeader-root,
+.main-cardHeader-text {
+  color: var(--spice-text) !important;
+}
+
+/* Footer */
+.Root__footer {
+  background-color: var(--spice-main) !important;
+}
+
+/* Override any remaining gray backgrounds */
+[class*="background-base"],
+[class*="backgroundColor"],
+div[style*="background-color: rgb(24, 24, 24)"],
+div[style*="background-color: rgb(18, 18, 18)"],
+div[style*="background: rgb(24, 24, 24)"] {
+  background-color: var(--spice-main) !important;
+}
+
+/* Search input specific */
+.SearchInput {
+  background-color: var(--spice-card) !important;
+}
+
+/* Library cards */
+.main-yourLibraryX-contentItem {
+  background-color: transparent !important;
+}
+
+.main-yourLibraryX-contentItem:hover {
+  background-color: var(--spice-selected-row) !important;
+}

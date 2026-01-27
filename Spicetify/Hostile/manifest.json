@@ -1,0 +1,23 @@
+{
+    "name": "Hostile",
+    "description": "A dark teal/cyan theme matching the Hostile color scheme",
+    "author": "Igor Wojciechowski",
+    "version": "1.0.1",
+    "preview": "preview.png",
+    "readme": "README.md",
+    "usercss": "user.css",
+    "schemes": {
+        "hostile": {
+            "name": "Hostile",
+            "color.ini": "color.ini"
+        }
+    },
+    "tags": [
+        "dark",
+        "teal",
+        "cyan",
+        "minimal",
+        "modern"
+    ],
+    "url": "https://github.com/igorwojciechowski/dotfiles"
+}
