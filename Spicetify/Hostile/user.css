@@ -227,6 +227,63 @@ input[type="search"]:focus {
   border-radius: var(--border-radius) !important;
 }
 
+/* Search dropdown (recent searches / suggestions) */
+[data-testid="top-bar-search-container"] .main-searchBar-recentSearches,
+[data-testid="top-bar-search-container"] .main-searchBar-recentSearchesContainer,
+[data-testid="top-bar-search-container"] [role="listbox"] {
+  background-color: var(--spice-card) !important;
+  border: 1px solid var(--spice-misc) !important;
+  color: var(--spice-text) !important;
+}
+
+[data-testid="top-bar-search-container"] [role="option"] {
+  color: var(--spice-text) !important;
+}
+
+[data-testid="top-bar-search-container"] [role="option"]:hover,
+[data-testid="top-bar-search-container"] [aria-selected="true"] {
+  background-color: var(--spice-selected-row) !important;
+  color: var(--spice-text) !important;
+}
+
+/* Search dropdown (portal outside top bar) */
+.main-searchBar-searchBarOverlay,
+.main-searchBar-recentSearchesContainer,
+.main-searchBar-recentSearches,
+.main-searchBar-suggestions,
+.main-searchBar-searchBarOverlay [role="listbox"] {
+  background-color: var(--spice-card) !important;
+  border: 1px solid var(--spice-misc) !important;
+  color: var(--spice-text) !important;
+}
+
+.main-searchBar-searchBarOverlay [role="option"] {
+  background-color: transparent !important;
+  color: var(--spice-text) !important;
+}
+
+.main-searchBar-searchBarOverlay [role="option"]:hover,
+.main-searchBar-searchBarOverlay [aria-selected="true"] {
+  background-color: var(--spice-selected-row) !important;
+  color: var(--spice-text) !important;
+}
+
+/* Force Encore background tokens inside search dropdown */
+.main-searchBar-searchBarOverlay,
+.main-searchBar-searchBarOverlay * {
+  --background-base: var(--spice-card) !important;
+  --background-highlight: var(--spice-selected-row) !important;
+  --background-press: var(--spice-pressing) !important;
+  --background-elevated-base: var(--spice-card) !important;
+  --background-elevated-highlight: var(--spice-selected-row) !important;
+  --background-elevated-press: var(--spice-pressing) !important;
+}
+
+/* Catch inline background colors in the search dropdown */
+.main-searchBar-searchBarOverlay [style*="background-color"] {
+  background-color: var(--spice-card) !important;
+}
+
 /* Remove gray backgrounds from various containers */
 .main-home-content,
 .main-gridContainer-gridContainer,
