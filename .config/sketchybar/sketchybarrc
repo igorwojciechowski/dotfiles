@@ -85,6 +85,28 @@ sketchybar --add item mission_control left \
     background.border_color=$C_BORDER \
     click_script="open -a 'Mission Control'"
 
+# --- Power / Session ---
+sketchybar --add item lock left \
+  --set lock \
+    icon="󰌾" \
+    label.drawing=off \
+    icon.color=$C_FG \
+    click_script="$PLUGIN_DIR/lock.sh"
+
+sketchybar --add item logout left \
+  --set logout \
+    icon="󰍃" \
+    label.drawing=off \
+    icon.color=$C_FG \
+    click_script="$PLUGIN_DIR/logout.sh"
+
+sketchybar --add item power left \
+  --set power \
+    icon="󰐥" \
+    label.drawing=off \
+    icon.color=$C_ACCENT \
+    click_script="$PLUGIN_DIR/shutdown.sh"
+
 # --- Spotify ---
 sketchybar --add item spotify left \
   --set spotify \
@@ -114,7 +136,7 @@ sketchybar --add item front_app center \
     label.color=$C_FG \
     background.drawing=on \
     width=300 \
-    label.max_chars=70 \
+    label.max_chars=34 \
     label.padding_left=12 \
     label.padding_right=12 \
     padding_left=0 \

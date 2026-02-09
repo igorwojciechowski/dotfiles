@@ -7,7 +7,9 @@ TITLE=$(osascript -e 'tell application "System Events" to tell (first process wh
 
 trim() {
   s="$1"
-  max=80
+  # Keep this conservative so it always fits in the 300px center capsule.
+  # Can be overridden via env var FRONT_APP_MAX_CHARS.
+  max="${FRONT_APP_MAX_CHARS:-34}"
   if [ "${#s}" -gt "$max" ]; then
     printf "%s…" "${s:0:$max}"
   else
@@ -20,4 +22,3 @@ if [ -n "$TITLE" ] && [ "$TITLE" != "missing value" ]; then
 else
   sketchybar --set "$NAME" label="$(trim "$APP")"
 fi
-

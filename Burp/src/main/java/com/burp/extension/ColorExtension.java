@@ -83,6 +83,7 @@ public class ColorExtension implements BurpExtension {
                 normalizeButtonBackgrounds();
                 applyBadgeColors();
                 applySelectionColors();
+                applyScrollBarColors();
                 forceRefresh();
             });
 
@@ -482,6 +483,36 @@ public class ColorExtension implements BurpExtension {
         UIManager.put("Burp.textEditorSelectionForeground", selFg);
         UIManager.put("Burp.textEditorSelectionInactiveBackground", selInactiveBg);
         UIManager.put("Burp.textEditorSelectionInactiveForeground", selInactiveFg);
+    }
+
+    private void applyScrollBarColors() {
+        // Burp/FlatLaf dark themes often end up with ScrollBar.* colors matching the background
+        // (especially after brute-force UIManager rewrites), which makes the thumb effectively invisible.
+        Color track = colorPalette.getOrDefault("primaryBackground",
+                colorPalette.getOrDefault("panelBackground", Color.DARK_GRAY));
+        Color thumb = colorPalette.getOrDefault("borderColor",
+                colorPalette.getOrDefault("surface1", Color.GRAY));
+        Color hoverThumb = colorPalette.getOrDefault("secondaryAccentColor",
+                colorPalette.getOrDefault("accentColor", thumb));
+        Color pressedThumb = colorPalette.getOrDefault("accentColor", hoverThumb);
+
+        // Cross-LAF baseline keys
+        UIManager.put("ScrollBar.track", track);
+        UIManager.put("ScrollBar.trackHighlight", track);
+        UIManager.put("ScrollBar.background", track);
+        UIManager.put("ScrollBar.foreground", thumb);
+
+        UIManager.put("ScrollBar.thumb", thumb);
+        UIManager.put("ScrollBar.thumbHighlight", thumb);
+        UIManager.put("ScrollBar.thumbShadow", thumb.darker());
+        UIManager.put("ScrollBar.thumbDarkShadow", thumb.darker().darker());
+
+        // FlatLaf-specific extras (safe no-ops on other LAFs)
+        UIManager.put("ScrollBar.hoverThumbColor", hoverThumb);
+        UIManager.put("ScrollBar.pressedThumbColor", pressedThumb);
+        UIManager.put("ScrollBar.thumbBorderColor", thumb.darker());
+        UIManager.put("ScrollBar.width", 12);
+        UIManager.put("ScrollBar.minimumThumbSize", new java.awt.Dimension(24, 24));
     }
 
     private void forceRefresh() {
