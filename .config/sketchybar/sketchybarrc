@@ -1,0 +1,215 @@
+#!/bin/sh
+
+CONFIG_DIR="$HOME/.config/sketchybar"
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+
+# ---------- Colors (0xAARRGGBB) ----------
+export C_BG=0xFF071E20        # very dark teal
+export C_SURFACE=0xFF0C2B2E   # card bg
+export C_SURFACE2=0xFF10363A  # slightly brighter
+export C_FG=0xFF2DE2E6        # neon cyan
+export C_FG_DIM=0xFF9BEFF1    # soft cyan
+export C_ACCENT=0xFFEA3D86    # magenta
+export C_BORDER=0x332DE2E6    # subtle cyan border
+export C_SHADOW=0xAA000000
+export C_GREEN=0xFF59FF84
+
+# ---------- Fonts ----------
+export FONT_MAIN="DepartureMono Nerd Font"
+export FONT_SIZE=16.0
+export ICON_FONT="DepartureMono Nerd Font"
+
+# ---------- Defaults ----------
+sketchybar --default \
+  icon.font="$ICON_FONT:Regular:14.0" \
+  label.font="$FONT_MAIN:$FONT_STYLE:$FONT_SIZE" \
+  icon.color=$C_FG \
+  label.color=$C_FG \
+  background.color=$C_SURFACE \
+  background.corner_radius=10 \
+  background.height=26 \
+  background.padding_left=8 \
+  background.padding_right=8 \
+  padding_left=6 \
+  padding_right=6 \
+  icon.padding_left=6 \
+  icon.padding_right=6 \
+  label.padding_left=6 \
+  label.padding_right=6
+
+# ---------- Bar ----------
+sketchybar --bar \
+  position=top \
+  height=30 \
+  sticky=on \
+  padding_left=10 \
+  padding_right=10 \
+  color=$C_BG \
+  shadow=on \
+  y_offset=0 \
+  notch_width=180 \
+  blur_radius=25 \
+  corner_radius=12
+
+# ---------- Helper: bracket card ----------
+make_bracket () {
+  NAME="$1"; shift
+  sketchybar --add bracket "$NAME" "$@" \
+    --set "$NAME" \
+      background.color=$C_SURFACE2 \
+      background.corner_radius=12 \
+      background.height=28 \
+      background.border_width=1 \
+      background.border_color=$C_BORDER \
+      background.shadow.color=$C_SHADOW \
+      background.shadow.distance=3 \
+      background.shadow.angle=90
+}
+
+# ---------- Events ----------
+sketchybar --add event window_focus
+
+# =========================================================
+# LEFT
+# =========================================================
+
+sketchybar --add item mission_control left \
+  --set mission_control \
+    icon="󰍹 " \
+    label.drawing=off \
+    icon.color=$C_ACCENT \
+    background.color=$C_SURFACE2 \
+    background.corner_radius=12 \
+    background.height=28 \
+    background.border_width=1 \
+    background.border_color=$C_BORDER \
+    click_script="open -a 'Mission Control'"
+
+# --- Spotify ---
+sketchybar --add item spotify left \
+  --set spotify \
+    icon="󰓇" \
+    label="…" \
+    icon.color=$C_GREEN \
+    script="$PLUGIN_DIR/spotify.sh" \
+    update_freq=2
+
+# =========================================================
+# CENTER (front app card like RIGHT: bracket provides background)
+# =========================================================
+
+# Invisible spacers keep the center item from becoming a "filler bar"
+sketchybar --add item center_pad_left center \
+  --set center_pad_left \
+    width=1 \
+    background.drawing=on \
+    icon.drawing=on \
+    label.drawing=on
+
+# The content item: NO background, bracket will draw the card
+sketchybar --add item front_app center \
+  --set front_app \
+    icon.drawing=on \
+    label="—" \
+    label.color=$C_FG \
+    background.drawing=on \
+    width=300 \
+    label.max_chars=70 \
+    label.padding_left=12 \
+    label.padding_right=12 \
+    padding_left=0 \
+    padding_right=0 \
+    update_freq=2 \
+    script="$PLUGIN_DIR/front_app.sh" \
+  --subscribe front_app window_focus
+
+sketchybar --add item center_pad_right center \
+  --set center_pad_right \
+    width=1 \
+    background.drawing=off \
+    icon.drawing=off \
+    label.drawing=off
+
+# Card wrapper (same helper as RIGHT)
+make_bracket center_group front_app
+
+# =========================================================
+# RIGHT (network + cpu/ram/disk + spotify + status)
+# =========================================================
+
+sketchybar --add item clock right \
+  --set clock \
+    icon="" \
+    icon.color=$C_FG \
+    label.color=$C_FG \
+    click_script="open -a 'Calendar'" \
+    script="$PLUGIN_DIR/clock.sh" \
+    update_freq=1
+
+# --- Existing status ---
+sketchybar --add item wifi right \
+  --set wifi \
+    icon="󰖩" \
+    label="…" \
+    icon.color=$C_FG \
+    script="$PLUGIN_DIR/wifi.sh" \
+    update_freq=10 \
+    click_script="open -a 'System Settings'"
+
+sketchybar --add item volume right \
+  --set volume \
+    icon="󰕾" \
+    label="…" \
+    icon.color=$C_FG \
+    script="$PLUGIN_DIR/volume.sh" \
+    update_freq=2
+
+sketchybar --add item battery right \
+  --set battery \
+    icon="󰁹" \
+    label="…" \
+    icon.color=$C_FG \
+    script="$PLUGIN_DIR/battery.sh" \
+    update_freq=30
+
+# --- Network (down/up) ---
+sketchybar --add item net right \
+  --set net \
+    icon="󰓅" \
+    label="…" \
+    icon.color=$C_FG \
+    script="$PLUGIN_DIR/net.sh" \
+    update_freq=1
+
+# --- CPU ---
+sketchybar --add item cpu right \
+  --set cpu \
+    icon="󰘚" \
+    label="…" \
+    icon.color=$C_FG \
+    script="$PLUGIN_DIR/cpu.sh" \
+    update_freq=2
+
+# --- RAM ---
+sketchybar --add item ram right \
+  --set ram \
+    icon="󰍛" \
+    label="…" \
+    icon.color=$C_FG \
+    script="$PLUGIN_DIR/ram.sh" \
+    update_freq=5
+
+# --- Disk (root) ---
+sketchybar --add item disk right \
+  --set disk \
+    icon="󰋊" \
+    label="…" \
+    icon.color=$C_FG \
+    script="$PLUGIN_DIR/disk.sh" \
+    update_freq=60
+
+
+# Jedna kapsuła na wszystko po prawej
+make_bracket right_group net cpu ram disk spotify wifi volume battery clock
+
+sketchybar --update
