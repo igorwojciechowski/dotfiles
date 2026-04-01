@@ -125,12 +125,24 @@ public class ColorExtension implements BurpExtension {
             if (value instanceof Color) {
                 Color c = (Color) value;
                 boolean isGray = isGray(c);
+                boolean isEditorRelated = lowerKey.contains("editor")
+                        || lowerKey.contains("texteditor")
+                        || lowerKey.contains("request")
+                        || lowerKey.contains("response")
+                        || lowerKey.contains("http")
+                        || lowerKey.contains("table")
+                        || lowerKey.contains("tree")
+                        || lowerKey.contains("list")
+                        || lowerKey.contains("textarea")
+                        || lowerKey.contains("textfield")
+                        || lowerKey.contains("textpane")
+                        || lowerKey.contains("editorpane");
 
                 // FORCE HIGH CONTRAST TEXT
                 if (lowerKey.contains("text") || lowerKey.contains("foreground") || lowerKey.contains("label")
                         || lowerKey.contains("font")) {
-                    // If text is dark, replace with theme foreground
-                    if (calculateLuma(c) < 160) {
+                    // Editor/HTTP keys should always match the theme foreground even if defaults are already bright.
+                    if (isEditorRelated || calculateLuma(c) < 160) {
                         UIManager.put(key, fg);
                     }
                     continue;
@@ -295,6 +307,7 @@ public class ColorExtension implements BurpExtension {
 
     private void applySyntaxColors() {
         Color fg = colorPalette.getOrDefault("primaryForeground", Color.WHITE);
+        Color bg = colorPalette.getOrDefault("primaryBackground", Color.BLACK);
         Color keyword = colorPalette.getOrDefault("syntaxKeyword", colorPalette.getOrDefault("cyan", fg));
         Color type = colorPalette.getOrDefault("syntaxType", colorPalette.getOrDefault("green", fg));
         Color function = colorPalette.getOrDefault("syntaxFunction", keyword);
@@ -335,6 +348,83 @@ public class ColorExtension implements BurpExtension {
         UIManager.put("Burp.textEditorHeaderValue", stringColor);
         UIManager.put("Burp.textEditorCookieName", attribute);
         UIManager.put("Burp.textEditorCookieValue", stringColor);
+
+        // Baseline Swing text components used by Burp views/tabs in different contexts.
+        UIManager.put("TextArea.foreground", fg);
+        UIManager.put("TextField.foreground", fg);
+        UIManager.put("TextPane.foreground", fg);
+        UIManager.put("EditorPane.foreground", fg);
+        UIManager.put("FormattedTextField.foreground", fg);
+        UIManager.put("PasswordField.foreground", fg);
+        UIManager.put("List.foreground", fg);
+        UIManager.put("Table.foreground", fg);
+        UIManager.put("Tree.foreground", fg);
+        UIManager.put("TextArea.background", bg);
+        UIManager.put("TextField.background", bg);
+        UIManager.put("TextPane.background", bg);
+        UIManager.put("EditorPane.background", bg);
+        UIManager.put("FormattedTextField.background", bg);
+        UIManager.put("PasswordField.background", bg);
+        UIManager.put("TextArea.caretForeground", fg);
+        UIManager.put("TextField.caretForeground", fg);
+        UIManager.put("TextPane.caretForeground", fg);
+        UIManager.put("EditorPane.caretForeground", fg);
+        UIManager.put("FormattedTextField.caretForeground", fg);
+        UIManager.put("PasswordField.caretForeground", fg);
+
+        enforceEditorTextFallbacks(fg, keyword, stringColor, number, comment, attribute, lineNumber);
+    }
+
+    private void enforceEditorTextFallbacks(Color fg, Color keyword, Color stringColor, Color number, Color comment,
+            Color attribute, Color lineNumber) {
+        java.util.Enumeration<Object> keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object keyObj = keys.nextElement();
+            if (!(keyObj instanceof String)) {
+                continue;
+            }
+
+            String key = (String) keyObj;
+            String lowerKey = key.toLowerCase();
+            boolean isEditorKey = lowerKey.contains("texteditor")
+                    || lowerKey.contains("editor")
+                    || lowerKey.contains("http")
+                    || lowerKey.contains("request")
+                    || lowerKey.contains("response");
+            if (!isEditorKey) {
+                continue;
+            }
+
+            Object value = UIManager.get(key);
+            if (!(value instanceof Color)) {
+                continue;
+            }
+
+            Color mapped = null;
+            if ((lowerKey.contains("line") && lowerKey.contains("number")) || lowerKey.contains("separator")
+                    || lowerKey.contains("gutter")) {
+                mapped = lineNumber;
+            } else if (lowerKey.contains("comment")) {
+                mapped = comment;
+            } else if (lowerKey.contains("string") || lowerKey.contains("quote") || lowerKey.contains("value")) {
+                mapped = stringColor;
+            } else if (lowerKey.contains("number") || lowerKey.contains("boolean") || lowerKey.contains("digit")) {
+                mapped = number;
+            } else if (lowerKey.contains("keyword") || lowerKey.contains("reserved") || lowerKey.contains("operator")
+                    || lowerKey.contains("function") || lowerKey.contains("tag")) {
+                mapped = keyword;
+            } else if (lowerKey.contains("header") || lowerKey.contains("param") || lowerKey.contains("cookie")
+                    || lowerKey.contains("attribute") || lowerKey.contains("name")) {
+                mapped = attribute;
+            } else if (lowerKey.contains("text") || lowerKey.contains("foreground") || lowerKey.contains("default")
+                    || lowerKey.contains("plain")) {
+                mapped = fg;
+            }
+
+            if (mapped != null) {
+                UIManager.put(key, mapped);
+            }
+        }
     }
 
     private void applyButtonTextColors() {
@@ -510,9 +600,69 @@ public class ColorExtension implements BurpExtension {
         // FlatLaf-specific extras (safe no-ops on other LAFs)
         UIManager.put("ScrollBar.hoverThumbColor", hoverThumb);
         UIManager.put("ScrollBar.pressedThumbColor", pressedThumb);
+        UIManager.put("ScrollBar.hoverTrackColor", track);
+        UIManager.put("ScrollBar.pressedTrackColor", track);
         UIManager.put("ScrollBar.thumbBorderColor", thumb.darker());
+        UIManager.put("ScrollBar.buttonArrowColor", hoverThumb);
+        UIManager.put("ScrollBar.buttonHoverArrowColor", pressedThumb);
+        UIManager.put("ScrollBar.buttonPressedArrowColor", pressedThumb);
+        UIManager.put("ScrollBar.buttonBackground", track);
+        UIManager.put("ScrollBar.buttonHoverBackground", track);
+        UIManager.put("ScrollBar.buttonPressedBackground", track);
+        UIManager.put("ScrollBar.trackArc", 999);
+        UIManager.put("ScrollBar.thumbArc", 999);
+        UIManager.put("ScrollBar.trackInsets", new java.awt.Insets(0, 0, 0, 0));
+        UIManager.put("ScrollBar.thumbInsets", new java.awt.Insets(2, 2, 2, 2));
         UIManager.put("ScrollBar.width", 12);
         UIManager.put("ScrollBar.minimumThumbSize", new java.awt.Dimension(24, 24));
+
+        enforceScrollBarFallbacks(track, thumb, hoverThumb, pressedThumb);
+
+        // Windows often needs a slightly wider, non-overlay thumb to stay visible.
+        if (isWindows()) {
+            UIManager.put("ScrollBar.width", 14);
+            UIManager.put("ScrollBar.thumbInsets", new java.awt.Insets(1, 1, 1, 1));
+            UIManager.put("ScrollBar.showButtons", true);
+        }
+    }
+
+    private void enforceScrollBarFallbacks(Color track, Color thumb, Color hoverThumb, Color pressedThumb) {
+        java.util.Enumeration<Object> keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object keyObj = keys.nextElement();
+            if (!(keyObj instanceof String)) {
+                continue;
+            }
+
+            String key = (String) keyObj;
+            String lowerKey = key.toLowerCase();
+            if (!lowerKey.contains("scrollbar")) {
+                continue;
+            }
+
+            Object value = UIManager.get(key);
+            if (!(value instanceof Color)) {
+                continue;
+            }
+
+            if (lowerKey.contains("pressed") && lowerKey.contains("thumb")) {
+                UIManager.put(key, pressedThumb);
+            } else if (lowerKey.contains("hover") && lowerKey.contains("thumb")) {
+                UIManager.put(key, hoverThumb);
+            } else if (lowerKey.contains("thumb")) {
+                UIManager.put(key, thumb);
+            } else if (lowerKey.contains("track") || lowerKey.contains("background")) {
+                UIManager.put(key, track);
+            } else if (lowerKey.contains("foreground")) {
+                UIManager.put(key, thumb);
+            } else if (lowerKey.contains("border") || lowerKey.contains("shadow")) {
+                UIManager.put(key, thumb.darker());
+            }
+        }
+    }
+
+    private boolean isWindows() {
+        return System.getProperty("os.name", "").toLowerCase().contains("win");
     }
 
     private void forceRefresh() {
