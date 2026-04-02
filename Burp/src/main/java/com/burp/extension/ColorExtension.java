@@ -102,6 +102,7 @@ public class ColorExtension implements BurpExtension {
                 normalizeButtonBackgrounds();
                 applyBadgeColors();
                 applySelectionColors();
+                applyEditorBackgroundFallbacks();
                 applyScrollBarColors();
                 applyContextMenuColors();
                 installDynamicButtonHook();
@@ -426,6 +427,13 @@ public class ColorExtension implements BurpExtension {
             if (!(value instanceof Color)) {
                 continue;
             }
+            // Text fallback must not repaint editor backgrounds/borders (this caused cyan response panes).
+            if (lowerKey.contains("background") || lowerKey.contains("selection")
+                    || lowerKey.contains("border") || lowerKey.contains("focus")
+                    || lowerKey.contains("shadow") || lowerKey.contains("inactive")
+                    || lowerKey.contains("hover") || lowerKey.contains("pressed")) {
+                continue;
+            }
 
             Color mapped = null;
             if (lowerKey.contains("firstline") || lowerKey.contains("requestline") || lowerKey.contains("statusline")
@@ -457,6 +465,49 @@ public class ColorExtension implements BurpExtension {
 
             if (mapped != null) {
                 UIManager.put(key, mapped);
+            }
+        }
+    }
+
+    private void applyEditorBackgroundFallbacks() {
+        Color bg = colorPalette.getOrDefault("primaryBackground", new Color(0x042024));
+
+        UIManager.put("Burp.textEditorBackground", bg);
+        UIManager.put("Burp.requestEditorBackground", bg);
+        UIManager.put("Burp.responseEditorBackground", bg);
+        UIManager.put("Burp.messageEditorBackground", bg);
+        UIManager.put("Burp.editorBackground", bg);
+        UIManager.put("Burp.httpEditorBackground", bg);
+        UIManager.put("TextArea.background", bg);
+        UIManager.put("TextPane.background", bg);
+        UIManager.put("EditorPane.background", bg);
+
+        java.util.Enumeration<Object> keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object keyObj = keys.nextElement();
+            if (!(keyObj instanceof String)) {
+                continue;
+            }
+
+            String key = (String) keyObj;
+            String lowerKey = key.toLowerCase(Locale.ROOT);
+            boolean editorKey = lowerKey.contains("texteditor")
+                    || lowerKey.contains("editor")
+                    || lowerKey.contains("request")
+                    || lowerKey.contains("response")
+                    || lowerKey.contains("message");
+            if (!editorKey) {
+                continue;
+            }
+            if (!lowerKey.contains("background") || lowerKey.contains("selection")
+                    || lowerKey.contains("hover") || lowerKey.contains("pressed")
+                    || lowerKey.contains("focus")) {
+                continue;
+            }
+
+            Object value = UIManager.get(key);
+            if (value instanceof Color) {
+                UIManager.put(key, bg);
             }
         }
     }
@@ -1222,11 +1273,12 @@ public class ColorExtension implements BurpExtension {
         }
 
         String className = component.getClass().getName().toLowerCase(Locale.ROOT);
-        boolean buttonLikeClass = className.contains("button")
+        boolean buttonLikeClass = (className.endsWith("button")
                 || className.contains("actionbutton")
                 || className.contains("actionlink")
                 || className.contains("optionbutton")
-                || className.contains("linkbutton");
+                || className.contains("linkbutton"))
+                && !className.contains("buttonless");
         if (!buttonLikeClass) {
             return;
         }
