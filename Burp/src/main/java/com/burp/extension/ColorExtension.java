@@ -9,11 +9,27 @@ import com.google.gson.JsonElement;
 
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.JCheckBox;
+import javax.swing.JRadioButton;
+import javax.swing.JToggleButton;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Insets;
+import java.awt.AWTEvent;
+import java.awt.Toolkit;
+import java.awt.event.ContainerEvent;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -21,6 +37,7 @@ import java.util.Set;
 public class ColorExtension implements BurpExtension {
     private MontoyaApi api;
     private Map<String, Color> colorPalette = new HashMap<>();
+    private boolean componentHookInstalled = false;
 
     @Override
     public void initialize(MontoyaApi api) {
@@ -78,12 +95,16 @@ public class ColorExtension implements BurpExtension {
 
             SwingUtilities.invokeLater(() -> {
                 applyUiDefaults(uiObj);
+                applyModernLineAccents();
                 applySyntaxColors();
+                applyEditorTypography();
                 applyButtonTextColors();
                 normalizeButtonBackgrounds();
                 applyBadgeColors();
                 applySelectionColors();
                 applyScrollBarColors();
+                applyContextMenuColors();
+                installDynamicButtonHook();
                 forceRefresh();
             });
 
@@ -319,9 +340,14 @@ public class ColorExtension implements BurpExtension {
         Color lineNumber = colorPalette.getOrDefault("syntaxLineNumber", comment);
         Color tag = colorPalette.getOrDefault("syntaxTag", keyword);
         Color attribute = colorPalette.getOrDefault("syntaxAttribute", colorPalette.getOrDefault("yellow", fg));
+        Color httpFirstLine = colorPalette.getOrDefault("syntaxHttpFirstLine",
+                colorPalette.getOrDefault("accentColor", keyword));
+        Color headerName = colorPalette.getOrDefault("syntaxHeaderName",
+                colorPalette.getOrDefault("secondaryAccentColor", attribute));
+        Color headerValue = colorPalette.getOrDefault("syntaxHeaderValue", fg);
 
         UIManager.put("Burp.textEditorText", fg);
-        UIManager.put("Burp.textEditorHttpFirstLine", fg);
+        UIManager.put("Burp.textEditorHttpFirstLine", httpFirstLine);
         UIManager.put("Burp.textEditorSeparator", lineNumber);
         UIManager.put("Burp.textEditorLineNumbers", lineNumber);
         UIManager.put("Burp.textEditorReservedWord", keyword);
@@ -342,12 +368,12 @@ public class ColorExtension implements BurpExtension {
         UIManager.put("Burp.textEditorTagName", tag);
         UIManager.put("Burp.textEditorTagDelimiter", tag);
         UIManager.put("Burp.textEditorEntityReference", stringColor);
-        UIManager.put("Burp.textEditorParamName", attribute);
-        UIManager.put("Burp.textEditorParamValue", stringColor);
-        UIManager.put("Burp.textEditorHeaderName", attribute);
-        UIManager.put("Burp.textEditorHeaderValue", stringColor);
-        UIManager.put("Burp.textEditorCookieName", attribute);
-        UIManager.put("Burp.textEditorCookieValue", stringColor);
+        UIManager.put("Burp.textEditorParamName", headerName);
+        UIManager.put("Burp.textEditorParamValue", headerValue);
+        UIManager.put("Burp.textEditorHeaderName", headerName);
+        UIManager.put("Burp.textEditorHeaderValue", headerValue);
+        UIManager.put("Burp.textEditorCookieName", headerName);
+        UIManager.put("Burp.textEditorCookieValue", headerValue);
 
         // Baseline Swing text components used by Burp views/tabs in different contexts.
         UIManager.put("TextArea.foreground", fg);
@@ -372,11 +398,12 @@ public class ColorExtension implements BurpExtension {
         UIManager.put("FormattedTextField.caretForeground", fg);
         UIManager.put("PasswordField.caretForeground", fg);
 
-        enforceEditorTextFallbacks(fg, keyword, stringColor, number, comment, attribute, lineNumber);
+        enforceEditorTextFallbacks(fg, keyword, stringColor, number, comment, attribute, lineNumber, httpFirstLine,
+                headerName, headerValue);
     }
 
     private void enforceEditorTextFallbacks(Color fg, Color keyword, Color stringColor, Color number, Color comment,
-            Color attribute, Color lineNumber) {
+            Color attribute, Color lineNumber, Color httpFirstLine, Color headerName, Color headerValue) {
         java.util.Enumeration<Object> keys = UIManager.getDefaults().keys();
         while (keys.hasMoreElements()) {
             Object keyObj = keys.nextElement();
@@ -401,11 +428,18 @@ public class ColorExtension implements BurpExtension {
             }
 
             Color mapped = null;
-            if ((lowerKey.contains("line") && lowerKey.contains("number")) || lowerKey.contains("separator")
+            if (lowerKey.contains("firstline") || lowerKey.contains("requestline") || lowerKey.contains("statusline")
+                    || (lowerKey.contains("http") && lowerKey.contains("line"))) {
+                mapped = httpFirstLine;
+            } else if ((lowerKey.contains("line") && lowerKey.contains("number")) || lowerKey.contains("separator")
                     || lowerKey.contains("gutter")) {
                 mapped = lineNumber;
             } else if (lowerKey.contains("comment")) {
                 mapped = comment;
+            } else if (lowerKey.contains("header") && lowerKey.contains("name")) {
+                mapped = headerName;
+            } else if (lowerKey.contains("header") && lowerKey.contains("value")) {
+                mapped = headerValue;
             } else if (lowerKey.contains("string") || lowerKey.contains("quote") || lowerKey.contains("value")) {
                 mapped = stringColor;
             } else if (lowerKey.contains("number") || lowerKey.contains("boolean") || lowerKey.contains("digit")) {
@@ -427,35 +461,312 @@ public class ColorExtension implements BurpExtension {
         }
     }
 
-    private void applyButtonTextColors() {
-        Color fg = colorPalette.getOrDefault("buttonForeground",
-                colorPalette.getOrDefault("primaryForeground", Color.WHITE));
-        Color primaryFg = colorPalette.getOrDefault("buttonPrimaryForeground",
-                colorPalette.getOrDefault("primaryBackground", fg));
-        Color accent = colorPalette.getOrDefault("accentColor", fg);
-        Color accentHover = colorPalette.getOrDefault("selectionBackground", accent);
+    private void applyEditorTypography() {
+        Font base = resolveBaseEditorFont();
+        Font normal = base.deriveFont(Font.PLAIN);
+        Font strong = base.deriveFont(Font.BOLD);
+        Font strongLarge = base.deriveFont(Font.BOLD, base.getSize2D() + 1.0f);
 
-        UIManager.put("Button.foreground", fg);
-        UIManager.put("Button.default.foreground", primaryFg);
-        UIManager.put("Button.defaultFocused.foreground", primaryFg);
-        UIManager.put("Button.primary.foreground", primaryFg);
-        UIManager.put("Button.default.background", accent);
-        UIManager.put("Button.default.startBackground", accent);
-        UIManager.put("Button.default.endBackground", accent);
-        UIManager.put("Button.default.startBorderColor", accent);
-        UIManager.put("Button.default.endBorderColor", accent);
-        UIManager.put("Button.primary.background", accent);
-        UIManager.put("Button.primary.startBackground", accent);
-        UIManager.put("Button.primary.endBackground", accent);
-        UIManager.put("Button.primary.startBorderColor", accent);
-        UIManager.put("Button.primary.endBorderColor", accent);
-        UIManager.put("Button.primary.hoverBackground", accentHover);
-        UIManager.put("Button.primary.pressedBackground", accentHover);
-        UIManager.put("Burp.buttonBackground", accent);
-        UIManager.put("Burp.buttonHoverBackground", accentHover);
-        UIManager.put("Burp.buttonForeground", fg);
-        UIManager.put("Burp.buttonHoverForeground", fg);
-        UIManager.put("Burp.buttonDisabledForeground", fg);
+        UIManager.put("Burp.textEditorFont", normal);
+        UIManager.put("TextArea.font", normal);
+        UIManager.put("TextField.font", normal);
+        UIManager.put("TextPane.font", normal);
+        UIManager.put("EditorPane.font", normal);
+
+        UIManager.put("Burp.textEditorHttpFirstLineFont", strongLarge);
+        UIManager.put("Burp.textEditorHeaderNameFont", strong);
+        UIManager.put("Burp.textEditorParamNameFont", strong);
+        UIManager.put("Burp.textEditorCookieNameFont", strong);
+
+        enforceEditorFontFallbacks(normal, strongLarge, strong);
+    }
+
+    private Font resolveBaseEditorFont() {
+        Object[] preferredKeys = {
+                UIManager.get("Burp.textEditorFont"),
+                UIManager.get("TextArea.font"),
+                UIManager.get("EditorPane.font"),
+                UIManager.get("TextPane.font"),
+                UIManager.get("Label.font")
+        };
+        for (Object candidate : preferredKeys) {
+            if (candidate instanceof Font) {
+                return (Font) candidate;
+            }
+        }
+        return new Font(Font.MONOSPACED, Font.PLAIN, 13);
+    }
+
+    private Font resolveButtonFont() {
+        Object[] candidates = {
+                UIManager.get("Button.font"),
+                UIManager.get("Label.font"),
+                UIManager.get("TextField.font")
+        };
+        for (Object candidate : candidates) {
+            if (candidate instanceof Font) {
+                Font font = (Font) candidate;
+                return font.deriveFont(Font.BOLD, Math.max(font.getSize2D(), 13.0f));
+            }
+        }
+        return new Font(Font.SANS_SERIF, Font.BOLD, 13);
+    }
+
+    private void enforceEditorFontFallbacks(Font normal, Font strongLarge, Font strong) {
+        java.util.Enumeration<Object> keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object keyObj = keys.nextElement();
+            if (!(keyObj instanceof String)) {
+                continue;
+            }
+
+            String key = (String) keyObj;
+            String lowerKey = key.toLowerCase();
+            boolean isEditorKey = lowerKey.contains("texteditor")
+                    || lowerKey.contains("editor")
+                    || lowerKey.contains("http")
+                    || lowerKey.contains("request")
+                    || lowerKey.contains("response");
+            if (!isEditorKey) {
+                continue;
+            }
+
+            Object value = UIManager.get(key);
+            if (!(value instanceof Font) || !lowerKey.contains("font")) {
+                continue;
+            }
+
+            if (lowerKey.contains("firstline") || lowerKey.contains("requestline") || lowerKey.contains("statusline")) {
+                UIManager.put(key, strongLarge);
+            } else if ((lowerKey.contains("header") && lowerKey.contains("name"))
+                    || (lowerKey.contains("param") && lowerKey.contains("name"))
+                    || (lowerKey.contains("cookie") && lowerKey.contains("name"))) {
+                UIManager.put(key, strong);
+            } else {
+                UIManager.put(key, normal);
+            }
+        }
+    }
+
+    private void applyButtonTextColors() {
+        Color secondaryFg = colorPalette.getOrDefault("buttonSecondaryForeground",
+                colorPalette.getOrDefault("buttonForeground",
+                        colorPalette.getOrDefault("primaryForeground", Color.WHITE)));
+        Color primaryFg = colorPalette.getOrDefault("buttonPrimaryForeground",
+                colorPalette.getOrDefault("primaryBackground", secondaryFg));
+        Color action = colorPalette.getOrDefault("actionCyan",
+                colorPalette.getOrDefault("accentColor", secondaryFg));
+        Color actionHover = colorPalette.getOrDefault("actionCyanHover",
+                colorPalette.getOrDefault("secondaryAccentColor", action));
+        Color actionPressed = colorPalette.getOrDefault("actionCyanPressed",
+                colorPalette.getOrDefault("selectionBackground", action));
+        Color secondaryBg = colorPalette.getOrDefault("buttonSecondaryBackground",
+                colorPalette.getOrDefault("secondaryBackground",
+                        colorPalette.getOrDefault("primaryBackground", Color.DARK_GRAY)));
+        Color secondaryHover = colorPalette.getOrDefault("buttonSecondaryHover",
+                colorPalette.getOrDefault("hoverBackground", secondaryBg));
+        Color secondaryPressed = colorPalette.getOrDefault("buttonSecondaryPressed",
+                colorPalette.getOrDefault("selectionBackground", secondaryHover));
+        Color secondaryBorder = colorPalette.getOrDefault("buttonSecondaryBorder",
+                colorPalette.getOrDefault("separatorBright",
+                        colorPalette.getOrDefault("separatorColor", action)));
+        Color focus = colorPalette.getOrDefault("focusRing", actionHover);
+        Color primaryReadable = ensureReadableForeground(action, primaryFg);
+        Color secondaryReadable = ensureReadableForeground(secondaryBg, secondaryFg);
+        Color primaryDisabledBg = colorPalette.getOrDefault("buttonPrimaryDisabledBackground",
+                colorPalette.getOrDefault("selectionBackground",
+                        colorPalette.getOrDefault("buttonSecondaryBackground", actionPressed)));
+        Color disabledReadable = primaryReadable;
+
+        // Secondary / ghost buttons (e.g. Cancel)
+        UIManager.put("Button.foreground", secondaryReadable);
+        UIManager.put("Button.disabledText", disabledReadable);
+        UIManager.put("Button.disabledForeground", disabledReadable);
+        UIManager.put("Button.background", secondaryBg);
+        UIManager.put("Button.startBackground", secondaryBg);
+        UIManager.put("Button.endBackground", secondaryBg);
+        UIManager.put("Button.startBorderColor", secondaryBorder);
+        UIManager.put("Button.endBorderColor", secondaryBorder);
+        UIManager.put("Button.hoverBackground", secondaryHover);
+        UIManager.put("Button.pressedBackground", secondaryPressed);
+        UIManager.put("Button.focusColor", focus);
+        UIManager.put("Button.focusedBorderColor", focus);
+        UIManager.put("Button.margin", new Insets(5, 12, 5, 12));
+        UIManager.put("Button.default.margin", new Insets(5, 12, 5, 12));
+        UIManager.put("Button.minimumHeight", 26);
+        UIManager.put("Button.default.minimumHeight", 26);
+        UIManager.put("Button.primary.minimumHeight", 26);
+        UIManager.put("OptionPane.buttonPadding", 10);
+        UIManager.put("OptionPane.sameSizeButtons", Boolean.TRUE);
+        UIManager.put("OptionPane.buttonMinimumWidth", 72);
+
+        // Keep default/primary neutral globally; action cyan is applied only in runtime-targeted buttons.
+        UIManager.put("Button.default.foreground", secondaryReadable);
+        UIManager.put("Button.defaultFocused.foreground", secondaryReadable);
+        UIManager.put("Button.default.disabledText", secondaryReadable);
+        UIManager.put("Button.default.disabledForeground", secondaryReadable);
+        UIManager.put("Button.default.disabledBackground", primaryDisabledBg);
+        UIManager.put("Button.primary.foreground", secondaryReadable);
+        UIManager.put("Button.primary.disabledText", secondaryReadable);
+        UIManager.put("Button.primary.disabledForeground", secondaryReadable);
+        UIManager.put("Button.primary.disabledBackground", primaryDisabledBg);
+        UIManager.put("Button.default.background", secondaryBg);
+        UIManager.put("Button.default.startBackground", secondaryBg);
+        UIManager.put("Button.default.endBackground", secondaryBg);
+        UIManager.put("Button.default.startBorderColor", secondaryBorder);
+        UIManager.put("Button.default.endBorderColor", secondaryBorder);
+        UIManager.put("Button.default.hoverBackground", secondaryHover);
+        UIManager.put("Button.default.pressedBackground", secondaryPressed);
+        UIManager.put("Button.default.focusColor", focus);
+        UIManager.put("Button.default.focusedBorderColor", focus);
+        UIManager.put("Button.primary.background", secondaryBg);
+        UIManager.put("Button.primary.startBackground", secondaryBg);
+        UIManager.put("Button.primary.endBackground", secondaryBg);
+        UIManager.put("Button.primary.startBorderColor", secondaryBorder);
+        UIManager.put("Button.primary.endBorderColor", secondaryBorder);
+        UIManager.put("Button.primary.hoverBackground", secondaryHover);
+        UIManager.put("Button.primary.pressedBackground", secondaryPressed);
+        UIManager.put("Button.primary.focusColor", focus);
+        UIManager.put("Button.primary.focusedBorderColor", focus);
+
+        // Keep generic ActionButtonWithText neutral; action cyan is applied only to explicit runtime targets.
+        UIManager.put("ActionButtonWithText.background", secondaryBg);
+        UIManager.put("ActionButtonWithText.borderColor", secondaryBorder);
+        UIManager.put("ActionButtonWithText.foreground", secondaryReadable);
+        UIManager.put("ActionButtonWithText.disabledForeground", disabledReadable);
+        UIManager.put("ActionButtonWithText.disabledText", disabledReadable);
+        UIManager.put("ActionButtonWithText.disabledBackground", secondaryBg);
+        UIManager.put("ActionButtonWithText.hoverBackground", secondaryHover);
+        UIManager.put("ActionButtonWithText.hoverBorderColor", secondaryBorder);
+        UIManager.put("ActionButtonWithText.pressedBackground", secondaryPressed);
+        UIManager.put("ActionButtonWithText.pressedBorderColor", secondaryBorder);
+        UIManager.put("ActionButtonWithText.margin", new Insets(5, 12, 5, 12));
+        UIManager.put("ActionButtonWithText.minimumHeight", 26);
+
+        UIManager.put("Component.focusColor", focus);
+        UIManager.put("Component.focusedBorderColor", focus);
+
+        Font buttonFont = resolveButtonFont();
+        UIManager.put("Button.font", buttonFont);
+        UIManager.put("Button.default.font", buttonFont);
+        UIManager.put("Button.primary.font", buttonFont);
+        UIManager.put("ActionButtonWithText.font", buttonFont);
+
+        UIManager.put("Burp.buttonBackground", secondaryBg);
+        UIManager.put("Burp.buttonHoverBackground", secondaryHover);
+        UIManager.put("Burp.buttonPressedBackground", secondaryPressed);
+        UIManager.put("Burp.buttonDisabledBackground", primaryDisabledBg);
+        UIManager.put("Burp.buttonForeground", secondaryReadable);
+        UIManager.put("Burp.buttonPrimaryForeground", secondaryReadable);
+        UIManager.put("Burp.buttonHoverForeground", secondaryReadable);
+        UIManager.put("Burp.buttonDisabledForeground", secondaryReadable);
+
+        enforceButtonAccentFallbacks(action, actionHover, actionPressed, secondaryBg, secondaryHover, secondaryPressed,
+                secondaryBorder, secondaryReadable, primaryReadable, focus);
+    }
+
+    private void enforceButtonAccentFallbacks(Color action, Color actionHover, Color actionPressed, Color secondaryBg,
+            Color secondaryHover, Color secondaryPressed, Color secondaryBorder, Color secondaryFg, Color primaryFg,
+            Color focus) {
+        java.util.Enumeration<Object> keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object keyObj = keys.nextElement();
+            if (!(keyObj instanceof String)) {
+                continue;
+            }
+
+            String key = (String) keyObj;
+            String lowerKey = key.toLowerCase();
+            boolean buttonKey = lowerKey.contains("button")
+                    || lowerKey.contains("actionbutton")
+                    || lowerKey.contains("burp.button");
+            if (!buttonKey) {
+                continue;
+            }
+
+            Object value = UIManager.get(key);
+            if (!(value instanceof Color)) {
+                continue;
+            }
+
+            boolean primaryActionKey = lowerKey.contains("send")
+                    || lowerKey.contains("forward")
+                    || lowerKey.contains("burp.buttonprimary");
+
+            if (lowerKey.contains("focus")) {
+                UIManager.put(key, focus);
+            } else if (lowerKey.contains("foreground") || lowerKey.contains("text")) {
+                UIManager.put(key, primaryActionKey ? primaryFg : secondaryFg);
+            } else if (lowerKey.contains("disabled") && lowerKey.contains("background")) {
+                UIManager.put(key, primaryActionKey
+                        ? colorPalette.getOrDefault("buttonPrimaryDisabledBackground",
+                                colorPalette.getOrDefault("selectionBackground", actionPressed))
+                        : colorPalette.getOrDefault("buttonSecondaryDisabledBackground",
+                                colorPalette.getOrDefault("primaryBackground", secondaryBg)));
+            } else if (lowerKey.contains("hover") && lowerKey.contains("background")) {
+                UIManager.put(key, primaryActionKey ? actionHover : secondaryHover);
+            } else if (lowerKey.contains("pressed") && lowerKey.contains("background")) {
+                UIManager.put(key, primaryActionKey ? actionPressed : secondaryPressed);
+            } else if (lowerKey.contains("border")) {
+                UIManager.put(key, primaryActionKey ? action : secondaryBorder);
+            } else if (lowerKey.contains("background")) {
+                UIManager.put(key, primaryActionKey ? action : secondaryBg);
+            }
+        }
+    }
+
+    private void applyModernLineAccents() {
+        Color line = colorPalette.getOrDefault("separatorBright",
+                colorPalette.getOrDefault("separatorColor",
+                        colorPalette.getOrDefault("accentColor", Color.CYAN)));
+        Color lineSoft = colorPalette.getOrDefault("separatorColor", line);
+
+        // Frequently-used divider/separator keys.
+        UIManager.put("Separator.separatorColor", line);
+        UIManager.put("Separator.foreground", line);
+        UIManager.put("Separator.background", lineSoft);
+        UIManager.put("SplitPane.dividerFocusColor", line);
+        UIManager.put("SplitPaneDivider.draggingColor", line);
+        UIManager.put("Table.gridColor", line);
+        UIManager.put("TableHeader.bottomSeparatorColor", line);
+        UIManager.put("ToolBar.separatorColor", line);
+        UIManager.put("Popup.borderColor", line);
+        UIManager.put("TabbedPane.contentAreaColor", lineSoft);
+        UIManager.put("ScrollPane.borderColor", lineSoft);
+        UIManager.put("Component.borderColor", lineSoft);
+        UIManager.put("Borders.color", lineSoft);
+
+        // Fallback pass for platform/LAF-specific naming differences.
+        java.util.Enumeration<Object> keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object keyObj = keys.nextElement();
+            if (!(keyObj instanceof String)) {
+                continue;
+            }
+
+            String key = (String) keyObj;
+            String lowerKey = key.toLowerCase();
+            boolean lineKey = lowerKey.contains("separator")
+                    || lowerKey.contains("divider")
+                    || lowerKey.contains("split")
+                    || lowerKey.contains("grid")
+                    || lowerKey.contains("border");
+            if (!lineKey) {
+                continue;
+            }
+
+            // Keep semantic status/focus borders untouched.
+            if (lowerKey.contains("error") || lowerKey.contains("warning") || lowerKey.contains("focus")
+                    || lowerKey.contains("selection") || lowerKey.contains("active")
+                    || lowerKey.contains("pressed")) {
+                continue;
+            }
+
+            Object value = UIManager.get(key);
+            if (value instanceof Color) {
+                UIManager.put(key, lowerKey.contains("separator") || lowerKey.contains("divider") ? line : lineSoft);
+            }
+        }
     }
 
     private void normalizeButtonBackgrounds() {
@@ -573,6 +884,17 @@ public class ColorExtension implements BurpExtension {
         UIManager.put("Burp.textEditorSelectionForeground", selFg);
         UIManager.put("Burp.textEditorSelectionInactiveBackground", selInactiveBg);
         UIManager.put("Burp.textEditorSelectionInactiveForeground", selInactiveFg);
+
+        // Keep context menus readable; do not use bright action cyan for menu selection.
+        UIManager.put("Menu.selectionBackground", selBg);
+        UIManager.put("Menu.selectionForeground", selFg);
+        UIManager.put("MenuItem.selectionBackground", selBg);
+        UIManager.put("MenuItem.selectionForeground", selFg);
+        UIManager.put("CheckBoxMenuItem.selectionBackground", selBg);
+        UIManager.put("CheckBoxMenuItem.selectionForeground", selFg);
+        UIManager.put("RadioButtonMenuItem.selectionBackground", selBg);
+        UIManager.put("RadioButtonMenuItem.selectionForeground", selFg);
+        UIManager.put("PopupMenu.background", colorPalette.getOrDefault("panelBackground", selBg));
     }
 
     private void applyScrollBarColors() {
@@ -665,10 +987,32 @@ public class ColorExtension implements BurpExtension {
         return System.getProperty("os.name", "").toLowerCase().contains("win");
     }
 
+    private void installDynamicButtonHook() {
+        if (componentHookInstalled) {
+            return;
+        }
+        componentHookInstalled = true;
+        Toolkit.getDefaultToolkit().addAWTEventListener(event -> {
+            if (!(event instanceof ContainerEvent)) {
+                return;
+            }
+            ContainerEvent ce = (ContainerEvent) event;
+            if (ce.getID() != ContainerEvent.COMPONENT_ADDED) {
+                return;
+            }
+            Component child = ce.getChild();
+            if (child == null) {
+                return;
+            }
+            SwingUtilities.invokeLater(() -> applyRuntimeButtonOverrides(child));
+        }, AWTEvent.CONTAINER_EVENT_MASK);
+    }
+
     private void forceRefresh() {
         // Force repaint/revalidate of all existing windows
         for (java.awt.Window window : java.awt.Window.getWindows()) {
             SwingUtilities.updateComponentTreeUI(window);
+            applyRuntimeButtonOverrides(window);
             if (window.isDisplayable()) {
                 window.pack(); // Optional: might preserve layout better
                 window.repaint();
@@ -679,9 +1023,642 @@ public class ColorExtension implements BurpExtension {
         // usually covers it)
         for (java.awt.Frame frame : java.awt.Frame.getFrames()) {
             SwingUtilities.updateComponentTreeUI(frame);
+            applyRuntimeButtonOverrides(frame);
             if (frame.isDisplayable()) {
                 frame.repaint();
             }
+        }
+    }
+
+    private void applyRuntimeButtonOverrides(Component root) {
+        if (root == null) {
+            return;
+        }
+
+        boolean menuComponent = isMenuComponent(root);
+        if (menuComponent) {
+            styleRuntimeMenuComponent(root);
+        } else {
+            ensureReadableComponentText(root);
+        }
+
+        if (root instanceof AbstractButton && !menuComponent) {
+            ensureReadableButtonText((AbstractButton) root);
+            styleRuntimeButton((AbstractButton) root);
+        } else if (!menuComponent) {
+            styleRuntimeTextActionComponent(root);
+            styleRuntimeSendComponent(root);
+        }
+
+        if (root instanceof Container) {
+            for (Component child : ((Container) root).getComponents()) {
+                applyRuntimeButtonOverrides(child);
+            }
+        }
+    }
+
+    private void styleRuntimeButton(AbstractButton button) {
+        String text = normalizeLabel(button.getText());
+        String action = normalizeLabel(button.getActionCommand());
+        String toolTip = normalizeLabel(button.getToolTipText());
+        String name = normalizeLabel(button.getName());
+        boolean isPrimaryAction = text.contains("send") || action.contains("send") || toolTip.contains("send")
+                || name.contains("send") || text.contains("forward") || action.contains("forward")
+                || toolTip.contains("forward") || name.contains("forward");
+        boolean isCancel = text.contains("cancel") || action.contains("cancel") || toolTip.contains("cancel")
+                || name.contains("cancel") || text.contains("drop") || action.contains("drop");
+        if (!isPrimaryAction && !isCancel) {
+            boolean textualButton = !text.isEmpty() || !action.isEmpty() || !toolTip.isEmpty();
+            if (textualButton) {
+                applyStandardTextButtonStyle(button);
+            } else {
+                applyNeutralButtonIfNeeded(button);
+            }
+            return;
+        }
+
+        Color actionBg = colorPalette.getOrDefault("actionCyan",
+                colorPalette.getOrDefault("accentColor", new Color(0x35f0ea)));
+        Color actionHover = colorPalette.getOrDefault("actionCyanHover",
+                colorPalette.getOrDefault("secondaryAccentColor", actionBg));
+        Color actionPressed = colorPalette.getOrDefault("actionCyanPressed",
+                colorPalette.getOrDefault("selectionBackground", actionBg));
+        Color actionFg = ensureReadableForeground(actionBg,
+                colorPalette.getOrDefault("buttonPrimaryForeground",
+                        colorPalette.getOrDefault("primaryBackground", Color.BLACK)));
+        Color actionDisabledBg = colorPalette.getOrDefault("buttonPrimaryDisabledBackground",
+                colorPalette.getOrDefault("selectionBackground", actionPressed));
+        Color secondaryBg = colorPalette.getOrDefault("buttonSecondaryBackground",
+                colorPalette.getOrDefault("secondaryBackground", Color.DARK_GRAY));
+        Color secondaryHover = colorPalette.getOrDefault("buttonSecondaryHover",
+                colorPalette.getOrDefault("hoverBackground", secondaryBg));
+        Color secondaryPressed = colorPalette.getOrDefault("buttonSecondaryPressed",
+                colorPalette.getOrDefault("selectionBackground", secondaryHover));
+        Color secondaryFg = ensureReadableForeground(secondaryBg,
+                colorPalette.getOrDefault("buttonSecondaryForeground",
+                        colorPalette.getOrDefault("buttonForeground", Color.WHITE)));
+        Color secondaryBorder = colorPalette.getOrDefault("buttonSecondaryBorder",
+                colorPalette.getOrDefault("separatorColor", secondaryFg));
+        Color secondaryDisabledBg = colorPalette.getOrDefault("buttonSecondaryDisabledBackground",
+                colorPalette.getOrDefault("primaryBackground", secondaryBg));
+        Color focus = colorPalette.getOrDefault("focusRing", actionHover);
+
+        if (isPrimaryAction) {
+            button.putClientProperty("FlatLaf.style", toFlatStyle(actionBg, actionFg, actionBg, actionHover,
+                    actionPressed, focus, new Insets(5, 14, 5, 14), actionDisabledBg, actionFg));
+            button.setBackground(actionBg);
+            button.setForeground(actionFg);
+            button.setBorder(BorderFactory.createLineBorder(actionBg, 1, true));
+            ensureButtonVisualSync(button, actionBg, actionBg, actionHover, actionPressed, actionHover, actionPressed,
+                    actionFg, actionDisabledBg);
+            enforceModernButtonSizing(button, 82, 30, true);
+        } else {
+            button.putClientProperty("FlatLaf.style", toFlatStyle(secondaryBg, secondaryFg, secondaryBorder,
+                    secondaryHover, secondaryPressed, focus, new Insets(5, 12, 5, 12), secondaryDisabledBg,
+                    secondaryFg));
+            button.setBackground(secondaryBg);
+            button.setForeground(secondaryFg);
+            button.setBorder(BorderFactory.createLineBorder(secondaryBorder, 1, true));
+            ensureButtonVisualSync(button, secondaryBg, secondaryBorder, secondaryHover, secondaryPressed,
+                    secondaryBorder, secondaryBorder, secondaryFg, secondaryDisabledBg);
+            enforceModernButtonSizing(button, 72, 30, true);
+        }
+
+        button.putClientProperty("JComponent.outline", null);
+        button.putClientProperty("JComponent.sizeVariant", "regular");
+        button.putClientProperty("JButton.buttonType", null);
+        button.setMargin(isPrimaryAction ? new Insets(5, 14, 5, 14) : new Insets(5, 12, 5, 12));
+        button.setOpaque(true);
+        button.setBorderPainted(true);
+        button.setContentAreaFilled(true);
+        button.setFocusPainted(false);
+        button.setRolloverEnabled(true);
+        button.repaint();
+    }
+
+    private void applyStandardTextButtonStyle(AbstractButton button) {
+        if (button instanceof JCheckBox || button instanceof JRadioButton || button instanceof JToggleButton) {
+            return;
+        }
+        if (isMenuComponent(button)) {
+            return;
+        }
+
+        Color bg = colorPalette.getOrDefault("buttonSecondaryBackground",
+                colorPalette.getOrDefault("secondaryBackground", new Color(0x042024)));
+        Color hover = colorPalette.getOrDefault("buttonSecondaryHover",
+                colorPalette.getOrDefault("hoverBackground", bg));
+        Color pressed = colorPalette.getOrDefault("buttonSecondaryPressed",
+                colorPalette.getOrDefault("selectionBackground", hover));
+        Color border = colorPalette.getOrDefault("buttonSecondaryBorder",
+                colorPalette.getOrDefault("separatorColor", hover));
+        Color fg = ensureReadableForeground(bg,
+                colorPalette.getOrDefault("buttonSecondaryForeground",
+                        colorPalette.getOrDefault("buttonForeground", Color.WHITE)));
+        Color disabledBg = colorPalette.getOrDefault("buttonSecondaryDisabledBackground",
+                colorPalette.getOrDefault("primaryBackground", bg));
+        Color focus = colorPalette.getOrDefault("focusRing", hover);
+
+        button.putClientProperty("FlatLaf.style", toFlatStyle(bg, fg, border, hover, pressed, focus,
+                new Insets(5, 12, 5, 12), disabledBg, fg));
+        button.setBackground(bg);
+        button.setForeground(fg);
+        button.setBorder(BorderFactory.createLineBorder(border, 1, true));
+        ensureButtonVisualSync(button, bg, border, hover, pressed, border, border, fg, disabledBg);
+        enforceModernButtonSizing(button, 72, 30, true);
+        button.putClientProperty("JComponent.sizeVariant", "regular");
+        button.putClientProperty("JButton.buttonType", null);
+        button.setMargin(new Insets(5, 12, 5, 12));
+        button.setOpaque(true);
+        button.setBorderPainted(true);
+        button.setContentAreaFilled(true);
+        button.setFocusPainted(false);
+        button.setRolloverEnabled(true);
+        button.repaint();
+    }
+
+    private void styleRuntimeSendComponent(Component component) {
+        String name = normalizeLabel(component.getName());
+        String text = normalizeLabel(extractText(component, "getText"));
+        String toolTip = normalizeLabel(extractText(component, "getToolTipText"));
+        String action = normalizeLabel(extractText(component, "getActionCommand"));
+        boolean isPrimaryAction = text.contains("send") || action.contains("send") || toolTip.contains("send")
+                || name.contains("send") || text.contains("forward") || action.contains("forward")
+                || toolTip.contains("forward") || name.contains("forward");
+        if (!isPrimaryAction) {
+            return;
+        }
+
+        Color actionBg = colorPalette.getOrDefault("actionCyan",
+                colorPalette.getOrDefault("accentColor", new Color(0x35f0ea)));
+        Color actionHover = colorPalette.getOrDefault("actionCyanHover",
+                colorPalette.getOrDefault("secondaryAccentColor", actionBg));
+        Color actionPressed = colorPalette.getOrDefault("actionCyanPressed",
+                colorPalette.getOrDefault("selectionBackground", actionBg));
+        Color actionFg = ensureReadableForeground(actionBg,
+                colorPalette.getOrDefault("buttonPrimaryForeground",
+                        colorPalette.getOrDefault("primaryBackground", Color.BLACK)));
+        Color focus = colorPalette.getOrDefault("focusRing", actionHover);
+        Color actionDisabledBg = colorPalette.getOrDefault("buttonPrimaryDisabledBackground",
+                colorPalette.getOrDefault("selectionBackground", actionPressed));
+
+        if (component instanceof javax.swing.JComponent) {
+            ((javax.swing.JComponent) component).putClientProperty("FlatLaf.style",
+                    toFlatStyle(actionBg, actionFg, actionBg, actionHover, actionPressed, focus,
+                            new Insets(5, 14, 5, 14), actionDisabledBg, actionFg));
+        }
+        component.setBackground(actionBg);
+        component.setForeground(actionFg);
+        component.repaint();
+    }
+
+    private void styleRuntimeTextActionComponent(Component component) {
+        if (!(component instanceof javax.swing.JComponent) || component instanceof AbstractButton) {
+            return;
+        }
+        javax.swing.JComponent jc = (javax.swing.JComponent) component;
+        if (isMenuComponent(jc)) {
+            return;
+        }
+
+        String className = component.getClass().getName().toLowerCase(Locale.ROOT);
+        boolean buttonLikeClass = className.contains("button")
+                || className.contains("actionbutton")
+                || className.contains("actionlink")
+                || className.contains("optionbutton")
+                || className.contains("linkbutton");
+        if (!buttonLikeClass) {
+            return;
+        }
+
+        String text = normalizeLabel(extractText(component, "getText"));
+        String action = normalizeLabel(extractText(component, "getActionCommand"));
+        String toolTip = normalizeLabel(extractText(component, "getToolTipText"));
+        if (text.isEmpty() && action.isEmpty() && toolTip.isEmpty()) {
+            return;
+        }
+
+        Color bg = colorPalette.getOrDefault("buttonSecondaryBackground",
+                colorPalette.getOrDefault("secondaryBackground", new Color(0x042024)));
+        Color hover = colorPalette.getOrDefault("buttonSecondaryHover",
+                colorPalette.getOrDefault("hoverBackground", bg));
+        Color pressed = colorPalette.getOrDefault("buttonSecondaryPressed",
+                colorPalette.getOrDefault("selectionBackground", hover));
+        Color border = colorPalette.getOrDefault("buttonSecondaryBorder",
+                colorPalette.getOrDefault("separatorColor", hover));
+        Color fg = ensureReadableForeground(bg,
+                colorPalette.getOrDefault("buttonSecondaryForeground",
+                        colorPalette.getOrDefault("buttonForeground", Color.WHITE)));
+        Color focus = colorPalette.getOrDefault("focusRing", hover);
+
+        jc.putClientProperty("FlatLaf.style", toFlatStyle(bg, fg, border, hover, pressed, focus,
+                new Insets(5, 12, 5, 12), bg, fg));
+        jc.putClientProperty("JComponent.sizeVariant", "regular");
+        jc.putClientProperty("JButton.buttonType", null);
+        jc.setBackground(bg);
+        jc.setForeground(fg);
+        jc.setBorder(BorderFactory.createLineBorder(border, 1, true));
+        Dimension preferred = jc.getPreferredSize();
+        int width = Math.max(preferred != null ? preferred.width : 0, 72);
+        int height = Math.max(preferred != null ? preferred.height : 0, 30);
+        jc.setMinimumSize(new Dimension(72, 30));
+        jc.setPreferredSize(new Dimension(width, height));
+        jc.setOpaque(true);
+        jc.repaint();
+    }
+
+    private void applyNeutralButtonIfNeeded(AbstractButton button) {
+        if (button instanceof JCheckBox || button instanceof JRadioButton || button instanceof JToggleButton) {
+            return;
+        }
+        if (isMenuComponent(button)) {
+            return;
+        }
+        Color neutralBg = colorPalette.getOrDefault("buttonSecondaryBackground",
+                colorPalette.getOrDefault("secondaryBackground", new Color(0x042024)));
+        Color neutralHover = colorPalette.getOrDefault("buttonSecondaryHover",
+                colorPalette.getOrDefault("hoverBackground", neutralBg));
+        Color neutralPressed = colorPalette.getOrDefault("buttonSecondaryPressed",
+                colorPalette.getOrDefault("selectionBackground", neutralHover));
+        Color neutralBorder = colorPalette.getOrDefault("buttonSecondaryBorder",
+                colorPalette.getOrDefault("separatorColor", neutralHover));
+        Color neutralFg = ensureReadableForeground(neutralBg,
+                colorPalette.getOrDefault("buttonSecondaryForeground",
+                        colorPalette.getOrDefault("buttonForeground", Color.WHITE)));
+        Color focus = colorPalette.getOrDefault("focusRing", neutralHover);
+
+        Color currentBg = button.getBackground();
+        boolean tooBright = currentBg != null && calculateLuma(currentBg) > 145;
+        boolean cyanLike = currentBg != null && isSimilarColor(currentBg,
+                colorPalette.getOrDefault("actionCyan", new Color(0x35f0ea)), 50);
+        if (!tooBright && !cyanLike) {
+            return;
+        }
+
+        button.putClientProperty("FlatLaf.style", toFlatStyle(neutralBg, neutralFg, neutralBorder, neutralHover,
+                neutralPressed, focus, new Insets(5, 12, 5, 12), neutralBg, neutralFg));
+        button.setBackground(neutralBg);
+        button.setForeground(neutralFg);
+        button.setBorder(BorderFactory.createLineBorder(neutralBorder, 1, true));
+        ensureButtonVisualSync(button, neutralBg, neutralBorder, neutralHover, neutralPressed, neutralBorder,
+                neutralBorder, neutralFg, neutralBg);
+        enforceModernButtonSizing(button, 72, 30, true);
+        button.putClientProperty("JComponent.sizeVariant", "regular");
+        button.putClientProperty("JButton.buttonType", null);
+        button.setMargin(new Insets(5, 12, 5, 12));
+        button.setOpaque(true);
+        button.setBorderPainted(true);
+        button.setContentAreaFilled(true);
+        button.setFocusPainted(false);
+        button.setRolloverEnabled(true);
+        button.repaint();
+    }
+
+    private void enforceModernButtonSizing(AbstractButton button, int minWidth, int minHeight, boolean bold) {
+        if (button == null) {
+            return;
+        }
+
+        Font base = button.getFont();
+        if (base == null) {
+            Object defaultFont = UIManager.get("Button.font");
+            if (defaultFont instanceof Font) {
+                base = (Font) defaultFont;
+            }
+        }
+        if (base != null) {
+            float size = Math.max(base.getSize2D(), 13.0f);
+            int style = bold ? Font.BOLD : Font.PLAIN;
+            button.setFont(base.deriveFont(style, size));
+        }
+
+        Dimension preferred = button.getPreferredSize();
+        int width = Math.max(preferred != null ? preferred.width : 0, minWidth);
+        int height = Math.max(preferred != null ? preferred.height : 0, minHeight);
+        button.setMinimumSize(new Dimension(minWidth, minHeight));
+        button.setPreferredSize(new Dimension(width, height));
+    }
+
+    private void ensureReadableComponentText(Component component) {
+        if (component == null || component instanceof AbstractButton) {
+            return;
+        }
+
+        Color bg = component.getBackground();
+        if (bg == null) {
+            return;
+        }
+
+        Color fg = component.getForeground();
+        boolean bright = calculateLuma(bg) > 145;
+        boolean cyanLike = isSimilarColor(bg, colorPalette.getOrDefault("actionCyan", new Color(0x35f0ea)), 52);
+        if (!bright && !cyanLike) {
+            return;
+        }
+
+        component.setForeground(ensureReadableForeground(bg, fg));
+        if (component instanceof javax.swing.JComponent) {
+            javax.swing.JComponent jc = (javax.swing.JComponent) component;
+            if (!Boolean.TRUE.equals(jc.getClientProperty("hostile.componentReadableInstalled"))) {
+                jc.putClientProperty("hostile.componentReadableInstalled", Boolean.TRUE);
+                jc.addPropertyChangeListener("background", e -> {
+                    Color dynamicBg = jc.getBackground();
+                    Color dynamicFg = ensureReadableForeground(dynamicBg, jc.getForeground());
+                    jc.setForeground(dynamicFg);
+                    jc.repaint();
+                });
+            }
+        }
+    }
+
+    private void normalizeWarmAccentsToCyan() {
+        Color action = colorPalette.getOrDefault("actionCyan",
+                colorPalette.getOrDefault("accentColor", Color.CYAN));
+        Color actionHover = colorPalette.getOrDefault("actionCyanHover",
+                colorPalette.getOrDefault("secondaryAccentColor", action));
+
+        // Explicit keys that often carry orange defaults in Burp/IntelliJ-derived UI.
+        UIManager.put("DefaultTabs.underlineColor", action);
+        UIManager.put("EditorTabs.underlineColor", action);
+        UIManager.put("TabbedPane.underlineColor", action);
+        UIManager.put("ToolWindow.HeaderTab.underlineColor", action);
+        UIManager.put("TabbedPane.selectedColor", action);
+        UIManager.put("TabbedPane.focusColor", actionHover);
+        UIManager.put("Button.default.focusColor", actionHover);
+        UIManager.put("Button.default.focusedBorderColor", actionHover);
+    }
+
+    private void applyContextMenuColors() {
+        Color menuBg = colorPalette.getOrDefault("panelBackground",
+                colorPalette.getOrDefault("primaryBackground", new Color(0x042024)));
+        Color menuFg = colorPalette.getOrDefault("primaryForeground", new Color(0xe6fbfb));
+        Color menuSelBg = colorPalette.getOrDefault("menuSelectionBackground",
+                colorPalette.getOrDefault("selectionBackground", new Color(0x114049)));
+        Color menuSelFg = colorPalette.getOrDefault("menuSelectionForeground",
+                ensureReadableForeground(menuSelBg, colorPalette.getOrDefault("selectionForeground", menuFg)));
+        Color menuBorder = colorPalette.getOrDefault("separatorColor",
+                colorPalette.getOrDefault("borderColor", menuSelBg));
+
+        UIManager.put("PopupMenu.background", menuBg);
+        UIManager.put("PopupMenu.foreground", menuFg);
+        UIManager.put("PopupMenu.borderColor", menuBorder);
+        UIManager.put("Menu.background", menuBg);
+        UIManager.put("Menu.foreground", menuFg);
+        UIManager.put("Menu.selectionBackground", menuSelBg);
+        UIManager.put("Menu.selectionForeground", menuSelFg);
+        UIManager.put("MenuItem.background", menuBg);
+        UIManager.put("MenuItem.foreground", menuFg);
+        UIManager.put("MenuItem.selectionBackground", menuSelBg);
+        UIManager.put("MenuItem.selectionForeground", menuSelFg);
+        UIManager.put("MenuItem.acceleratorForeground", menuFg);
+        UIManager.put("MenuItem.acceleratorSelectionForeground", menuSelFg);
+        UIManager.put("CheckBoxMenuItem.background", menuBg);
+        UIManager.put("CheckBoxMenuItem.foreground", menuFg);
+        UIManager.put("CheckBoxMenuItem.selectionBackground", menuSelBg);
+        UIManager.put("CheckBoxMenuItem.selectionForeground", menuSelFg);
+        UIManager.put("RadioButtonMenuItem.background", menuBg);
+        UIManager.put("RadioButtonMenuItem.foreground", menuFg);
+        UIManager.put("RadioButtonMenuItem.selectionBackground", menuSelBg);
+        UIManager.put("RadioButtonMenuItem.selectionForeground", menuSelFg);
+        UIManager.put("PopupMenu.selectionBackground", menuSelBg);
+        UIManager.put("PopupMenu.selectionForeground", menuSelFg);
+        UIManager.put("ActionMenu.background", menuBg);
+        UIManager.put("ActionMenu.foreground", menuFg);
+        UIManager.put("ActionMenu.selectionBackground", menuSelBg);
+        UIManager.put("ActionMenu.selectionForeground", menuSelFg);
+        UIManager.put("ActionPopupMenu.background", menuBg);
+        UIManager.put("ActionPopupMenu.foreground", menuFg);
+        UIManager.put("ActionPopupMenu.selectionBackground", menuSelBg);
+        UIManager.put("ActionPopupMenu.selectionForeground", menuSelFg);
+
+        java.util.Enumeration<Object> keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object keyObj = keys.nextElement();
+            if (!(keyObj instanceof String)) {
+                continue;
+            }
+
+            String key = (String) keyObj;
+            String lowerKey = key.toLowerCase();
+            boolean menuKey = lowerKey.contains("menu")
+                    || lowerKey.contains("popup")
+                    || lowerKey.contains("context")
+                    || lowerKey.contains("actionmenu")
+                    || lowerKey.contains("actionpopup");
+            if (!menuKey) {
+                continue;
+            }
+
+            Object value = UIManager.get(key);
+            if (!(value instanceof Color)) {
+                continue;
+            }
+
+            if (lowerKey.contains("selection") || lowerKey.contains("hover") || lowerKey.contains("armed")
+                    || lowerKey.contains("highlight")) {
+                if (lowerKey.contains("foreground") || lowerKey.contains("text")) {
+                    UIManager.put(key, menuSelFg);
+                } else {
+                    UIManager.put(key, menuSelBg);
+                }
+            } else if (lowerKey.contains("foreground") || lowerKey.contains("text")
+                    || lowerKey.contains("accelerator")) {
+                UIManager.put(key, menuFg);
+            } else if (lowerKey.contains("border") || lowerKey.contains("separator")
+                    || lowerKey.contains("line")) {
+                UIManager.put(key, menuBorder);
+            } else if (lowerKey.contains("background")) {
+                UIManager.put(key, menuBg);
+            }
+        }
+    }
+
+    private String toFlatStyle(Color bg, Color fg, Color border, Color hover, Color pressed, Color focus,
+            Insets margin, Color disabledBg, Color disabledFg) {
+        return "arc:9;"
+                + "background:" + toHex(bg) + ";"
+                + "foreground:" + toHex(fg) + ";"
+                + "hoverForeground:" + toHex(fg) + ";"
+                + "pressedForeground:" + toHex(fg) + ";"
+                + "disabledForeground:" + toHex(disabledFg) + ";"
+                + "disabledText:" + toHex(disabledFg) + ";"
+                + "disabledBackground:" + toHex(disabledBg) + ";"
+                + "borderColor:" + toHex(border) + ";"
+                + "hoverBorderColor:" + toHex(hover) + ";"
+                + "pressedBorderColor:" + toHex(pressed) + ";"
+                + "focusedBorderColor:" + toHex(focus) + ";"
+                + "focusColor:" + toHex(focus) + ";"
+                + "hoverBackground:" + toHex(hover) + ";"
+                + "pressedBackground:" + toHex(pressed) + ";"
+                + "minimumHeight:26;"
+                + "margin:" + margin.top + "," + margin.left + "," + margin.bottom + "," + margin.right + ";";
+    }
+
+    private void ensureButtonVisualSync(AbstractButton button, Color baseBg, Color baseBorder, Color hoverBg,
+            Color pressedBg, Color hoverBorder, Color pressedBorder, Color fg, Color disabledBg) {
+        if (Boolean.TRUE.equals(button.getClientProperty("hostile.syncInstalled"))) {
+            return;
+        }
+        button.putClientProperty("hostile.syncInstalled", Boolean.TRUE);
+
+        java.util.function.Consumer<javax.swing.ButtonModel> applyState = model -> {
+            if (!model.isEnabled()) {
+                button.setBackground(disabledBg);
+                button.setBorder(BorderFactory.createLineBorder(baseBorder, 1, true));
+            } else if (model.isPressed()) {
+                button.setBackground(pressedBg);
+                button.setBorder(BorderFactory.createLineBorder(pressedBorder, 1, true));
+            } else if (model.isRollover()) {
+                button.setBackground(hoverBg);
+                button.setBorder(BorderFactory.createLineBorder(hoverBorder, 1, true));
+            } else {
+                button.setBackground(baseBg);
+                button.setBorder(BorderFactory.createLineBorder(baseBorder, 1, true));
+            }
+            button.setForeground(fg);
+            button.repaint();
+        };
+
+        button.getModel().addChangeListener(e -> applyState.accept(button.getModel()));
+        applyState.accept(button.getModel());
+    }
+
+    private Color ensureReadableForeground(Color background, Color preferred) {
+        if (background == null) {
+            return preferred == null ? Color.WHITE : preferred;
+        }
+        if (preferred == null) {
+            return calculateLuma(background) > 140 ? new Color(0x042024) : new Color(0xe6fbfb);
+        }
+
+        double contrastDelta = Math.abs(calculateLuma(background) - calculateLuma(preferred));
+        if (contrastDelta >= 110) {
+            return preferred;
+        }
+        return calculateLuma(background) > 140 ? new Color(0x042024) : new Color(0xe6fbfb);
+    }
+
+    private String normalizeLabel(String value) {
+        if (value == null) {
+            return "";
+        }
+        return value.replaceAll("<[^>]+>", " ")
+                .replace('\n', ' ')
+                .trim()
+                .toLowerCase(Locale.ROOT);
+    }
+
+    private String toHex(Color color) {
+        return String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
+    }
+
+    private String extractText(Component component, String methodName) {
+        try {
+            java.lang.reflect.Method method = component.getClass().getMethod(methodName);
+            Object value = method.invoke(component);
+            return value == null ? "" : String.valueOf(value);
+        } catch (Exception ignored) {
+            return "";
+        }
+    }
+
+    private void ensureReadableButtonText(AbstractButton button) {
+        if (button == null) {
+            return;
+        }
+        Color bg = button.getBackground();
+        Color fg = ensureReadableForeground(bg, button.getForeground());
+        button.setForeground(fg);
+        if (Boolean.TRUE.equals(button.getClientProperty("hostile.readableInstalled"))) {
+            return;
+        }
+        button.putClientProperty("hostile.readableInstalled", Boolean.TRUE);
+        button.getModel().addChangeListener(e -> {
+            Color dynamicBg = button.getBackground();
+            Color dynamicFg = ensureReadableForeground(dynamicBg, button.getForeground());
+            button.setForeground(dynamicFg);
+            button.repaint();
+        });
+        button.addPropertyChangeListener("background", e -> {
+            Color dynamicBg = button.getBackground();
+            Color dynamicFg = ensureReadableForeground(dynamicBg, button.getForeground());
+            button.setForeground(dynamicFg);
+            button.repaint();
+        });
+        button.addPropertyChangeListener("enabled", e -> {
+            Color dynamicBg = button.getBackground();
+            Color dynamicFg = ensureReadableForeground(dynamicBg, button.getForeground());
+            button.setForeground(dynamicFg);
+            button.repaint();
+        });
+    }
+
+    private boolean isMenuComponent(Component component) {
+        if (component == null) {
+            return false;
+        }
+
+        if (component instanceof JMenuItem || component instanceof JPopupMenu) {
+            return true;
+        }
+
+        String selfClass = component.getClass().getName().toLowerCase(Locale.ROOT);
+        if (selfClass.contains("menuitem") || selfClass.contains("popupmenu") || selfClass.contains("actionmenu")) {
+            return true;
+        }
+
+        Container parent = component.getParent();
+        while (parent != null) {
+            if (parent instanceof JPopupMenu || parent instanceof JMenuItem) {
+                return true;
+            }
+            String parentClass = parent.getClass().getName().toLowerCase(Locale.ROOT);
+            if (parentClass.contains("popupmenu") || parentClass.contains("menuitem")
+                    || parentClass.contains("actionmenu")) {
+                return true;
+            }
+            parent = parent.getParent();
+        }
+
+        return false;
+    }
+
+    private void styleRuntimeMenuComponent(Component component) {
+        Color menuBg = colorPalette.getOrDefault("panelBackground",
+                colorPalette.getOrDefault("primaryBackground", new Color(0x042024)));
+        Color menuFg = colorPalette.getOrDefault("primaryForeground", new Color(0xe6fbfb));
+        Color menuSelBg = colorPalette.getOrDefault("menuSelectionBackground",
+                colorPalette.getOrDefault("selectionBackground", new Color(0x114049)));
+        Color menuSelFg = colorPalette.getOrDefault("menuSelectionForeground",
+                ensureReadableForeground(menuSelBg, colorPalette.getOrDefault("selectionForeground", menuFg)));
+
+        if (component instanceof JMenuItem) {
+            JMenuItem item = (JMenuItem) component;
+            item.setOpaque(true);
+            item.setBackground(menuBg);
+            item.setForeground(menuFg);
+            if (!Boolean.TRUE.equals(item.getClientProperty("hostile.menuSyncInstalled"))) {
+                item.putClientProperty("hostile.menuSyncInstalled", Boolean.TRUE);
+                item.getModel().addChangeListener(e -> {
+                    javax.swing.ButtonModel model = item.getModel();
+                    if (model.isArmed() || model.isSelected() || model.isRollover()) {
+                        item.setBackground(menuSelBg);
+                        item.setForeground(menuSelFg);
+                    } else {
+                        item.setBackground(menuBg);
+                        item.setForeground(menuFg);
+                    }
+                    item.repaint();
+                });
+            }
+        }
+
+        if (component instanceof javax.swing.JComponent) {
+            ((javax.swing.JComponent) component).putClientProperty("FlatLaf.style",
+                    "background:" + toHex(menuBg) + ";"
+                            + "foreground:" + toHex(menuFg) + ";"
+                            + "selectionBackground:" + toHex(menuSelBg) + ";"
+                            + "selectionForeground:" + toHex(menuSelFg) + ";");
         }
     }
 

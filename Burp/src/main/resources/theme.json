@@ -21,6 +21,9 @@
     "syntaxLineNumber": "#2c666c",
     "syntaxTag": "#30f3d9",
     "syntaxAttribute": "#29d6bf",
+    "syntaxHttpFirstLine": "#30f3d9",
+    "syntaxHeaderName": "#69ddce",
+    "syntaxHeaderValue": "#9ee8e6",
     "badgeError": "#ff5c8a",
     "badgeWarning": "#29d6bf",
     "badgeInfo": "#2ac6c3",
@@ -38,26 +41,38 @@
     "crust": "#03181b",
 
     "text": "#52b5b7",
-    "accentColor": "#30f3d9",
-    "secondaryAccentColor": "#69ddce",
+    "accentColor": "#2f8f96",
+    "secondaryAccentColor": "#3dbabc",
+    "actionCyan": "#35f0ea",
+    "actionCyanHover": "#58f7ee",
+    "actionCyanPressed": "#1fcfcf",
+    "focusRing": "#67f2e6",
     "primaryForeground": "#52b5b7",
     "secondaryForeground": "#52b5b7",
     "buttonForeground": "#52b5b7",
-    "buttonPrimaryForeground": "#042024",
+    "buttonSecondaryForeground": "#86eeeb",
+    "buttonPrimaryForeground": "#02171b",
+    "buttonSecondaryBackground": "#0a3138",
+    "buttonSecondaryHover": "#114049",
+    "buttonSecondaryPressed": "#16505b",
+    "buttonSecondaryBorder": "#2f7f88",
     "primaryBackground": "#042024",
     "secondaryBackground": "#042024",
     "panelBackground": "#042024",
     "hoverBackground": "#042024",
     "selectionBackground": "#0e3a40",
     "selectionInactiveBackground": "#12484f",
-    "borderColor": "#2c666c",
-    "separatorColor": "#2c666c",
+    "menuSelectionBackground": "#114049",
+    "menuSelectionForeground": "#e6fbfb",
+    "borderColor": "#3dbabc",
+    "separatorColor": "#51d8d2",
+    "separatorBright": "#67f2e6",
     "selectionForeground": "#e6fbfb",
     "selectionInactiveForeground": "#cfeeee"
   },
   "ui": {
     "*": {
-      "arc": "7",
+      "arc": "9",
       "background": "primaryBackground",
       "borderColor": "borderColor",
       "disabledBackground": "primaryBackground",
@@ -74,6 +89,16 @@
       "hoverBorderColor": "hoverBackground",
       "pressedBackground": "selectionBackground",
       "pressedBorderColor": "selectionBackground"
+    },
+    "ActionButtonWithText": {
+      "background": "buttonSecondaryBackground",
+      "borderColor": "buttonSecondaryBorder",
+      "foreground": "buttonSecondaryForeground",
+      "disabledForeground": "buttonSecondaryForeground",
+      "hoverBackground": "buttonSecondaryHover",
+      "hoverBorderColor": "buttonSecondaryBorder",
+      "pressedBackground": "buttonSecondaryPressed",
+      "pressedBorderColor": "buttonSecondaryBorder"
     },
     "Banner": {
       "errorBackground": "opacityWithHex red 0.1",
@@ -110,23 +135,25 @@
       "color": "borderColor"
     },
     "Button": {
-      "background": "panelBackground",
+      "arc": 9,
+      "background": "buttonSecondaryBackground",
       "default": {
-        "endBackground": "accentColor",
-        "endBorderColor": "accentColor",
-        "focusColor": "accentColor",
-        "focusedBorderColor": "accentColor",
-        "foreground": "buttonPrimaryForeground",
-        "startBackground": "accentColor",
-        "startBorderColor": "accentColor"
+        "endBackground": "buttonSecondaryBackground",
+        "endBorderColor": "buttonSecondaryBorder",
+        "focusColor": "focusRing",
+        "focusedBorderColor": "focusRing",
+        "foreground": "buttonSecondaryForeground",
+        "disabledForeground": "buttonSecondaryForeground",
+        "startBackground": "buttonSecondaryBackground",
+        "startBorderColor": "buttonSecondaryBorder"
       },
       "disabledBorderColor": "secondaryBackground",
-      "endBackground": "secondaryBackground",
-      "endBorderColor": "secondaryBackground",
-      "focusedBorderColor": "secondaryBackground",
-      "foreground": "buttonForeground",
-      "startBackground": "secondaryBackground",
-      "startBorderColor": "secondaryBackground"
+      "endBackground": "buttonSecondaryBackground",
+      "endBorderColor": "buttonSecondaryBorder",
+      "focusedBorderColor": "focusRing",
+      "foreground": "buttonSecondaryForeground",
+      "startBackground": "buttonSecondaryBackground",
+      "startBorderColor": "buttonSecondaryBorder"
     },
     "CheckBox": {
       "background": "panelBackground"
@@ -188,7 +215,7 @@
       "underTabsBorderColor": "separatorColor",
       "underlineArc": 4,
       "underlineColor": "accentColor",
-      "underlineHeight": 1,
+      "underlineHeight": 2,
       "underlinedTabBackground": "panelBackground",
       "unselectedBlend": 0.7
     },
@@ -377,12 +404,12 @@
       "focusColor": "selectionBackground",
       "hoverColor": "hoverBackground",
       "tabHeight": 40,
-      "tabSelectionArc": 4,
-      "tabSelectionHeight": 1,
+      "tabSelectionArc": 6,
+      "tabSelectionHeight": 2,
       "underlineColor": "accentColor"
     },
     "Table": {
-      "gridColor": "hoverBackground",
+      "gridColor": "separatorBright",
       "hoverBackground": "selectionBackground",
       "lightSelectionBackground": "secondaryBackground"
     },
@@ -421,7 +448,7 @@
         "hoverBackground": "surface0",
         "inactiveUnderlineColor": "text",
         "underlineColor": "accentColor",
-        "underlineHeight": 1
+        "underlineHeight": 2
       },
       "background": "panelBackground"
     },
