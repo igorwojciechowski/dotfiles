@@ -99,13 +99,11 @@ public class ColorExtension implements BurpExtension {
                 applySyntaxColors();
                 applyEditorTypography();
                 applyButtonTextColors();
-                normalizeButtonBackgrounds();
                 applyBadgeColors();
                 applySelectionColors();
                 applyEditorBackgroundFallbacks();
                 applyScrollBarColors();
                 applyContextMenuColors();
-                installDynamicButtonHook();
                 forceRefresh();
             });
 
@@ -133,6 +131,11 @@ public class ColorExtension implements BurpExtension {
             Object value = UIManager.get(key);
 
             String lowerKey = key.toLowerCase();
+
+            // Keep default button rendering; only color should change via native Burp/LAF keys.
+            if (lowerKey.contains("button")) {
+                continue;
+            }
 
             // FORCE EXPLICIT OVERWRITES FOR EDITORS (Remove Cyan/Accent)
             // We ignore checking the current value - we just enforce our theme
@@ -313,6 +316,14 @@ public class ColorExtension implements BurpExtension {
 
             if (primaryKey.equals("*"))
                 continue; // Already handled
+
+            // Keep buttons on default Burp styles and only recolor via generic/global palette.
+            String lowerPrimaryKey = primaryKey.toLowerCase(Locale.ROOT);
+            if (lowerPrimaryKey.equals("button")
+                    || lowerPrimaryKey.equals("actionbutton")
+                    || lowerPrimaryKey.equals("actionbuttonwithtext")) {
+                continue;
+            }
 
             if (value.isJsonObject()) {
                 // Nested object, e.g. "Button": { "background": ... }
@@ -600,120 +611,75 @@ public class ColorExtension implements BurpExtension {
     }
 
     private void applyButtonTextColors() {
-        Color secondaryFg = colorPalette.getOrDefault("buttonSecondaryForeground",
-                colorPalette.getOrDefault("buttonForeground",
-                        colorPalette.getOrDefault("primaryForeground", Color.WHITE)));
-        Color primaryFg = colorPalette.getOrDefault("buttonPrimaryForeground",
-                colorPalette.getOrDefault("primaryBackground", secondaryFg));
-        Color action = colorPalette.getOrDefault("actionCyan",
-                colorPalette.getOrDefault("accentColor", secondaryFg));
-        Color actionHover = colorPalette.getOrDefault("actionCyanHover",
-                colorPalette.getOrDefault("secondaryAccentColor", action));
-        Color actionPressed = colorPalette.getOrDefault("actionCyanPressed",
-                colorPalette.getOrDefault("selectionBackground", action));
-        Color secondaryBg = colorPalette.getOrDefault("buttonSecondaryBackground",
+        Color buttonBg = colorPalette.getOrDefault("buttonSecondaryBackground",
                 colorPalette.getOrDefault("secondaryBackground",
                         colorPalette.getOrDefault("primaryBackground", Color.DARK_GRAY)));
-        Color secondaryHover = colorPalette.getOrDefault("buttonSecondaryHover",
-                colorPalette.getOrDefault("hoverBackground", secondaryBg));
-        Color secondaryPressed = colorPalette.getOrDefault("buttonSecondaryPressed",
-                colorPalette.getOrDefault("selectionBackground", secondaryHover));
-        Color secondaryBorder = colorPalette.getOrDefault("buttonSecondaryBorder",
-                colorPalette.getOrDefault("separatorBright",
-                        colorPalette.getOrDefault("separatorColor", action)));
-        Color focus = colorPalette.getOrDefault("focusRing", actionHover);
-        Color primaryReadable = ensureReadableForeground(action, primaryFg);
-        Color secondaryReadable = ensureReadableForeground(secondaryBg, secondaryFg);
-        Color primaryDisabledBg = colorPalette.getOrDefault("buttonPrimaryDisabledBackground",
-                colorPalette.getOrDefault("selectionBackground",
-                        colorPalette.getOrDefault("buttonSecondaryBackground", actionPressed)));
-        Color disabledReadable = primaryReadable;
+        Color buttonFg = ensureReadableForeground(buttonBg,
+                colorPalette.getOrDefault("buttonSecondaryForeground",
+                        colorPalette.getOrDefault("buttonForeground",
+                                colorPalette.getOrDefault("primaryForeground", Color.WHITE))));
+        Color disabledBg = colorPalette.getOrDefault("buttonSecondaryDisabledBackground",
+                colorPalette.getOrDefault("primaryBackground", buttonBg));
+        Color disabledFg = colorPalette.getOrDefault("selectionInactiveForeground",
+                colorPalette.getOrDefault("secondaryForeground", buttonFg));
+        Color actionBg = colorPalette.getOrDefault("actionCyan",
+                colorPalette.getOrDefault("accentColor", buttonBg));
+        Color actionHover = colorPalette.getOrDefault("actionCyanHover",
+                colorPalette.getOrDefault("secondaryAccentColor", actionBg));
+        Color actionPressed = colorPalette.getOrDefault("actionCyanPressed",
+                colorPalette.getOrDefault("selectionBackground", actionHover));
+        Color actionFg = ensureReadableForeground(actionBg,
+                colorPalette.getOrDefault("buttonPrimaryForeground",
+                        colorPalette.getOrDefault("primaryBackground", Color.BLACK)));
+        Color actionDisabledBg = colorPalette.getOrDefault("buttonPrimaryDisabledBackground",
+                colorPalette.getOrDefault("selectionBackground", actionPressed));
+        Color actionDisabledFg = colorPalette.getOrDefault("selectionInactiveForeground", actionFg);
 
-        // Secondary / ghost buttons (e.g. Cancel)
-        UIManager.put("Button.foreground", secondaryReadable);
-        UIManager.put("Button.disabledText", disabledReadable);
-        UIManager.put("Button.disabledForeground", disabledReadable);
-        UIManager.put("Button.background", secondaryBg);
-        UIManager.put("Button.startBackground", secondaryBg);
-        UIManager.put("Button.endBackground", secondaryBg);
-        UIManager.put("Button.startBorderColor", secondaryBorder);
-        UIManager.put("Button.endBorderColor", secondaryBorder);
-        UIManager.put("Button.hoverBackground", secondaryHover);
-        UIManager.put("Button.pressedBackground", secondaryPressed);
-        UIManager.put("Button.focusColor", focus);
-        UIManager.put("Button.focusedBorderColor", focus);
-        UIManager.put("Button.margin", new Insets(5, 12, 5, 12));
-        UIManager.put("Button.default.margin", new Insets(5, 12, 5, 12));
-        UIManager.put("Button.minimumHeight", 26);
-        UIManager.put("Button.default.minimumHeight", 26);
-        UIManager.put("Button.primary.minimumHeight", 26);
-        UIManager.put("OptionPane.buttonPadding", 10);
-        UIManager.put("OptionPane.sameSizeButtons", Boolean.TRUE);
-        UIManager.put("OptionPane.buttonMinimumWidth", 72);
+        UIManager.put("Button.background", buttonBg);
+        UIManager.put("Button.foreground", buttonFg);
+        UIManager.put("Button.disabledBackground", disabledBg);
+        UIManager.put("Button.disabledForeground", disabledFg);
+        UIManager.put("Button.disabledText", disabledFg);
 
-        // Keep default/primary neutral globally; action cyan is applied only in runtime-targeted buttons.
-        UIManager.put("Button.default.foreground", secondaryReadable);
-        UIManager.put("Button.defaultFocused.foreground", secondaryReadable);
-        UIManager.put("Button.default.disabledText", secondaryReadable);
-        UIManager.put("Button.default.disabledForeground", secondaryReadable);
-        UIManager.put("Button.default.disabledBackground", primaryDisabledBg);
-        UIManager.put("Button.primary.foreground", secondaryReadable);
-        UIManager.put("Button.primary.disabledText", secondaryReadable);
-        UIManager.put("Button.primary.disabledForeground", secondaryReadable);
-        UIManager.put("Button.primary.disabledBackground", primaryDisabledBg);
-        UIManager.put("Button.default.background", secondaryBg);
-        UIManager.put("Button.default.startBackground", secondaryBg);
-        UIManager.put("Button.default.endBackground", secondaryBg);
-        UIManager.put("Button.default.startBorderColor", secondaryBorder);
-        UIManager.put("Button.default.endBorderColor", secondaryBorder);
-        UIManager.put("Button.default.hoverBackground", secondaryHover);
-        UIManager.put("Button.default.pressedBackground", secondaryPressed);
-        UIManager.put("Button.default.focusColor", focus);
-        UIManager.put("Button.default.focusedBorderColor", focus);
-        UIManager.put("Button.primary.background", secondaryBg);
-        UIManager.put("Button.primary.startBackground", secondaryBg);
-        UIManager.put("Button.primary.endBackground", secondaryBg);
-        UIManager.put("Button.primary.startBorderColor", secondaryBorder);
-        UIManager.put("Button.primary.endBorderColor", secondaryBorder);
-        UIManager.put("Button.primary.hoverBackground", secondaryHover);
-        UIManager.put("Button.primary.pressedBackground", secondaryPressed);
-        UIManager.put("Button.primary.focusColor", focus);
-        UIManager.put("Button.primary.focusedBorderColor", focus);
+        // Primary/default action buttons (e.g. Send) in cyan with dark text.
+        UIManager.put("Button.default.background", actionBg);
+        UIManager.put("Button.default.foreground", actionFg);
+        UIManager.put("Button.default.startBackground", actionBg);
+        UIManager.put("Button.default.endBackground", actionBg);
+        UIManager.put("Button.default.startBorderColor", actionBg);
+        UIManager.put("Button.default.endBorderColor", actionBg);
+        UIManager.put("Button.default.hoverBackground", actionHover);
+        UIManager.put("Button.default.pressedBackground", actionPressed);
+        UIManager.put("Button.default.disabledBackground", actionDisabledBg);
+        UIManager.put("Button.default.disabledForeground", actionDisabledFg);
+        UIManager.put("Button.default.disabledText", actionDisabledFg);
 
-        // Keep generic ActionButtonWithText neutral; action cyan is applied only to explicit runtime targets.
-        UIManager.put("ActionButtonWithText.background", secondaryBg);
-        UIManager.put("ActionButtonWithText.borderColor", secondaryBorder);
-        UIManager.put("ActionButtonWithText.foreground", secondaryReadable);
-        UIManager.put("ActionButtonWithText.disabledForeground", disabledReadable);
-        UIManager.put("ActionButtonWithText.disabledText", disabledReadable);
-        UIManager.put("ActionButtonWithText.disabledBackground", secondaryBg);
-        UIManager.put("ActionButtonWithText.hoverBackground", secondaryHover);
-        UIManager.put("ActionButtonWithText.hoverBorderColor", secondaryBorder);
-        UIManager.put("ActionButtonWithText.pressedBackground", secondaryPressed);
-        UIManager.put("ActionButtonWithText.pressedBorderColor", secondaryBorder);
-        UIManager.put("ActionButtonWithText.margin", new Insets(5, 12, 5, 12));
-        UIManager.put("ActionButtonWithText.minimumHeight", 26);
+        UIManager.put("Button.primary.background", actionBg);
+        UIManager.put("Button.primary.foreground", actionFg);
+        UIManager.put("Button.primary.startBackground", actionBg);
+        UIManager.put("Button.primary.endBackground", actionBg);
+        UIManager.put("Button.primary.startBorderColor", actionBg);
+        UIManager.put("Button.primary.endBorderColor", actionBg);
+        UIManager.put("Button.primary.hoverBackground", actionHover);
+        UIManager.put("Button.primary.pressedBackground", actionPressed);
+        UIManager.put("Button.primary.disabledBackground", actionDisabledBg);
+        UIManager.put("Button.primary.disabledForeground", actionDisabledFg);
+        UIManager.put("Button.primary.disabledText", actionDisabledFg);
 
-        UIManager.put("Component.focusColor", focus);
-        UIManager.put("Component.focusedBorderColor", focus);
+        UIManager.put("ActionButtonWithText.background", buttonBg);
+        UIManager.put("ActionButtonWithText.foreground", buttonFg);
+        UIManager.put("ActionButtonWithText.disabledBackground", disabledBg);
+        UIManager.put("ActionButtonWithText.disabledForeground", disabledFg);
+        UIManager.put("ActionButtonWithText.disabledText", disabledFg);
 
-        Font buttonFont = resolveButtonFont();
-        UIManager.put("Button.font", buttonFont);
-        UIManager.put("Button.default.font", buttonFont);
-        UIManager.put("Button.primary.font", buttonFont);
-        UIManager.put("ActionButtonWithText.font", buttonFont);
-
-        UIManager.put("Burp.buttonBackground", secondaryBg);
-        UIManager.put("Burp.buttonHoverBackground", secondaryHover);
-        UIManager.put("Burp.buttonPressedBackground", secondaryPressed);
-        UIManager.put("Burp.buttonDisabledBackground", primaryDisabledBg);
-        UIManager.put("Burp.buttonForeground", secondaryReadable);
-        UIManager.put("Burp.buttonPrimaryForeground", secondaryReadable);
-        UIManager.put("Burp.buttonHoverForeground", secondaryReadable);
-        UIManager.put("Burp.buttonDisabledForeground", secondaryReadable);
-
-        enforceButtonAccentFallbacks(action, actionHover, actionPressed, secondaryBg, secondaryHover, secondaryPressed,
-                secondaryBorder, secondaryReadable, primaryReadable, focus);
+        UIManager.put("Burp.buttonBackground", buttonBg);
+        UIManager.put("Burp.buttonPrimaryBackground", actionBg);
+        UIManager.put("Burp.buttonHoverBackground", actionHover);
+        UIManager.put("Burp.buttonPressedBackground", actionPressed);
+        UIManager.put("Burp.buttonDisabledBackground", disabledBg);
+        UIManager.put("Burp.buttonForeground", buttonFg);
+        UIManager.put("Burp.buttonPrimaryForeground", actionFg);
+        UIManager.put("Burp.buttonDisabledForeground", disabledFg);
     }
 
     private void enforceButtonAccentFallbacks(Color action, Color actionHover, Color actionPressed, Color secondaryBg,
@@ -1063,7 +1029,6 @@ public class ColorExtension implements BurpExtension {
         // Force repaint/revalidate of all existing windows
         for (java.awt.Window window : java.awt.Window.getWindows()) {
             SwingUtilities.updateComponentTreeUI(window);
-            applyRuntimeButtonOverrides(window);
             if (window.isDisplayable()) {
                 window.pack(); // Optional: might preserve layout better
                 window.repaint();
@@ -1074,7 +1039,6 @@ public class ColorExtension implements BurpExtension {
         // usually covers it)
         for (java.awt.Frame frame : java.awt.Frame.getFrames()) {
             SwingUtilities.updateComponentTreeUI(frame);
-            applyRuntimeButtonOverrides(frame);
             if (frame.isDisplayable()) {
                 frame.repaint();
             }

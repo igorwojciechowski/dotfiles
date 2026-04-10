@@ -50,12 +50,12 @@
     "primaryForeground": "#52b5b7",
     "secondaryForeground": "#52b5b7",
     "buttonForeground": "#52b5b7",
-    "buttonSecondaryForeground": "#86eeeb",
+    "buttonSecondaryForeground": "#d6ffff",
     "buttonPrimaryForeground": "#02171b",
-    "buttonSecondaryBackground": "#0a3138",
-    "buttonSecondaryHover": "#114049",
-    "buttonSecondaryPressed": "#16505b",
-    "buttonSecondaryBorder": "#2f7f88",
+    "buttonSecondaryBackground": "#0f6670",
+    "buttonSecondaryHover": "#12818d",
+    "buttonSecondaryPressed": "#0b4f57",
+    "buttonSecondaryBorder": "#1ca0ab",
     "primaryBackground": "#042024",
     "secondaryBackground": "#042024",
     "panelBackground": "#042024",
@@ -83,22 +83,6 @@
       "selectionInactiveBackground": "selectionInactiveBackground",
       "selectionInactiveForeground": "selectionInactiveForeground",
       "separatorColor": "separatorColor"
-    },
-    "ActionButton": {
-      "hoverBackground": "hoverBackground",
-      "hoverBorderColor": "hoverBackground",
-      "pressedBackground": "selectionBackground",
-      "pressedBorderColor": "selectionBackground"
-    },
-    "ActionButtonWithText": {
-      "background": "buttonSecondaryBackground",
-      "borderColor": "buttonSecondaryBorder",
-      "foreground": "buttonSecondaryForeground",
-      "disabledForeground": "buttonSecondaryForeground",
-      "hoverBackground": "buttonSecondaryHover",
-      "hoverBorderColor": "buttonSecondaryBorder",
-      "pressedBackground": "buttonSecondaryPressed",
-      "pressedBorderColor": "buttonSecondaryBorder"
     },
     "Banner": {
       "errorBackground": "opacityWithHex red 0.1",
@@ -133,27 +117,6 @@
     "Borders": {
       "ContrastBorderColor": "separatorColor",
       "color": "borderColor"
-    },
-    "Button": {
-      "arc": 9,
-      "background": "buttonSecondaryBackground",
-      "default": {
-        "endBackground": "buttonSecondaryBackground",
-        "endBorderColor": "buttonSecondaryBorder",
-        "focusColor": "focusRing",
-        "focusedBorderColor": "focusRing",
-        "foreground": "buttonSecondaryForeground",
-        "disabledForeground": "buttonSecondaryForeground",
-        "startBackground": "buttonSecondaryBackground",
-        "startBorderColor": "buttonSecondaryBorder"
-      },
-      "disabledBorderColor": "secondaryBackground",
-      "endBackground": "buttonSecondaryBackground",
-      "endBorderColor": "buttonSecondaryBorder",
-      "focusedBorderColor": "focusRing",
-      "foreground": "buttonSecondaryForeground",
-      "startBackground": "buttonSecondaryBackground",
-      "startBorderColor": "buttonSecondaryBorder"
     },
     "CheckBox": {
       "background": "panelBackground"
@@ -515,7 +478,7 @@
     "ColorPalette": {
       "Actions.Blue": "blue",
       "Actions.Green": "green",
-      "Actions.Grey": "overlay0",
+      "Actions.Grey": "secondaryAccentColor",
       "Actions.GreyInline": "blue",
       "Actions.GreyInline.Dark": "blue",
       "Actions.Red": "red",
@@ -523,7 +486,7 @@
       "Objects.BlackText": "surface0",
       "Objects.Blue": "blue",
       "Objects.Green": "green",
-      "Objects.Grey": "overlay0",
+      "Objects.Grey": "secondaryAccentColor",
       "Objects.red": "red",
       "Objects.Purple": "blue",
       "Objects.Red": "red",
