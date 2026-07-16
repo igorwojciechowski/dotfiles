@@ -1,0 +1,20 @@
+codex-theme-v1: {
+    "codeThemeId": "solarized",
+    "theme": {
+        "accent": "#30f3d9",
+        "contrast": 60,
+        "fonts": {
+            "code": "Hack Nerd Font, \"Geist Mono\", ui-monospace, \"SFMono-Regular\"",
+            "ui": "Geist, Inter"
+        },
+        "ink": "#52b5b7",
+        "opaqueWindows": true,
+        "semanticColors": {
+            "diffAdded": "#69ddce",
+            "diffRemoved": "#ff5c8a",
+            "skill": "#35f0ea"
+        },
+        "surface": "#042024"
+    },
+    "variant": "dark"
+}

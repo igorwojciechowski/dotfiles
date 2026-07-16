@@ -1,0 +1,303 @@
+:root,
+body,
+.-theme-with-dark-background {
+  color-scheme: dark !important;
+
+  --hostile-bg: #042024;
+  --hostile-bg-raised: #062b30;
+  --hostile-bg-panel: #0e3a40;
+  --hostile-bg-hover: #123f45;
+  --hostile-border: #2c666c;
+  --hostile-muted: #2c666c;
+  --hostile-fg: #52b5b7;
+  --hostile-fg-strong: #69ddce;
+  --hostile-accent: #30f3d9;
+  --hostile-accent-soft: #29d6bf;
+  --hostile-accent-alt: #35f0ea;
+  --hostile-danger: #ff5c8a;
+  --hostile-warning: #e9c46a;
+
+  --sys-color-base: var(--hostile-bg) !important;
+  --sys-color-cdt-base-container: var(--hostile-bg) !important;
+  --sys-color-surface: var(--hostile-bg-raised) !important;
+  --sys-color-surface1: var(--hostile-bg-raised) !important;
+  --sys-color-surface2: var(--hostile-bg-panel) !important;
+  --sys-color-surface3: var(--hostile-bg-panel) !important;
+  --sys-color-tonal-container: var(--hostile-bg-panel) !important;
+  --sys-color-divider: var(--hostile-border) !important;
+  --sys-color-state-hover-on-subtle: rgb(48 243 217 / 10%) !important;
+  --sys-color-state-ripple-neutral-on-subtle: rgb(48 243 217 / 16%) !important;
+  --sys-color-on-surface: var(--hostile-fg) !important;
+  --sys-color-on-surface-subtle: var(--hostile-fg-strong) !important;
+  --sys-color-on-surface-secondary: var(--hostile-muted) !important;
+  --sys-color-primary: var(--hostile-accent) !important;
+  --sys-color-on-primary: var(--hostile-bg) !important;
+  --sys-color-primary-container: var(--hostile-bg-panel) !important;
+  --sys-color-on-primary-container: var(--hostile-accent) !important;
+  --sys-color-secondary: var(--hostile-accent-soft) !important;
+  --sys-color-error: var(--hostile-danger) !important;
+  --sys-color-error-bright: var(--hostile-danger) !important;
+  --sys-color-green: var(--hostile-fg-strong) !important;
+  --sys-color-yellow: var(--hostile-warning) !important;
+
+  --text-primary: var(--hostile-fg) !important;
+  --text-secondary: var(--hostile-muted) !important;
+  --text-disabled: #1d5056 !important;
+  --text-link: var(--hostile-accent) !important;
+
+  --color-background: var(--hostile-bg) !important;
+  --color-background-elevation-0: var(--hostile-bg) !important;
+  --color-background-elevation-1: var(--hostile-bg-raised) !important;
+  --color-background-elevation-2: var(--hostile-bg-panel) !important;
+  --color-background-highlight: rgb(48 243 217 / 14%) !important;
+  --color-background-hover-overlay: rgb(48 243 217 / 9%) !important;
+  --color-details-hairline: var(--hostile-border) !important;
+  --color-details-hairline-light: #174a51 !important;
+  --color-primary: var(--hostile-accent) !important;
+  --color-primary-bright: var(--hostile-accent-alt) !important;
+  --color-primary-variant: var(--hostile-accent-soft) !important;
+  --color-on-primary: var(--hostile-bg) !important;
+  --color-on-surface: var(--hostile-fg) !important;
+  --color-on-surface-variant: var(--hostile-fg-strong) !important;
+  --color-link: var(--hostile-accent) !important;
+  --color-green: var(--hostile-fg-strong) !important;
+  --color-error: var(--hostile-danger) !important;
+  --color-error-text: var(--hostile-danger) !important;
+  --color-error-border: var(--hostile-danger) !important;
+  --color-error-background: rgb(255 92 138 / 14%) !important;
+  --color-orange: var(--hostile-warning) !important;
+  --color-scrollbar-mac: #174a51 !important;
+  --color-scrollbar-mac-hover: var(--hostile-border) !important;
+  --color-scrollbar-other: #174a51 !important;
+  --color-scrollbar-other-hover: var(--hostile-border) !important;
+
+  --color-syntax-1: var(--hostile-accent) !important;
+  --color-syntax-2: var(--hostile-accent-soft) !important;
+  --color-syntax-2-rgb: 41 214 191 !important;
+  --color-syntax-3: var(--hostile-danger) !important;
+  --color-syntax-4: var(--hostile-fg-strong) !important;
+  --color-syntax-5: var(--hostile-accent-alt) !important;
+  --color-syntax-6: var(--hostile-fg) !important;
+  --color-syntax-7: var(--hostile-muted) !important;
+  --sys-color-token-comment: var(--hostile-muted) !important;
+  --sys-color-token-tag: var(--hostile-accent) !important;
+  --sys-color-token-attribute: var(--hostile-accent-soft) !important;
+  --sys-color-token-attribute-value: var(--hostile-fg-strong) !important;
+  --sys-color-token-property-special: var(--hostile-accent-alt) !important;
+  --sys-color-token-pseudo-element: var(--hostile-accent-alt) !important;
+
+  --color-editor-selection: rgb(48 243 217 / 24%) !important;
+  --color-editor-selection-blurred: rgb(82 181 183 / 20%) !important;
+  --color-highlighted-line: rgb(48 243 217 / 10%) !important;
+  --color-line-number: var(--hostile-muted) !important;
+  --color-matching-bracket-background: rgb(48 243 217 / 16%) !important;
+  --color-matching-bracket-underline: var(--hostile-accent) !important;
+  --color-match-highlight: rgb(233 196 106 / 28%) !important;
+  --color-selected-search-match: var(--hostile-bg) !important;
+  --color-selected-search-match-background: var(--hostile-accent) !important;
+  --color-selected-option: var(--hostile-bg) !important;
+  --color-selected-option-background: var(--hostile-accent) !important;
+  --color-selected-option-outline: var(--hostile-accent-alt) !important;
+
+  --legacy-accent-color: var(--hostile-accent) !important;
+  --legacy-accent-fg-color: var(--hostile-bg) !important;
+  --legacy-accent-color-hover: var(--hostile-accent-alt) !important;
+  --legacy-active-control-bg-color: var(--hostile-bg-panel) !important;
+  --legacy-focus-bg-color: rgb(48 243 217 / 14%) !important;
+  --legacy-toolbar-hover-bg-color: var(--hostile-bg-hover) !important;
+  --legacy-selection-fg-color: var(--hostile-bg) !important;
+  --legacy-selection-bg-color: var(--hostile-accent) !important;
+  --legacy-selection-inactive-fg-color: var(--hostile-fg) !important;
+  --legacy-selection-inactive-bg-color: var(--hostile-bg-panel) !important;
+  --legacy-item-selection-bg-color: rgb(48 243 217 / 18%) !important;
+  --legacy-item-selection-inactive-bg-color: rgb(82 181 183 / 13%) !important;
+  --legacy-focus-ring-active-shadow: 0 0 0 1px var(--hostile-accent) !important;
+  --legacy-focus-ring-inactive-shadow-color: var(--hostile-border) !important;
+}
+
+html,
+body,
+#-blink-dev-tools,
+.root-view,
+.inspector-view,
+.panel,
+.vbox,
+.view-container,
+.widget {
+  background-color: var(--hostile-bg) !important;
+  color: var(--hostile-fg) !important;
+}
+
+.toolbar,
+.tabbed-pane-header,
+.tabbed-pane-header-contents,
+.drawer-tabbed-pane .tabbed-pane-header,
+.inspector-footer,
+.status-bar,
+.soft-context-menu,
+.dt-button,
+devtools-toolbar,
+devtools-tabbed-pane {
+  background-color: var(--hostile-bg-raised) !important;
+  color: var(--hostile-fg) !important;
+  border-color: var(--hostile-border) !important;
+}
+
+.toolbar-button,
+.toolbar-button .toolbar-button-title,
+.tabbed-pane-header-tab,
+.tabbed-pane-header-tab-title,
+.soft-context-menu-item,
+.devtools-link,
+a {
+  color: var(--hostile-fg) !important;
+}
+
+.toolbar-button:hover,
+.toolbar-button:focus-visible,
+.tabbed-pane-header-tab:hover,
+.soft-context-menu-item:hover,
+.tree-outline li:hover,
+.data-grid-data-grid-node:hover,
+.data-grid-data-grid-node:hover td {
+  background-color: var(--hostile-bg-hover) !important;
+}
+
+.tabbed-pane-header-tab.selected,
+.tabbed-pane-header-tab.selected .tabbed-pane-header-tab-title,
+.toolbar-button.toggled-on,
+.tree-outline li.selected,
+.data-grid-data-grid-node.selected,
+.data-grid-data-grid-node.selected td {
+  background-color: rgb(48 243 217 / 18%) !important;
+  color: var(--hostile-accent) !important;
+}
+
+.tabbed-pane-header-tab.selected::after,
+.tabbed-pane-header-tab-slider {
+  background-color: var(--hostile-accent) !important;
+}
+
+.split-widget-sidebar,
+.split-widget-main,
+.split-widget-resizer,
+.sidebar-pane,
+.styles-sidebar-pane,
+.computed-style-sidebar-pane,
+.elements-disclosure,
+.console-view,
+.console-group,
+.console-group-messages,
+.network-log-grid,
+.data-grid,
+.data-grid table,
+.data-grid th,
+.data-grid td {
+  background-color: var(--hostile-bg) !important;
+  border-color: var(--hostile-border) !important;
+  color: var(--hostile-fg) !important;
+}
+
+.data-grid th,
+.data-grid .header-container,
+.data-grid .top-filler-td,
+.data-grid .bottom-filler-td {
+  background-color: var(--hostile-bg-raised) !important;
+}
+
+.console-message,
+.console-user-command,
+.object-value-string,
+.object-value-number,
+.object-value-boolean,
+.object-value-function,
+.object-properties-section,
+.styles-section,
+.sidebar-separator,
+.webkit-html-tag,
+.webkit-html-attribute,
+.webkit-css-property,
+.webkit-css-selector,
+.cm-editor,
+.CodeMirror {
+  background-color: transparent !important;
+  color: var(--hostile-fg) !important;
+}
+
+.console-message-text,
+.console-user-command-result,
+.object-value-string,
+.webkit-css-property,
+.cm-string {
+  color: var(--hostile-fg-strong) !important;
+}
+
+.console-error-level,
+.console-error-level .console-message-text,
+.object-value-number,
+.object-value-boolean,
+.cm-number,
+.cm-atom {
+  color: var(--hostile-danger) !important;
+}
+
+.webkit-html-tag,
+.webkit-css-selector,
+.cm-keyword,
+.cm-def {
+  color: var(--hostile-accent) !important;
+}
+
+.webkit-html-attribute,
+.cm-string-2,
+.cm-property {
+  color: var(--hostile-accent-soft) !important;
+}
+
+.cm-comment,
+.styles-clipboard-only,
+.console-message-timestamp,
+.line-number,
+.webkit-html-comment {
+  color: var(--hostile-muted) !important;
+}
+
+input,
+textarea,
+select,
+.text-editor,
+.text-prompt,
+.filter-input-field,
+.devtools-text-input {
+  background-color: var(--hostile-bg-raised) !important;
+  border-color: var(--hostile-border) !important;
+  color: var(--hostile-fg-strong) !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+.filter-input-field:focus,
+.devtools-text-input:focus {
+  border-color: var(--hostile-accent) !important;
+  box-shadow: 0 0 0 1px var(--hostile-accent) !important;
+  outline: none !important;
+}
+
+::selection {
+  background-color: rgb(48 243 217 / 28%) !important;
+  color: var(--hostile-fg-strong) !important;
+}
+
+::-webkit-scrollbar {
+  background: var(--hostile-bg) !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #174a51 !important;
+  border: 2px solid var(--hostile-bg) !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--hostile-border) !important;
+}

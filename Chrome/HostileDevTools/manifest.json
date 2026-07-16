@@ -1,0 +1,7 @@
+{
+  "manifest_version": 3,
+  "name": "Hostile DevTools",
+  "description": "Applies the Hostile color palette to Chromium DevTools.",
+  "version": "1.0.0",
+  "devtools_page": "devtools.html"
+}
