@@ -1,0 +1,354 @@
+/*
+ * Firefox DevTools theme tuned to the attached browser theme.
+ *
+ * Install this whole chrome directory into the Firefox profile directory.
+ * Keep the paired userChrome.css and userContent.css files, because Firefox
+ * can render DevTools documents through both chrome and content style paths.
+ */
+
+@-moz-document url-prefix("about:devtools-toolbox"),
+               url-prefix("chrome://devtools/"),
+               url-prefix("resource://devtools/"),
+               url-prefix("devtools://devtools/") {
+  :root,
+  .theme-dark,
+  .theme-light {
+    color-scheme: dark !important;
+
+    /* Palette sampled by eye from the provided Firefox theme screenshot. */
+    --ff-devtools-ink: #031f23;
+    --ff-devtools-void: #06292c;
+    --ff-devtools-base: #0b383a;
+    --ff-devtools-panel: #0f4243;
+    --ff-devtools-panel-2: #123f42;
+    --ff-devtools-raised: #1a5054;
+    --ff-devtools-border: #1b6368;
+    --ff-devtools-border-soft: #155158;
+    --ff-devtools-text: #d9fbfb;
+    --ff-devtools-text-muted: #88cdd1;
+    --ff-devtools-text-faint: #5ea4aa;
+    --ff-devtools-cyan: #4bd7df;
+    --ff-devtools-cyan-2: #22bfc9;
+    --ff-devtools-lavender: #cdc6ff;
+    --ff-devtools-yellow: #ffe66a;
+    --ff-devtools-green: #63e6a0;
+    --ff-devtools-red: #ff6474;
+    --ff-devtools-orange: #ff9d4d;
+
+    /* Firefox DevTools variables documented by Mozilla. */
+    --theme-tab-toolbar-background: var(--ff-devtools-void) !important;
+    --theme-toolbar-background: var(--ff-devtools-base) !important;
+    --theme-selection-background: #1c6f75 !important;
+    --theme-selection-color: var(--ff-devtools-text) !important;
+    --theme-splitter-color: var(--ff-devtools-border-soft) !important;
+    --theme-comment: var(--ff-devtools-text-faint) !important;
+    --theme-body-background: var(--ff-devtools-panel) !important;
+    --theme-sidebar-background: #0a3336 !important;
+    --theme-contrast-background: #244d51 !important;
+    --theme-body-color: var(--ff-devtools-text-muted) !important;
+    --theme-body-color-alt: #b7eeee !important;
+    --theme-content-color1: var(--ff-devtools-text) !important;
+    --theme-content-color2: var(--ff-devtools-text-muted) !important;
+    --theme-content-color3: var(--ff-devtools-text-faint) !important;
+    --theme-highlight-blue: var(--ff-devtools-cyan) !important;
+    --theme-highlight-purple: var(--ff-devtools-lavender) !important;
+    --theme-highlight-pink: #ff69a8 !important;
+    --theme-highlight-red: var(--ff-devtools-red) !important;
+    --theme-highlight-orange: var(--ff-devtools-orange) !important;
+    --theme-highlight-lightorange: var(--ff-devtools-yellow) !important;
+    --theme-highlight-green: var(--ff-devtools-green) !important;
+    --theme-highlight-bluegrey: #6dbac2 !important;
+    --theme-highlight-yellow: var(--ff-devtools-yellow) !important;
+
+    /* Additional variables used by newer DevTools panels. */
+    --theme-accent-color: var(--ff-devtools-cyan) !important;
+    --theme-accent-color-hover: #67eef4 !important;
+    --theme-link-color: var(--ff-devtools-cyan) !important;
+    --theme-icon-color: var(--ff-devtools-text-muted) !important;
+    --theme-icon-dimmed-color: var(--ff-devtools-text-faint) !important;
+    --theme-icon-checked-color: var(--ff-devtools-cyan) !important;
+    --theme-toolbar-color: var(--ff-devtools-text-muted) !important;
+    --theme-toolbar-hover: rgba(75, 215, 223, 0.13) !important;
+    --theme-toolbar-hover-active: rgba(75, 215, 223, 0.22) !important;
+    --theme-focus-outline-color: var(--ff-devtools-cyan) !important;
+    --theme-text-color-strong: var(--ff-devtools-text) !important;
+    --theme-text-color-alt: #b7eeee !important;
+    --theme-highlight-background: rgba(75, 215, 223, 0.16) !important;
+  }
+
+  html,
+  body,
+  #toolbox-container,
+  .devtools-main-content,
+  .devtools-side-splitter,
+  .devtools-side-splitter + * {
+    background-color: var(--theme-body-background) !important;
+    color: var(--theme-body-color) !important;
+  }
+
+  #toolbox-toolbar,
+  .devtools-tabbar,
+  .devtools-toolbar,
+  .devtools-sidebar-tabs,
+  .devtools-header,
+  .devtools-searchbox,
+  .devtools-filterbox,
+  .webconsole-filterbar-primary,
+  .webconsole-filterbar-secondary,
+  .network-monitor .devtools-toolbar,
+  .inspector-tabpanel .devtools-toolbar {
+    background-color: var(--theme-tab-toolbar-background) !important;
+    color: var(--theme-toolbar-color) !important;
+    border-color: var(--theme-splitter-color) !important;
+  }
+
+  .devtools-tab,
+  .devtools-button,
+  .devtools-toolbarbutton,
+  .command-button,
+  .tabs-menu-item,
+  .devtools-sidebar-tabs tab {
+    color: var(--theme-toolbar-color) !important;
+    fill: var(--theme-icon-color) !important;
+  }
+
+  .devtools-tab:hover,
+  .devtools-button:hover,
+  .devtools-toolbarbutton:hover,
+  .command-button:hover,
+  .tabs-menu-item:hover,
+  .devtools-sidebar-tabs tab:hover {
+    background-color: var(--theme-toolbar-hover) !important;
+    color: var(--ff-devtools-text) !important;
+    fill: var(--theme-icon-checked-color) !important;
+  }
+
+  .devtools-tab.selected,
+  .devtools-tab[aria-selected="true"],
+  .tabs-menu-item.is-active,
+  .devtools-sidebar-tabs tab[selected],
+  .devtools-sidebar-tabs tab[aria-selected="true"] {
+    background-color: var(--ff-devtools-panel-2) !important;
+    color: var(--theme-selection-color) !important;
+    fill: var(--theme-icon-checked-color) !important;
+    box-shadow: inset 0 -2px 0 var(--ff-devtools-cyan) !important;
+  }
+
+  .splitter,
+  .devtools-side-splitter,
+  .devtools-horizontal-splitter,
+  .devtools-vertical-splitter {
+    background-color: var(--theme-splitter-color) !important;
+    border-color: var(--theme-splitter-color) !important;
+  }
+
+  input,
+  textarea,
+  select,
+  .devtools-searchinput,
+  .devtools-filterinput,
+  .devtools-textinput,
+  .devtools-combobox,
+  .devtools-dropdown-button {
+    background-color: #183f44 !important;
+    color: var(--ff-devtools-text) !important;
+    border-color: var(--ff-devtools-border) !important;
+    caret-color: var(--ff-devtools-cyan) !important;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus,
+  .devtools-searchinput:focus,
+  .devtools-filterinput:focus,
+  .devtools-textinput:focus,
+  .devtools-combobox:focus,
+  .devtools-dropdown-button:focus {
+    border-color: var(--ff-devtools-cyan) !important;
+    outline: 1px solid var(--ff-devtools-cyan) !important;
+    outline-offset: -1px !important;
+  }
+
+  ::selection {
+    background-color: var(--theme-selection-background) !important;
+    color: var(--theme-selection-color) !important;
+  }
+
+  a,
+  .link,
+  .frame-link-filename,
+  .objectBox-node,
+  .treeLabel,
+  .objectBox-string {
+    color: var(--theme-link-color) !important;
+  }
+
+  .splitview-nav,
+  .side-menu-widget-container,
+  .sidebar,
+  .accordion,
+  .ruleview,
+  .computed-property-view,
+  .layout-container,
+  .animation-container,
+  .fontinspector,
+  .changes-container,
+  .storage-tree,
+  .requests-list-contents,
+  .monitor-panel,
+  .webconsole-app {
+    background-color: var(--theme-sidebar-background) !important;
+    color: var(--theme-body-color) !important;
+  }
+
+  .splitview-nav .splitview-active,
+  .side-menu-widget-item.selected,
+  .treeRow.selected,
+  .requests-list-row.selected,
+  .network-details-bar,
+  .table-widget-body .theme-selected,
+  tr.selected {
+    background-color: var(--theme-selection-background) !important;
+    color: var(--theme-selection-color) !important;
+  }
+
+  .splitview-nav .splitview-active *,
+  .side-menu-widget-item.selected *,
+  .treeRow.selected *,
+  .requests-list-row.selected *,
+  tr.selected * {
+    color: var(--theme-selection-color) !important;
+  }
+
+  .ruleview-rule,
+  .ruleview-header,
+  .ruleview-selectorcontainer,
+  .computed-property-view,
+  .layout-container,
+  .animation-item,
+  .markup-view,
+  .inspector-breadcrumbs,
+  .webconsole-output-wrapper,
+  .message,
+  .request-list-item,
+  .requests-list-row,
+  .cookies-panel .table-widget-cell,
+  .storage-table .table-widget-cell {
+    background-color: var(--theme-body-background) !important;
+    border-color: var(--theme-splitter-color) !important;
+    color: var(--theme-body-color) !important;
+  }
+
+  .ruleview-rule:nth-child(even),
+  .message:nth-child(even),
+  .request-list-item:nth-child(even),
+  .requests-list-row:nth-child(even) {
+    background-color: #0d3b3e !important;
+  }
+
+  .ruleview-propertyname,
+  .ruleview-selector,
+  .cm-property,
+  .token.property,
+  .object-label {
+    color: var(--ff-devtools-cyan) !important;
+  }
+
+  .ruleview-propertyvalue,
+  .cm-string,
+  .token.string,
+  .objectBox-string,
+  .console-string {
+    color: var(--ff-devtools-green) !important;
+  }
+
+  .ruleview-number,
+  .cm-number,
+  .token.number,
+  .objectBox-number,
+  .console-number {
+    color: var(--ff-devtools-yellow) !important;
+  }
+
+  .ruleview-namecontainer,
+  .cm-keyword,
+  .token.keyword,
+  .objectBox-function,
+  .console-api-call {
+    color: var(--ff-devtools-lavender) !important;
+  }
+
+  .cm-comment,
+  .token.comment,
+  .console-comment {
+    color: var(--theme-comment) !important;
+  }
+
+  .cm-editor,
+  .CodeMirror,
+  .CodeMirror-scroll,
+  .CodeMirror-gutters,
+  .CodeMirror-lines,
+  .sourceeditor,
+  .editor-mount,
+  .editor-wrapper,
+  .debugger,
+  .search-container {
+    background-color: var(--theme-body-background) !important;
+    color: var(--theme-content-color1) !important;
+  }
+
+  .CodeMirror-gutters,
+  .cm-gutters,
+  .editor-line-gutter {
+    background-color: #092f32 !important;
+    border-color: var(--theme-splitter-color) !important;
+    color: var(--theme-content-color3) !important;
+  }
+
+  .CodeMirror-selected,
+  .cm-selectionBackground,
+  .selected-source,
+  .paused-line {
+    background-color: rgba(75, 215, 223, 0.18) !important;
+  }
+
+  .CodeMirror-cursor,
+  .cm-cursor {
+    border-left-color: var(--ff-devtools-cyan) !important;
+  }
+
+  .theme-twisty,
+  .theme-checkbox,
+  .theme-icon,
+  .devtools-checkbox-toggle {
+    fill: var(--theme-icon-color) !important;
+    color: var(--theme-icon-color) !important;
+  }
+
+  .theme-twisty:hover,
+  .theme-icon:hover {
+    fill: var(--theme-icon-checked-color) !important;
+    color: var(--theme-icon-checked-color) !important;
+  }
+
+  .badge,
+  .theme-badge,
+  .devtools-badge {
+    background-color: rgba(75, 215, 223, 0.18) !important;
+    color: var(--ff-devtools-cyan) !important;
+    border-color: rgba(75, 215, 223, 0.38) !important;
+  }
+
+  .theme-warning,
+  .message.warn,
+  .warning {
+    color: var(--ff-devtools-yellow) !important;
+  }
+
+  .theme-error,
+  .message.error,
+  .error {
+    color: var(--ff-devtools-red) !important;
+  }
+}
