@@ -1,41 +1,42 @@
+" Cyanchrome -- dark cyan colorscheme shared with the rest of the dotfiles.
 if &background == 'dark'
   let s:guishade0 = "#042024"
-  let s:guishade1 = "#0F3539"
-  let s:guishade2 = "#1A4B4E"
-  let s:guishade3 = "#256063"
-  let s:guishade4 = "#317578"
-  let s:guishade5 = "#3C8A8D"
-  let s:guishade6 = "#47A0A2"
-  let s:guishade7 = "#52B5B7"
-  let s:guiaccent0 = "#CD6966"
-  let s:guiaccent1 = "#5FF7E2"
+  let s:guishade1 = "#062B30"
+  let s:guishade2 = "#0E3A40"
+  let s:guishade3 = "#123F45"
+  let s:guishade4 = "#174A51"
+  let s:guishade5 = "#2C666C"
+  let s:guishade6 = "#52B5B7"
+  let s:guishade7 = "#69DDCE"
+  let s:guiaccent0 = "#FF5C8A"
+  let s:guiaccent1 = "#E9C46A"
   let s:guiaccent2 = "#29D6BF"
   let s:guiaccent3 = "#69DDCE"
   let s:guiaccent4 = "#30F3D9"
-  let s:guiaccent5 = "#38CCC9"
-  let s:guiaccent6 = "#3DFFE5"
-  let s:guiaccent7 = "#2AC6C3"
-  let s:ctermshade0 = 23
-  let s:ctermshade1 = 23
-  let s:ctermshade2 = 60
-  let s:ctermshade3 = 66
-  let s:ctermshade4 = 66
-  let s:ctermshade5 = 73
+  let s:guiaccent5 = "#35F0EA"
+  let s:guiaccent6 = "#30F3D9"
+  let s:guiaccent7 = "#29D6BF"
+  let s:ctermshade0 = 233
+  let s:ctermshade1 = 234
+  let s:ctermshade2 = 23
+  let s:ctermshade3 = 23
+  let s:ctermshade4 = 23
+  let s:ctermshade5 = 66
   let s:ctermshade6 = 73
   let s:ctermshade7 = 116
-  let s:ctermaccent0 = 174
-  let s:ctermaccent1 = 122
+  let s:ctermaccent0 = 204
+  let s:ctermaccent1 = 179
   let s:ctermaccent2 = 80
   let s:ctermaccent3 = 116
   let s:ctermaccent4 = 86
-  let s:ctermaccent5 = 80
+  let s:ctermaccent5 = 86
   let s:ctermaccent6 = 86
   let s:ctermaccent7 = 80
 endif
 
 highlight clear
 syntax reset
-let g:colors_name = "Hostile"
+let g:colors_name = "Cyanchrome"
 
 """"""""""
 " Normal "
@@ -50,30 +51,30 @@ exec "hi Normal ctermfg=".s:ctermshade6." ctermbg=".s:ctermshade0
 
 " Default
 
-exec "hi Comment guifg=".s:guishade2
-exec "hi Comment ctermfg=".s:ctermshade2
-exec "hi Constant guifg=".s:guiaccent3
-exec "hi Constant ctermfg=".s:ctermaccent3
-exec "hi Character guifg=".s:guiaccent4
-exec "hi Character ctermfg=".s:ctermaccent4
-exec "hi Identifier guifg=".s:guiaccent2." gui=none"
-exec "hi Identifier ctermfg=".s:ctermaccent2." cterm=none"
-exec "hi Statement guifg=".s:guiaccent5
-exec "hi Statement ctermfg=".s:ctermaccent5
-exec "hi PreProc guifg=".s:guiaccent6
-exec "hi PreProc ctermfg=".s:ctermaccent6
-exec "hi Type guifg=".s:guiaccent7
-exec "hi Type ctermfg=".s:ctermaccent7
-exec "hi Special guifg=".s:guiaccent4
-exec "hi Special ctermfg=".s:ctermaccent4
-exec "hi Underlined guifg=".s:guiaccent5
-exec "hi Underlined ctermfg=".s:ctermaccent5
+exec "hi Comment guifg=".s:guishade5." gui=italic"
+exec "hi Comment ctermfg=".s:ctermshade5." cterm=italic"
+exec "hi Constant guifg=".s:guiaccent0
+exec "hi Constant ctermfg=".s:ctermaccent0
+exec "hi Character guifg=".s:guiaccent2
+exec "hi Character ctermfg=".s:ctermaccent2
+exec "hi Identifier guifg=".s:guishade6." gui=none"
+exec "hi Identifier ctermfg=".s:ctermshade6." cterm=none"
+exec "hi Statement guifg=".s:guiaccent4
+exec "hi Statement ctermfg=".s:ctermaccent4
+exec "hi PreProc guifg=".s:guiaccent5
+exec "hi PreProc ctermfg=".s:ctermaccent5
+exec "hi Type guifg=".s:guiaccent3
+exec "hi Type ctermfg=".s:ctermaccent3
+exec "hi Special guifg=".s:guiaccent5
+exec "hi Special ctermfg=".s:ctermaccent5
+exec "hi Underlined guifg=".s:guiaccent4." gui=underline"
+exec "hi Underlined ctermfg=".s:ctermaccent4." cterm=underline"
 exec "hi Error guifg=".s:guiaccent0." guibg=".s:guishade1
 exec "hi Error ctermfg=".s:ctermaccent0." ctermbg=".s:ctermshade1
 exec "hi Todo guifg=".s:guiaccent0." guibg=".s:guishade1
 exec "hi Todo ctermfg=".s:ctermaccent0." ctermbg=".s:ctermshade1
-exec "hi Function guifg=".s:guiaccent1
-exec "hi Function ctermfg=".s:ctermaccent1
+exec "hi Function guifg=".s:guiaccent4
+exec "hi Function ctermfg=".s:ctermaccent4
 
 " GitGutter
 
@@ -191,8 +192,8 @@ exec "hi Visual guibg=".s:guishade1
 exec "hi Visual ctermbg=".s:ctermshade1
 exec "hi VisualNOS guifg=".s:guiaccent0." guibg=".s:guishade1
 exec "hi VisualNOS ctermfg=".s:ctermaccent0." ctermbg=".s:ctermshade1
-exec "hi WarningMsg guifg=".s:guiaccent0
-exec "hi WarningMsg ctermfg=".s:ctermaccent0
+exec "hi WarningMsg guifg=".s:guiaccent1
+exec "hi WarningMsg ctermfg=".s:ctermaccent1
 exec "hi WildMenu guifg=".s:guiaccent4." guibg=".s:guishade1
 exec "hi WildMenu ctermfg=".s:ctermaccent4." ctermbg=".s:ctermshade1
 

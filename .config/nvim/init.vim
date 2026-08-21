@@ -37,8 +37,9 @@ call plug#end()
 
 " --- Colorscheme
 set background=dark
+set termguicolors
 
-let g:lightline = {'colorscheme': 'HostileLightline'}
+let g:lightline = {'colorscheme': 'CyanchromeLightline'}
 
 
 let g:transparent_enabled = v:true
@@ -60,9 +61,6 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gD <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-referencesi
 
-runtime HostileLightline.vim
-runtime Hostile.vim
+runtime CyanchromeLightline.vim
 
-colorscheme Hostile
-
-set termguicolors
+colorscheme Cyanchrome
